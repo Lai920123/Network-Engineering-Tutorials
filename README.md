@@ -6,22 +6,22 @@
 
 [Zyxel](Zyxel.md)
 
-[Switch](Network/Switch.md)
+[Switch](Switch.md)
 
-[Router](Network/Router.md)
+[Router](Router.md)
 
-[IPv4-Header](Network/IPv4-Header.md)
+[IPv4-Header](IPv4-Header.md)
 
-[IPv6](Network/IPv6.md)
+[IPv6](IPv6.md)
 
-[IPv6-Header](Network/IPv6-Header.md)
+[IPv6-Header](IPv6-Header.md)
 
-[IEEE名稱](Network/IEEE.md)
+[IEEE名稱](IEEE.md)
 
-[FDDI](Network/FDDI.md)
+[FDDI](FDDI.md)
 
-[自動化](Network/automatic.md)
+[自動化](automatic.md)
 
-[MTU](Network/MTU.md)
+[MTU](MTU.md)
 
-[位元運算](Network/Bitwise_operation.md)
+[位元運算](Bitwise_operation.md)
