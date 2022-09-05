@@ -20,8 +20,6 @@
 
 [FDDI](FDDI.md)
 
-[自動化](automatic.md)
-
 [MTU](MTU.md)
 
 [位元運算](Bitwise_operation.md)
