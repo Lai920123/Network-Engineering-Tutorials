@@ -1,21 +1,33 @@
 # Enhanced Interior Gateway Routing Protocol (增強型內部閘道路由協定) #
 
-EIGRP為Cisco專有的路由協定，屬於距離向量路由協定
+EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境
 
 
 ## Multicast Address ##
 
-EIGRP的組播位置為
 
 	224.0.0.10
 
 ## Administrative Distance ##
 
-EIGREP的管理距離值
-
 	EIGRP Summary route = 5
 	Internal EIGRP = 90
 	External EIGRP = 170
+
+## Neighbors ##
+
+EIGRP預設Hello Time為5秒，Hold Time為15秒
+
+EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors 
+	
+	Autonomous System Number
+	K值
+	網段
+	認證訊息
+	Hello Time
+	Hold Time
+
+
 
 ## EIGRP參數和設定 ##
 
@@ -24,10 +36,25 @@ EIGREP的管理距離值
 ```powershell
 router eigrp 1 #Autonomous System Number必須相同
 	eigrp router-id 1.1.1.1 #Router-id格式與IP相同，長度為32bit
-	network 192.168.0.0 #要發佈的網段，0.0.0.0代表全發佈
-	redistribute static #再發佈靜態路由 
-	passive-interface default  
-	no passive-interface e0/0
+	network 192.168.1.0 #要發佈的網段，0.0.0.0代表全發佈
+#再發佈
+redistribute static #再發佈靜態路由 
+#調整間隔時間，記得雙方都必須調整
+int f0/0 #須從介面調整
+	ip hello-interval eigrp 1 10 #1為Autonomous System Number，10為要更改的Hello間隔
+	ip hold-time eigrp 1 30 ##1為Autonomous System Number，10為要更改的Hold間隔
+#優化，可選
+passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
+no passive-interface e0/0 #此介面可發送Hello以及路由更新
+auto-summary #自動匯總
+ip summary-address eigrp 1 192.168.0.0 255.255.0.0 #1為Autonomous System Number，之後為匯總的範圍
+#驗證，可選
+key chain CHAIN1 #建立key chain
+	key 1 #新增key，id為1
+	key-string P@ssw0rd #認證密碼	
+int f0/0 
+    ip authentication mode eigrp 1 md5 #介面啟用MD5驗證
+	ip authentication key-chain eigrp 1 CHAIN1 #介面套用key-chain
 ```	
 
 
@@ -37,21 +64,33 @@ router eigrp 1 #Autonomous System Number必須相同
 EIGRP IPv6 
 ipv6 router eigrp 1 
 	no shutdown #15.0以前版本才需要下 
-	passive-interface default 
-	no passive-interface e0/0 
 int e0/0 
 	ipv6 eigrp 1 
 int e0/1 
 	ipv6 eigrp 1
+#優化，可選
+passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
+no passive-interface e0/0 #此介面可發送Hello以及路由更新
+auto-summary #自動匯總
+
+
 ```
 
 ### 檢查設定 ###
 
 ```bash
-show ip protocols 
+show ip protocols #查看目前使用的路由協定
+show ip eigrp neighbors #可以看到鄰居IP,Port號,Hold Time,UP Time
+show ip eigrp interface
+show ip eigrp interface detail
+show ip eigrp topology #檢查EIGRP拓樸表
 ```
 
 ## 實例 ##
+
+### Route Summarization ###
+路由匯總用於減少路由表數量以及加速收斂時間，此練習幫助大家能夠快速了解何為路由匯總，以及自動和手動匯總的配置方法，練習檔案下載
+
 
 ## Trouble Shooting ##
 以下列出幾個配置EIGRP常見的錯誤Log以及解決辦法

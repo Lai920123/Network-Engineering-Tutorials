@@ -34,14 +34,6 @@
 [EIGRP](Cisco/EIGRP.md)
     
 [BGP](Cisco/BGP.md)
-    
-[HSRP](Cisco/HSRP.md)
-    
-[VRRP](Cisco/VRRP.md)
-    
-[GLBP](Cisco/GLBP.md)
-    
-[Token Ring](Cisco/Token_Ring.md)
 
 [GRE Tunnel](Cisco/GRE_Tunnel.md)
     
@@ -63,8 +55,6 @@
 
 [Radius](Cisco/Radius.md)
 
-
-
 ## Firewall ##
     
 [Cisco ASA](Cisco/ASA.md)
@@ -72,6 +62,14 @@
 ## Wireless ##
     
 [WLC](Cisco/WLC.md)
+
+## Redundancy ##
+
+[HSRP](Cisco/HSRP.md)
+
+[VRRP](Cisco/VRRP.md)
+    
+[GLBP](Cisco/GLBP.md)
 
 
 ## 設備型號 ##
