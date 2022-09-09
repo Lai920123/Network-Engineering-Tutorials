@@ -2,76 +2,76 @@
 
 ## Manager ##
     
-[Config-register](Cisco/Config_register.md)
+[Config-register](Cisco/Manager/Config_register.md)
     
-[Banner](Cisco/Banner.md)    
+[Banner](Cisco/Manager/Banner.md)    
 
-[設備管理](Cisco/Manage.md)
+[Secret](Cisco/Manager/Manage.md)
     
-[NTP](Cisco/NTP.md)
+[NTP](Cisco/Manager/NTP.md)
     
-[Syslog](Cisco/Syslog.md)
+[Syslog](Cisco/Manager/Syslog.md)
     
-[Qos](Cisco/QoS.md)
+[Qos](Cisco/Manager/QoS.md)
     
-[Zone Based Firewall](Cisco/Zone_Base_Firewall.md)
+[Zone Based Firewall](Cisco/Manager/Zone_Base_Firewall.md)
     
-[VOIP](Cisco/VoIP.md)
+[VOIP](Cisco/Manager/VoIP.md)
 
-[CDP](Cisco/CDP.md)
+[CDP](Cisco/Manager/CDP.md)
 
-[LLDP](Cisco/LLDP.md)
+[LLDP](Cisco/Manager/LLDP.md)
 
     
 ## Router ##
     
-[PPP](Cisco/PPP.md)
-    
-[Static-Route](Cisco/Static_Route.md)
-    
-[OSPF](Cisco/OSPF.md)
-    
-[EIGRP](Cisco/EIGRP.md)
-    
-[BGP](Cisco/BGP.md)
+[PPP](Cisco/Router/PPP.md)
 
-[GRE Tunnel](Cisco/GRE_Tunnel.md)
+[NAT](Cisco/Router/NAT.md)
+
+[Static-Route](Cisco/Router/Static_Route.md)
     
-[GRE over IPSec](Cisco/GRE_over_IPSec.md)
+[OSPF](Cisco/Router/OSPF.md)
+    
+[EIGRP](Cisco/Router/EIGRP.md)
+    
+[BGP](Cisco/Router/BGP.md)
+
+[GRE Tunnel](Cisco/Router/GRE_Tunnel.md)
+    
+[GRE over IPSec](Cisco/Router/GRE_over_IPSec.md)
     
 ## Switch ##
     
-[Vlan](Cisco/Vlan.md)
+[Vlan](Cisco/Switch/Vlan.md)
     
-[VTP](Cisco/VTP.md)
+[VTP](Cisco/Switch/VTP.md)
     
-[EtherChannel](Cisco/EtherChannel.md)
+[EtherChannel](Cisco/Switch/EtherChannel.md)
     
-[Spanning-Tree](Cisco/Spanning_Tree.md)
+[Spanning-Tree](Cisco/Switch/Spanning_Tree.md)
     
 ## Security ##
 
-[DAI](Cisco/DAI.md)
+[DAI](Cisco/Security/DAI.md)
 
-[Radius](Cisco/Radius.md)
+[Radius](Cisco/Security/Radius.md)
 
 ## Firewall ##
     
-[Cisco ASA](Cisco/ASA.md)
+[ASA](Cisco/Firewall/ASA.md)
 
 ## Wireless ##
     
-[WLC](Cisco/WLC.md)
+[WLC](Cisco/Wireless/WLC.md)
 
 ## Redundancy ##
 
-[HSRP](Cisco/HSRP.md)
+[HSRP](Cisco/Redundancy/HSRP.md)
 
-[VRRP](Cisco/VRRP.md)
+[VRRP](Cisco/Redundancy/VRRP.md)
     
-[GLBP](Cisco/GLBP.md)
+[GLBP](Cisco/Redundancy/GLBP.md)
 
+## TroubleShooting ##
 
-## 設備型號 ##
-    
-[Catalyst](Cisco/Catalyst.md)
