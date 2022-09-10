@@ -16,13 +16,20 @@
         
     
 ### Local AP Mode 和 Flexconnect AP Mode的差別 ###
-    在Local AP Mode中，Lightweight AP會創建兩條CAPWAP Tunnel，一條用於管理，另一條用於資料傳輸，這種行為稱為Centrally switched(集中交換)，因為Lightweight AP須先將資料流量送給Controller接著才會進行路由
-    flexconnect允許資料傳輸在本地進行交換不須回到Controller，每一台Lightweight AP就像是一般AP一樣自行管理資料流量，但實際是從WLC進行管理，此模式中，即使Lightweight AP AP與WLC斷開連線，仍可以正常工作
+- Local AP Mode中，Lightweight AP會創建兩條CAPWAP Tunnel，一條用於管理，另一條用於資料傳輸，這種行為稱為Centrally switched(集中交換)，因為Lightweight AP須先將資料流量送給Controller接著才會進行路由
+- flexconnect允許資料傳輸在本地進行交換不須回到Controller，每一台Lightweight AP就像是一般AP一樣自行管理資料流量，但實際是從WLC進行管理，此模式中，即使Lightweight AP AP與WLC斷開連線，仍可以正常工作
     
-## 操作方式 ##
-## 初始化 ##
+## 實例 ##
+
+    此練習希望能幫助大家了解WLC基礎操作,Radius Server,以及總公司的WLC管理分公司Lightweight Access Point的方法，以預先配置好IP,HSRP,EIGRP,Rapid PVST+以及VLAN
+
+### 拓樸 ###
+
+![Untitled](WLC/Topology1.png)
+
+### 初始化 ###
         
-    連接WLC與管理電腦，並開啟DHCP使IP自動取得，預設的Cisco WLC IP應為192.168.1.1，取得IP後開啟瀏覽器並輸入http:\\192.168.1.1應該會出現以下畫面，接著創建使用者以及密碼之後按下Start
+    連接WLC與管理電腦，並開啟DHCP使IP自動取得，預設的Cisco WLC IP為192.168.1.1，取得IP後開啟瀏覽器並輸入http:\\192.168.1.1應該會出現以下畫面，接著創建使用者以及密碼之後按下Start
         
 ![Untitled](WLC/Untitled.png)
         
