@@ -1,7 +1,9 @@
 # Cisco #
 
 ## Manager ##
-    
+
+[forgot-password](Manager/forgot-password.md)
+
 [Config-register](Manager/Config_register.md)
     
 [Banner](Manager/Banner.md)    
