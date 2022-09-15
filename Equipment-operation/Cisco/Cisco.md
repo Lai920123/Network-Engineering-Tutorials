@@ -8,7 +8,7 @@
     
 [Banner](Manager/Banner.md)    
 
-[Secret](Manager/Manage.md)
+[Secret](Manager/Secret.md)
     
 [NTP](Manager/NTP.md)
     

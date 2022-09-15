@@ -196,7 +196,7 @@ Quality of Service 服務品質
 ### First In First Out(FIFO) ###
 	先進先出，不按照優先順序
 
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled.png)
+![Untitled](QoS/Untitled.png)
  
 ### Weighted Fair Queuing(WFQ) ###
     
@@ -208,11 +208,11 @@ Quality of Service 服務品質
 		
 	當流量未爆滿時，不會建立Software Queue
 
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled%201.png)
+![Untitled](QoS/Untitled%201.png)
 
 	當流量爆滿時，WFQ會按照Traffice Flow的數量產生Software Queue，並根據IPP計算出每條Flow的weight，Scheduler從Software Queue拿出Packet的次數為反比，即是weight越大，拿出packet的次數越少，weight越小，拿出packet的次數越多
     
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled%202.png)
+![Untitled](QoS/Untitled%202.png)
     
 	理論上每條Queue只服務一條Traffic Flow，除非Traffic Flow數量超過Max Queue(預設為64條)，這時候不同的Flow才會被安排在同一條Queue，Cisco Router是透過此公式計算Weight的32384/(IPP+1) = weight
 		
@@ -228,7 +228,7 @@ Quality of Service 服務品質
 
 	相對於WFQ自動建立Software Queue，CBWFQ可以預先建立不同的Queue並設定Bandwidth，每秒Scheduler在Class 1抓取100K，在Class 2抓取200K，另外，在Class Default中包含了一個WFQ
 		
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled%203.png)
+![Untitled](QoS/Untitled%203.png)
     
 
 ### Low Latency Queue(LLQ) ###
@@ -237,7 +237,7 @@ Quality of Service 服務品質
 
 	只要Hardware Queue有空間，Scheduler必先從LLQ拿取Packet，接著才會依照優先權抓取Class 2，Class 3的Packet
 
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled%204.png)
+![Untitled](QoS/Untitled%205.png)
 
 ### 建立方法 ###
 
@@ -284,8 +284,6 @@ policy-map CBLLQ
 	class CLASS-default
 		bandwidth remaining percent 10
 ```
-
-![Untitled](Qos%20ac989287ca5548618b591f300ed3474b/Untitled%205.png)
 
 ## Tail Drop ##
 

@@ -4,6 +4,8 @@
 
 ## [Networking Introduction](Networking-Introduction.md) ##
 
+## [Environment](environment.md)
+
 ## [Equipment operation](Equipment-operation.md) ##
 
 ## [Theory](Theory.md) ##
