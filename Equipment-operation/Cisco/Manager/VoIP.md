@@ -1,6 +1,6 @@
 # VOIP
 
-![Untitled](VOIP%20d09869a36cb7411caa6bd3e5aae4eae8/Untitled.png)
+![Untitled](VoIP/Untitled.png)
 
 ## R1
 
