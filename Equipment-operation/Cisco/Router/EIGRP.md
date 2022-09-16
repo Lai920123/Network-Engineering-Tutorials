@@ -31,7 +31,7 @@ EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors
 
 ## EIGRP參數和設定 ##
 
-### EIGRP IPv4 ###
+### IPv4 ###
 
 ```powershell
 router eigrp 1 #Autonomous System Number必須相同
@@ -58,7 +58,7 @@ int f0/0
 ```	
 
 
-### EIGRP IPv6 ###
+### IPv6 ###
 
 ```powershell
 EIGRP IPv6 
