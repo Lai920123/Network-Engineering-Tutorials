@@ -2,9 +2,9 @@
 
 ## 兩個對外接口NAT ##
 
-![](NAT/topology1.png)
-
 假設e0/0為1G，e0/1為1.54M，平時對外走e0/0，若是e0/0損壞，才走e0/1做備援
+
+![](NAT/topology1.png)
 
 ```bash
 #R1
@@ -21,9 +21,7 @@ int e0/2
     ip address 192.168.1.1 255.255.255.0
     no shutdown 
 
-int e0/0
-    ip nat outside
-int e0/1
+int range e0/0-1
     ip nat outside
 int e0/2
     ip nat inside 

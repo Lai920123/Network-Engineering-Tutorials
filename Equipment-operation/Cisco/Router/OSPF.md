@@ -114,7 +114,7 @@ Link-State Acknowledgment 鍊路狀態確認
 
 ## OSPF鄰居建立過程
 
-![Untitled](OSPF%207482c02b478f4f50aaace740ccd1ddfc/Untitled.png)
+![Untitled](OSPF/Untitled.png)
 
 ### Down
 
@@ -171,7 +171,7 @@ ip ospf cost 1
 #設定OSPF
 router ospf <PID> #PID不需要相同，好辨識即可
 	router-id 1.1.1.1 #若不設定就會去抓取loopback，loopback也沒有的話就會找參與ospf中最大的interface
-	network 10.0.0.0 0.0.0.255 area 0 #注意是使用wildcard mask
+	network 10.0.0.0 0.0.0.255 area 0 
 	network 172.16.0.0 0.0.0.255 area 1
 	network 192.168.0.0 0.0.0.255 area 2
 #調整Priority(選舉DR/BDR時會用到，越大越好)，更改完後，其他Router要重啟ospf process
