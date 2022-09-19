@@ -54,3 +54,19 @@ int e0/1
 int loopback 0 
     ip address 8.8.8.8 255.255.255.255
 ```
+
+## NAT Virtual Interface ##
+
+NAT Virtual Interface移除了在介面配置NAT inside,outside,
+
+```bash
+access-list 1 permit 192.168.1.0 0.0.0.255 
+
+int f0/0
+    ip nat enable #啟用NAT
+int f0/1
+    ip nat enable 
+
+ip nat source static tcp 172.16.1.10 80 209.165.201.5 80 #靜態NAT
+ip nat source list 1 interface f0/0 overload 
+``` 
