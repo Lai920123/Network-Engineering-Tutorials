@@ -33,17 +33,31 @@ EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors
 
 ### IPv4 ###
 
-```powershell
+### 基本配置 ###
+
+```bash
 router eigrp 1 #Autonomous System Number必須相同
 	eigrp router-id 1.1.1.1 #Router-id格式與IP相同，長度為32bit
 	network 192.168.1.0 #要發佈的網段，0.0.0.0代表全發佈
-#再發佈
+```
+
+### 再發佈 ###
+
+```bash
 redistribute static #再發佈靜態路由 
-#調整間隔時間，記得雙方都必須調整
+```
+
+### 調整間隔時間(雙方都必須調整) ###
+
+```bash
 int f0/0 #須從介面調整
 	ip hello-interval eigrp 1 10 #1為Autonomous System Number，10為要更改的Hello間隔
 	ip hold-time eigrp 1 30 ##1為Autonomous System Number，10為要更改的Hold間隔
-#優化，可選
+```
+
+### 優化 ###
+
+```bash
 passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
 no passive-interface e0/0 #此介面可發送Hello以及路由更新
 auto-summary #自動匯總
@@ -68,12 +82,14 @@ int e0/0
 	ipv6 eigrp 1 
 int e0/1 
 	ipv6 eigrp 1
-#優化，可選
+```
+
+### 優化 ###
+
+```bash
 passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
 no passive-interface e0/0 #此介面可發送Hello以及路由更新
 auto-summary #自動匯總
-
-
 ```
 
 ### 檢查設定 ###

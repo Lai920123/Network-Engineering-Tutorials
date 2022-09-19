@@ -60,6 +60,7 @@ int loopback 0
 NAT Virtual Interface移除了在介面配置NAT inside,outside,
 
 ```bash
+#配置ACL
 access-list 1 permit 192.168.1.0 0.0.0.255 
 
 int f0/0
@@ -68,5 +69,5 @@ int f0/1
     ip nat enable 
 
 ip nat source static tcp 172.16.1.10 80 209.165.201.5 80 #靜態NAT
-ip nat source list 1 interface f0/0 overload 
+ip nat source list 1 interface f0/0 overload #PAT
 ``` 
