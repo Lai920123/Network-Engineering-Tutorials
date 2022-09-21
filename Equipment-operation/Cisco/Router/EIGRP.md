@@ -74,8 +74,11 @@ int f0/0
 
 ### IPv6 ###
 
-```powershell
-EIGRP IPv6 
+EIGRP for IPv6可使用兩種方法配置
+
+### 傳統 ##
+
+```bash 
 ipv6 router eigrp 1 
 	no shutdown #15.0以前版本才需要下 
 int e0/0 

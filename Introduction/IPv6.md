@@ -1,20 +1,19 @@
+<link rel="stylesheet" href="css/ipv6.css">
 # IPv6 #
 
 ## IPv6-Header ##
 
-
+<h1 =test>Hi</h1>
 ## 類型 ##
 
-    與IPv4不同，IPv6沒有了廣播，
-    Unicast：提供啟動ipv6的介面一對一溝通
-    
-    Multicast：傳送單一ipv6封包至多個目的地
-    
-    Anycast：暫時不討論
-    
+<pre>
+與IPv4不同，IPv6沒有廣播
+Unicast：提供啟動ipv6的介面一對一溝通
+Multicast：傳送單一ipv6封包至多個目的地
+Anycast：暫時不討論
+</pre>
 ## Default Gateway ##
-    
-    IPv6的default gateway與IPv4的不同,IPv6以Router的LLA來作為default gateway
+<pre>IPv6的default gateway與IPv4的不同,IPv6以Router的LLA來作為default gateway</pre>
     
 ## Prefix ID ##
     
@@ -87,7 +86,7 @@
 
 ---
 
-### Router Discovery ###
+## Router Discovery ##
 
     在IPv6,裝置要動態取得IP,須使用ICMPv6的訊息來進行溝通,IPv6的router會每200秒傳送RA給所有啟用IPv6的設備,而主機端則使用RS訊息請求
 
@@ -99,12 +98,12 @@
         
     Router Solicitatiin (路由器請求):主機端對於IPv6的router進行請求資訊
 
-### Neighbor Discovery ###
+## Neighbor Discovery ##
 
     IPv4透過ARP查找MAC與IP的對應，而IPv6使用ND來進行查找，ND分為以下兩種
     Neighbor Advertisement(鄰居通告)：回應MAC位置 
 
-    Neighbor Solicitation(鄰居請求)：發送封包至Solicaited-Node Multicast Address，詢問對方的MAC位置
+    Neighbor Solicitation(鄰居請求)：發送封包至Solicaited-Node的組播位置，組播位置為，詢問對方的MAC位置
 
 ---
 
