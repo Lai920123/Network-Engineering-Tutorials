@@ -39,6 +39,19 @@ int vlan 10 #進入設置hsrp的介面
     standby 10 track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15 ，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Active
 ```
 
+### 使用md5驗證 ###
+
+```bash
+#以下兩種方式擇一即可
+#使用key-string
+hsrp 10 authentication md5 key-string Cisco123
+#使用key-chain
+key chain hsrp1 #chain的名字
+    key 1 #key id 
+    key-string Cisco123 #密碼
+hsrp 10 authentication md5 key-chain hsrp1 #將key-chain套用至介面
+```
+
 ### IPv6 ###
 
 ```bash
