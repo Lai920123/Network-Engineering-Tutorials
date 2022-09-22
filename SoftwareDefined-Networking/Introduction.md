@@ -20,7 +20,7 @@ SDN是一種新型的網路結構，利用[OpenFlow](OpenFlow.md)將路由器中
 
 ### SDN架構 ###
 
-![](SDN-Architecture.png)
+![](../Image/SDN-Architecture.png)
 
     SDN將架構分為三層，分別為Application Layer,Control Layer和Infrastructure Layer，分別用作以下用途
     Application Layer    - 定義對使用者所提供的服務
