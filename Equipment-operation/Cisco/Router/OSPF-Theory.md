@@ -3,9 +3,6 @@
 ## 簡介 ##
 
 	OSPF為開放標準的Link-State路由協定，可運作於多廠牌設備當中
-## AS ##
-
-	Autonomous System自治系統，一個AS是一個能自主決定該採用何種路由協定的單位，例如企業或學校
 
 ## Link-State Protocols ##
 
@@ -17,17 +14,17 @@
 	224.0.0.5
 	224.0.0.6
 
-## Link-State Advertisement 鍊路狀態通告 ##
+## SPF Algorithm ##
+
+	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
+
+## Link-State Advertisement ##
 
 	每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
 
 ## LSDB ##
 
 	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
-
-## SPF Algorithm ##
-
-	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
 
 ## Area概念 ##
 
@@ -45,15 +42,21 @@
 
 ## BR ##
 
-	Backbone Router 骨幹路由器，最少一個Interface連接Area 0，稱為BR
+![](OSPF/BR.png)
+
+	Backbone Router 骨幹路由器，最少一個Interface連接Area 0，稱為BR，以上圖為例，R2和R3為BR
 
 ## ABR ##
 
-	Area Border Router 區域邊界路由，連接兩個Area以上稱為ABR
+![](OSPF/ABR.png)
+
+	Area Border Router 區域邊界路由器，連接兩個Area以上稱為ABR，以上圖為例，R2為ABR
 
 ## ASBR ##
 
-	Autonomous System Border Router 自治系統邊界路由，連接其他AS的Router稱為ASBR
+![](OSPF/ASBR.png)
+
+	Autonomous System Border Router 自治系統邊界路由器，連接其他AS的Router稱為ASBR，以上圖為例，R2為ASBR
 
 ## DR ##
 
@@ -67,72 +70,69 @@
 
 	不是DR也不是BDR則稱為DROTHERs
 
-## Neighbor和Adjacency的差異
+## Neighbor和Adjacency的差異 ##
 
 	Neighbor - 建立鄰居的過程只到two-way就結束
 	Adjacency - 建立鄰接包含整個過程
 
-## OSPF封包類型
+## OSPF封包類型 ##
 
-### Hello
+|Type|用途|
+|---|---|
+|Hello|發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為40秒|
+|DBD(Database Description 資料庫描述)|DBD中包含了LSA的部份描述，接收到DBD後，就會發現缺少哪些LSA的訊息，再進行後續的請求
+|LSR(Link-State Request 鍊路狀態請求)|向其他Router請求詳細的LSA信息|
+|LSU(Link-State Update 鍊路狀態更新)|傳送指定請求的LSA|
+|LSACK(Link-State Acknowledgment 鍊路狀態確認)|用來進行LSU的確認|
 
-發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為40秒
 
-### DBD
+## OSPF鄰接過程 ##
 
-Database Description 資料庫描述
+    下面以此拓樸做說明
 
-DBD中包含了LSA的部份描述，接收到DBD後，就會發現缺少哪些LSA的訊息，再進行後續的請求
+![Untitled](OSPF/Adjacency1.png)
 
-### LSR
+    完整鄰接過程
 
-Link-State Request 鍊路狀態請求
+![Untitled](OSPF/Adjacency2.png)
 
-向其他Router請求詳細的LSA信息
+### Down ###
 
-### LSU
+    不發送Hello 
 
-Link-State Update 鍊路狀態更新
+### Init ###
 
-傳送指定請求的LSA
+![Untitled](OSPF/Init.png)
 
-### LSACK
+    開始向對方發送Hello
 
-Link-State Acknowledgment 鍊路狀態確認
+### Two-way ###
 
-用來進行LSU的確認
+![Untitled](OSPF/2way.png)
 
-## OSPF鄰居建立過程
+    進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
 
-![Untitled](OSPF/Untitled.png)
+### Exstart ###
 
-### Down
+![Untitled](OSPF/exstart.png)
 
-不發送Hello 
+    預備交換鍊路資訊
 
-### Init
+### Exchange ###
 
-開始向對方發送Hello
+![Untitled](OSPF/exchange.png)
 
-### Two-way
+    交換DBD，讓對方知道它需要哪些LSA
 
-選擇DR/BDR，建立鄰居關係
+### Loading ###
 
-### Exstart
+![Untitled](OSPF/Loading.png)
 
-預備交換鍊路資訊
+    開始交換LSA
 
-### Exchange
+### Full ###
 
-交換DBD，讓對方知道它需要哪些LSA
-
-### Loading
-
-開始交換LSA
-
-### Full
-
-交換完成，建立鄰接關係
+    交換完成，建立鄰接關係
 
 ## 路徑成本計算
 
@@ -142,38 +142,8 @@ Link-State Acknowledgment 鍊路狀態確認
 10^8 = 100M 
 #範例
 #介面卡頻寬為100M
-10^8/100 = 100/100 = 1
+100000000/100000000 = 1
 #但有個問題是，若介面卡頻寬為1G也就是1000M，計算結果會取正整數，也就是1，這就會造成
-#100M和1000M的計算結果是相同的，解法為修改介面卡頻寬，以下為修改命令
-#進入ospf修改
-router ospf 1
-auto-cost reference-bandwidth 1000 #單位為Mbits
-#修改介面卡
-int f0/0
-ip ospf cost 1
+#100M和1000M的計算結果是相同的，解決方法為修改介面卡頻寬
 ```
 
-## OSPF設定
-
-```bash
-#設定OSPF
-router ospf <PID> #PID不需要相同，好辨識即可
-	router-id 1.1.1.1 #若不設定就會去抓取loopback，loopback也沒有的話就會找參與ospf中最大的interface
-	network 10.0.0.0 0.0.0.255 area 0 
-	network 172.16.0.0 0.0.0.255 area 1
-	network 192.168.0.0 0.0.0.255 area 2
-#調整Priority(選舉DR/BDR時會用到，越大越好)，更改完後，其他Router要重啟ospf process
-int e0/0
-	ip ospf priority 100
-int e0/1
-	ip ospf priority 0 #直接放棄選舉
-#查看ospf建立鄰接過程
-debug ip ospf adj
-#重啟ospf
-clear ip ospf process
-#查看ospf
-show ip ospf #查看ospf資訊，比較詳細
-show ip ospf neighbor #查看ospf鄰居
-show ip interface brief #查看哪個interface使用了ospf
-show ip interface e0/0 #可以看到Hello Interval以及Dead Interval的時間
-```
