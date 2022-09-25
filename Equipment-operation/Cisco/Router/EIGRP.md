@@ -20,12 +20,12 @@ EIGRP預設Hello Time為5秒，Hold Time為15秒
 
 EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors 
 	
-	Autonomous System Number
-	K值
-	網段
-	認證訊息
-	Hello Time
-	Hold Time
+	1.Autonomous System Number
+	2.K值
+	3.網段
+	4.認證訊息
+	5.Hello Time
+	6.Hold Time
 
 
 

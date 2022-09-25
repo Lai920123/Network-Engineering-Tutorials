@@ -1,30 +1,51 @@
-# OSPF
+# OSPF #
+
+* [簡介](#簡介) 
+
+	- [Link-State Protocols](#link-state-advertisement)
+
+	- [Multicast Address](#multicast-address)
+
+	- [SPF Algorithm](#spf-algorithm)
+  
+* [OSPF鄰接過程](#ospf鄰接過程)
+
+	- [Down](#down)
+	- [Init](#init)
+	- [Two-way](#two-way)
+	- [Exstart](#exstart)
+	- [Exchange](#exchange)
+	- [Loading](#loading)
+	- [Full](#full)
+
+* [OSPF封包類型](#ospf封包類型)
+
+* [Neighbor和Adjacency的差異](#neighbor和adjacency的差異)
+
+* [成為鄰居條件](#成為鄰居條件) 
+
+* [路徑成本計算](#路徑成本計算)
+
+	
+
 
 ## 簡介 ##
 
 	OSPF為開放標準的Link-State路由協定，可運作於多廠牌設備當中
 
-## Link-State Protocols ##
+### Link-State Protocols ###
 
 	在鍊路狀態的路由協定中，每個路由器都擁有一張網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
 
-## Multicast Address ##
+### Multicast Address ###
 
 	組播位置，OSPF的組播位置有兩種，分別為
-	224.0.0.5
-	224.0.0.6
+	224.0.0.5 - DR,BDR向DROTHER發送DD,LSA Request和LSA Update時使用
+	224.0.0.6 - DROTHER向DR,BDR發送DD,LSA Request和LSA Update時使用
 
-## SPF Algorithm ##
+### SPF Algorithm ###
 
 	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
-
-## Link-State Advertisement ##
-
-	每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
-
-## LSDB ##
-
-	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
 
 ## Area概念 ##
 
@@ -70,10 +91,6 @@
 
 	不是DR也不是BDR則稱為DROTHERs
 
-## Neighbor和Adjacency的差異 ##
-
-	Neighbor - 建立鄰居的過程只到two-way就結束
-	Adjacency - 建立鄰接包含整個過程
 
 ## OSPF封包類型 ##
 
@@ -85,6 +102,18 @@
 |LSU(Link-State Update 鍊路狀態更新)|傳送指定請求的LSA|
 |LSACK(Link-State Acknowledgment 鍊路狀態確認)|用來進行LSU的確認|
 
+## Link-State Advertisement ##
+
+	每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
+
+### LSDB ###
+
+	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
+
+## Neighbor和Adjacency的差異 ##
+
+	Neighbor - 建立鄰居的過程只到two-way就結束
+	Adjacency - 建立鄰接包含整個過程
 
 ## OSPF鄰接過程 ##
 
@@ -133,6 +162,16 @@
 ### Full ###
 
     交換完成，建立鄰接關係
+
+## 成為鄰居條件 ##
+
+	1.Area ID相同
+	2.Area Type相同
+	3.網段相同
+	4.Hello Interval以及Dead Interval需相同
+	5.認證類型以及密碼一致
+	6.MTU相同
+
 
 ## 路徑成本計算
 
