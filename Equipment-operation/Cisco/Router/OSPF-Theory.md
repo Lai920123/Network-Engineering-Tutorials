@@ -1,86 +1,76 @@
 # OSPF
 
-## AS
+## 簡介 ##
 
-Autonomous System自治系統，一個AS是一個能自主決定該採用何種路由協定的單位，例如企業或學校
+	OSPF為開放標準的Link-State路由協定，可運作於多廠牌設備當中
+## AS ##
 
-## IGP
+	Autonomous System自治系統，一個AS是一個能自主決定該採用何種路由協定的單位，例如企業或學校
 
-Interior Gateway Protocol內部路由服務，在一個AS內運作的路由協定
+## Link-State Protocols ##
 
-## Link-State Protocols
+	在鍊路狀態的路由協定中，每個路由器都擁有一張網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
 
-在鍊路狀態的路由協定中，每個路由器都擁有一張網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
+## Multicast Address ##
 
-## Multicast Address
+	組播位置，OSPF的組播位置有兩種，分別為
+	224.0.0.5
+	224.0.0.6
 
-組播位置，OSPF的組播位置有兩種，分別為
+## Link-State Advertisement 鍊路狀態通告 ##
 
-224.0.0.5
+	每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
 
-224.0.0.6
+## LSDB ##
 
-## LSA
+	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
 
-Link-State Advertisement 鍊路狀態通告
+## SPF Algorithm ##
 
-每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
+	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
 
-## LSDB
+## Area概念 ##
 
-Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
+	1. 最小化路由表
+	2. 本地的拓樸變動，只會影響到該區域
+	3. 有些LSA只會在該區域內傳播，不會傳送到整個拓樸中
 
-## SPF Algorithm
+## Backbone area ##
 
-Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
+	骨幹區域，又稱為Transit area或者area 0
 
-## Area概念
+## Regular area ##
 
-1. 最小化路由表
-2. 本地的拓樸變動，只會影響到該區域
-3. 有些LSA只會在該區域內傳播，不會傳送到整個拓樸中
+	常規區域，又稱為nonbackbone areas，非骨幹區域的area
 
-## Backbone area
+## BR ##
 
-骨幹區域，又稱為Transit area或者area 0
+	Backbone Router 骨幹路由器，最少一個Interface連接Area 0，稱為BR
 
-## Regular area
+## ABR ##
 
-常規區域，又稱為nonbackbone areas，非骨幹區域的area
+	Area Border Router 區域邊界路由，連接兩個Area以上稱為ABR
 
-## BR
+## ASBR ##
 
-Backbone Router 骨幹路由器，最少一個Interface連接Area 0，稱為BR
+	Autonomous System Border Router 自治系統邊界路由，連接其他AS的Router稱為ASBR
 
-## ABR
+## DR ##
 
-Area Border Router 區域邊界路由，連接兩個Area以上稱為ABR
-
-## ASBR
-
-Autonomous System Border Router 自治系統邊界路由，連接其他AS的Router稱為ASBR
-
-## DR
-
-Designated Router 指定路由器，由DR跟BDR和DROTHERs進行LSA的溝通，在統一發送結果，DROTHERs之間不會進行LSA的溝通，避免造成過多不必要的流量
+	Designated Router 指定路由器，由DR跟BDR和DROTHERs進行LSA的溝通，再統一發送結果，DROTHERs之間不會進行LSA的溝通，避免造成過多不必要的流量
 
 ## BDR
 
-Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election
+	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election
 
 ## DROTHERs
 
-不是DR也不是BDR則稱為DROTHERs
+	不是DR也不是BDR則稱為DROTHERs
 
 ## Neighbor和Adjacency的差異
 
-### Neighbor
-
-鄰居，建立鄰居的過程只到two-way就結束
-
-### Adjacency
-
-鄰接，建立鄰接包含整個過程
+	Neighbor - 建立鄰居的過程只到two-way就結束
+	Adjacency - 建立鄰接包含整個過程
 
 ## OSPF封包類型
 
@@ -162,8 +152,6 @@ auto-cost reference-bandwidth 1000 #單位為Mbits
 int f0/0
 ip ospf cost 1
 ```
-
-## OSPF vs EIGRP
 
 ## OSPF設定
 
