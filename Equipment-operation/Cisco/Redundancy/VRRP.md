@@ -36,7 +36,7 @@ ip sla 1 #新增IP SLA
 ip sla schedule 1 life forever start-time now #配置ip sla排程
 track 1 ip sla 1 reachability #track 1 對應至ip sla 1
 int vlan 10 #進入設置vrrp的介面
-    vrrp 10 track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Active
+    vrrp 10 track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Master
 ```
 
 ### 使用md5驗證 ###
@@ -44,12 +44,14 @@ int vlan 10 #進入設置vrrp的介面
 ```bash
 #以下兩種方式擇一即可
 #使用key-string
-vrrp 10 authentication md5 key-string Cisco123
+int f0/0 #進入要配置的介面
+    vrrp 10 authentication md5 key-string Cisco123
 #使用key-chain
 key chain vrrp1 #chain的名字
     key 1 #key id 
     key-string Cisco123 #密碼
-vrrp 10 authentication md5 key-chain vrrp1 #將key-chain套用至介面
+int f0/0 #進入要配置的介面
+    vrrp 10 authentication md5 key-chain vrrp1 #將key-chain套用至介面
 ```
 
 ### IPv6 ###

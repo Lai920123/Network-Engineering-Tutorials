@@ -44,12 +44,14 @@ int vlan 10 #進入設置hsrp的介面
 ```bash
 #以下兩種方式擇一即可
 #使用key-string
-hsrp 10 authentication md5 key-string Cisco123
+int f0/0 #進入要配置的介面
+    hsrp 10 authentication md5 key-string Cisco123
 #使用key-chain
 key chain hsrp1 #chain的名字
     key 1 #key id 
     key-string Cisco123 #密碼
-hsrp 10 authentication md5 key-chain hsrp1 #將key-chain套用至介面
+int f0/0 #進入要配置的介面
+    hsrp 10 authentication md5 key-chain hsrp1 #將key-chain套用至介面
 ```
 
 ### IPv6 ###
