@@ -33,7 +33,18 @@ int f0/1
 
 ```bash
 #先解決NAT，使用NVI配置方法，一般NAT方式也可以，配置方式差不多，可以看NAT.md
-
+int range f0/0-2 
+    ip nat enable 
+access-list 1 permit 192.168.1.0 0.0.0.255 #比對內部流量
+route-map f0/1 permit 1 #建立Route-map命名為f0/1
+    match ip address 1 
+    match int f0/1
+route-map f0/2 permit 1 #建立Route-map命名為f0/2
+    match ip address 1
+    match int f0/2
+ip nat source route-map f0/1 interface f0/1 overload
+ip nat source route-map f0/2 interface f0/2 overload
+#配置PBR
 ip sla 1 #建立ip sla 1
     icmp-echo 123.0.1.1 source-ip 123.0.1.2 #ping測試123.0.1.1，來源為123.0.1.2
     frequency 10 #頻率為10秒一次
@@ -54,8 +65,11 @@ route-map PBR_LOAD_SHARE permit 1 #建立Route-map名稱為PBR_LOAD_SHARE，序�
 route-map PBR_LOAD_SHARE permit 2 #建立Route-map名稱為PBR_LOAD_SHARE，序號為2
     match ip address TELNET #比對HTTP流量
     set ip next-hop verify-availability 123.0.2.1 2 track 2 #指定下一站為123.0.1.1
-int f0/1
+int f0/0
     ip policy route-map PBR_LOAD_SHARE #套用至流量進入的介面
+#配置Float Route
+ip route 0.0.0.0 0.0.0.0 123.0.1.1 track 1
+ip route 0.0.0.0 0.0.0.0 123.0.2.1 track 2
 ```
 
 ### 查看設定 ###
