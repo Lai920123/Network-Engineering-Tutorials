@@ -63,19 +63,19 @@
 
 ## BR ##
 
-![](OSPF/BR.png)
+![](BR.png)
 
 	Backbone Router 骨幹路由器，最少一個Interface連接Area 0，稱為BR，以上圖為例，R2和R3為BR
 
 ## ABR ##
 
-![](OSPF/ABR.png)
+![](ABR.png)
 
 	Area Border Router 區域邊界路由器，連接兩個Area以上稱為ABR，以上圖為例，R2為ABR
 
 ## ASBR ##
 
-![](OSPF/ASBR.png)
+![](ASBR.png)
 
 	Autonomous System Border Router 自治系統邊界路由器，連接其他AS的Router稱為ASBR，以上圖為例，R2為ASBR
 
@@ -119,11 +119,11 @@
 
     下面以此拓樸做說明
 
-![Untitled](OSPF/Adjacency1.png)
+![Untitled](Adjacency1.png)
 
     完整鄰接過程
 
-![Untitled](OSPF/Adjacency2.png)
+![Untitled](Adjacency2.png)
 
 ### Down ###
 
@@ -131,31 +131,31 @@
 
 ### Init ###
 
-![Untitled](OSPF/Init.png)
+![Untitled](Init.png)
 
     開始向對方發送Hello
 
 ### Two-way ###
 
-![Untitled](OSPF/2way.png)
+![Untitled](2way.png)
 
     進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
 
 ### Exstart ###
 
-![Untitled](OSPF/exstart.png)
+![Untitled](exstart.png)
 
     預備交換鍊路資訊
 
 ### Exchange ###
 
-![Untitled](OSPF/exchange.png)
+![Untitled](exchange.png)
 
     交換DBD，讓對方知道它需要哪些LSA
 
 ### Loading ###
 
-![Untitled](OSPF/Loading.png)
+![Untitled](Loading.png)
 
     開始交換LSA
 
