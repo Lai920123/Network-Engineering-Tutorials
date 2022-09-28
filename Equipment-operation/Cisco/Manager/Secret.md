@@ -31,7 +31,7 @@ enable privilege 15 secret ?
 
 ## 遠端管理 ##
 
-### Telnet ###
+## Telnet ##
 
 ```bash
 username admin privilege 15 secret 123456 #建立帳號密碼
@@ -40,7 +40,9 @@ line vty 0 4
 	login local #也可以打no login代表登入不需輸入密碼
 ```
 
-### SSH ###
+## SSH ##
+
+### 基本配置 ###
 
 ```bash
 ip domain-name lai.com #要使用ssh需要設定domain-name
@@ -51,7 +53,20 @@ line vty 0 4
 	transport input ssh
 ```
 
+### 安全設定 ###
+
+```bash
+enable #進入特權模式
+configure terminal #進入全域配置模式  
+login block-for 120 attempts 3 within 30 #30秒內密碼3次不正確鎖定120秒
+login delay 5 #登入後延遲5秒
+login quiet-mode access-class 1 #鎖定期間允許ACL 1登入
+login on-failure log #登入失敗要記錄
+login on-success log #登入成功要記錄
+```
+
 ### 更改預設Port ###
+
 ```bash
 ip ssh port 8888 rotary 1
 line vty 0 4
