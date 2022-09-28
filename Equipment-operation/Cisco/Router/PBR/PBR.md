@@ -1,5 +1,7 @@
 # Policy Based Routing 基於政策的路由 #
 
+    PBR可透過policy來控制流量的路由方向，請看以下範例
+
 ![](PBR.png)
 
 ## PBR配置 ##
