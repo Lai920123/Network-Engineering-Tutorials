@@ -31,7 +31,7 @@ EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors
 
 ## EIGRP參數和設定 ##
 
-### IPv4 ###
+## IPv4 ##
 
 ### 基本配置 ###
 
@@ -72,19 +72,20 @@ int f0/0
 ```	
 
 
-### IPv6 ###
+## IPv6 ##
 
 EIGRP for IPv6可使用兩種方法配置
 
-### 傳統 ##
+### 傳統配置方法 ###
 
 ```bash 
+ipv6 unicast-routing #開啟ipv6單播繞送
 ipv6 router eigrp 1 
 	no shutdown #15.0以前版本才需要下 
 int e0/0 
-	ipv6 eigrp 1 
+	ipv6 eigrp 1 #從介面啟用eigrp for ipv6
 int e0/1 
-	ipv6 eigrp 1
+	ipv6 eigrp 1 #從介面啟用eigrp for ipv6
 ```
 
 ### 優化 ###
