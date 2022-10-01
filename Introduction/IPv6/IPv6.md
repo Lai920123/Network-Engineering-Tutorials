@@ -1,27 +1,23 @@
-<link rel="stylesheet" href="css/ipv6.css">
 # IPv6 #
 
 ## IPv6-Header ##
 
-<h1 =test>Hi</h1>
 ## 類型 ##
 
-<pre>
-與IPv4不同，IPv6沒有廣播
-Unicast：提供啟動ipv6的介面一對一溝通
-Multicast：傳送單一ipv6封包至多個目的地
-Anycast：暫時不討論
-</pre>
+    與IPv4不同，IPv6沒有廣播
+    Unicast - 提供啟動ipv6的介面一對一溝通
+    Multicast - 傳送單一ipv6封包至多個目的地
+    Anycast - 暫時不討論
+
 ## Default Gateway ##
-<pre>IPv6的default gateway與IPv4的不同,IPv6以Router的LLA來作為default gateway</pre>
+
+    IPv6的Default Gateway與IPv4的不同,IPv6以Router的LLA來作為Default Gateway
     
-## Prefix ID ##
+## Prefix ID and Interface ID ##
     
-    IPv6的Prefix ID就類似於IPv4的subnet mask用於判斷IPv6位置是否取於同一網段,普遍的作法是將128bit的分為64bit的Prefix ID和64bit的Interface ID,Prefix ID的表示方法也和IPv4時不同,使用/64的方式表示使用64bit的Prefix ID，一般來說組織會接收/32的Prefix ID，並使用推薦的/64來建立interface ID，留下32bit的Prefix ID，這代表此組織具有32bit也就是接近43憶的子網路，每個子網具有64bit的可用位置
-        
-    
-## Interface ID ##
-    
+    Prefix ID:
+    類似於IPv4的subnet mask用於判斷IPv6位置是於同一網段，普遍作法是將128bit的分為64bit的Prefix ID和64bit的Interface ID，Prefix ID的表示方法和IPv4時不同，使用/64的方式表示使用64bit的Prefix ID，一般來說組織會接收/32的Prefix ID，並使用推薦的/64來建立interface ID，留下32bit的Prefix ID，這代表此組織具有32bit也就是接近43憶的子網路，每個子網具有64bit的可用位置    
+    Interface ID:
     與IPv4的Host ID相同，用來計算使用的主機數量
     
 ## Unicast Address ##
@@ -33,6 +29,7 @@ Anycast：暫時不討論
     由IANA分配位置區塊給5個RIR，目前只分配了前三個bit,範圍在2000::/3~3fff::/3)，等於IPv4的Public IP，此位置為全球獨一無二，可在網際網路上繞送的位置，GUA可以以靜態或動態方式配置
     
 ### Link-local Address(LLA) ###
+
     LLA在每個啟用IPv6位置的裝置上是必須的，若裝置無手動配置LLA，則會自動創建LLA(EUI)，不須與DHCP Server溝通，LLA用作於本地設備的溝通(範圍在fe80::/10的網段，與IPv4的169.254.0.0/16相同)，和路由器之間交換訊息,無法繞送於網際網路
 
 --- 
