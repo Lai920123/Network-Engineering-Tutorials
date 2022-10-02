@@ -12,6 +12,8 @@ Destination filename[Router-config]? #傳至TFTP Server的檔名，可自行更�
 
 ## 還原 ##
 
+若是因為系統損壞進入rommon mode的話，可使用以下方式修復
+
 ```bash
 IP_ADDRESS=192.168.1.1 #Router IP
 IP_SUBNET_MASK=255.255.255.0 #遮罩
