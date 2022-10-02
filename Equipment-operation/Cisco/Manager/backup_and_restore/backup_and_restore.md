@@ -22,7 +22,7 @@ Destination filename[Router-config]? #傳至TFTP Server的檔名，可自行更�
 
 ## 使用SCP進行備份 ##
 
-    在Server開啟SSH功能，以下會寫出Windows以及Linux開啟OpenSSH Server的方法
+    使用SCP的好處在於，SCP有經過加密，可避免安全性問題，在Server開啟SSH功能，以下會寫出Windows以及Linux開啟OpenSSH Server的方法
 
 ### Windows ###
 
