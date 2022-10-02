@@ -4,11 +4,15 @@
 
 ## 備份 ##
 
+### 使用TFTP進行備份 ##
+
 ```bash
 copy running-config tftp: #複製running-config到TFTP Server
 Address or name of remote host[]?192.168.1.100 #TFTP Server IP
 Destination filename[Router-config]? #傳至TFTP Server的檔名，可自行更改
 ```
+
+## 使用SCP進行備份
 
 ## 還原 ##
 
