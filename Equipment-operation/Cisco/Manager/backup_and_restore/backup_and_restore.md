@@ -1,18 +1,24 @@
 # 備份和還原 #
 
-## [備份](#備份) ##
+## [Backup](#備份) ##
 
-- [使用TFTP進行備份](#使用tftp進行備份) 
+- [使用TFTP備份](#使用tftp) 
 
-- [使用SCP進行備份](#使用scp進行備份) 
+- [使用SCP備份](#使用scp) 
 
-## [還原](#還原)
+## [Restore](#還原) ##
+
+- [使用TFTP還原](#使用tftp) 
+
+- [使用SCP還原](#使用scp) 
+
+## [排程](#e68e92e7a88b-1) ##
 
 ![](topology1.png)
 
 ## 備份 ##
 
-## 使用TFTP進行備份 ##
+## 使用TFTP ##
 
 ```bash
 copy running-config tftp: #複製running-config到TFTP Server
@@ -20,7 +26,7 @@ Address or name of remote host[]?192.168.1.100 #TFTP Server IP
 Destination filename[Router-config]? #傳至TFTP Server的檔名，可自行更改
 ```
 
-## 使用SCP進行備份 ##
+## 使用SCP ##
 
     使用SCP的好處在於，SCP有經過加密，可避免安全性問題，在Server開啟SSH功能，以下會寫出Windows以及Linux開啟OpenSSH Server的方法
 
@@ -63,13 +69,16 @@ systemctl start sshd #開啟服務
 copy startup-config scp:C:\Users\user1\ #將startup-config copy至scp server，因此練習沒有特別安裝SCP Server軟體，以本機開啟服務作為SCP Server所以須指定目的地路徑，若有安裝軟體的話在軟體中選擇目的地路徑，並使用scp:即可
 Address or name of remote host []? 10.1.1.100 #scp server IP
 Destination username [SW1]? user1 #使用者名稱，輸入本機使用者即可，若是沒有密碼需新增密碼
-Destination filename [C:\Users\user1\]? backup_ios #目的地檔名
+Destination filename [C:\Users\user1\]? r1-config #目的地檔名
 ```
 
 
 ## 還原 ##
 
+
 若是因為系統損壞進入rommon mode的話，可使用以下方式修復
+
+## 使用TFTP ##
 
 ```bash
 IP_ADDRESS=192.168.1.1 #Router IP
@@ -83,4 +92,23 @@ tftpdnld
 Do you wish to continue? y/n: [n]: yes
 #跑完以後開機
 boot
+```
+
+## 使用SCP ##
+
+```bash
+Address or name of remote host []? 10.1.1.100 #SCP Server IP 
+Source username [R1]? user1 #登入帳號為user1
+Source filename []? r1-config #要獲取的檔案名稱
+Destination filename [startup-config]? #存到本地的檔案名稱
+Password: #輸入user1的密碼
+```
+
+## 排程 ##
+
+```bash
+archive 
+    path scp://user1:Cisco123@10.1.1.100/$h_$t #格式為scp://<使用者>:<密碼>@<SCP Server IP>/檔名，若不想將密碼寫於設定檔中，可以寫成scp://user1@10.1.1.100並於存檔時在輸入密碼
+    write-memory #存檔時備份一次
+    time-period 3 #每三分鐘備份一次
 ```
