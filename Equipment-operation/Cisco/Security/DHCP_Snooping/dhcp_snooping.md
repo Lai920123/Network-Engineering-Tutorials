@@ -12,5 +12,12 @@
 ![](topology.png)
 
 ```bash
-
+ip dhcp snooping #全域開啟DHCP Snooping 
+ip dhcp snooping vlan 1 #套用至VLAN 1
+no ip dhcp snooping information option #下方有解釋
 ```
+
+
+## Relay Agent Information Option ##
+
+    DHCP的Option 82為Relay Agent Information Option，當Client傳送Discovery至Server時，若需要經過Relay Agent，
