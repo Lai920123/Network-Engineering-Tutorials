@@ -18,7 +18,9 @@
 
 ## 備份 ##
 
-## 使用TFTP ##
+備份Router與Switch操作方式相同，就不特別分類
+
+### 使用TFTP ###
 
 ```bash
 copy running-config tftp: #複製running-config到TFTP Server
@@ -26,7 +28,7 @@ Address or name of remote host[]?192.168.1.100 #TFTP Server IP
 Destination filename[Router-config]? #傳至TFTP Server的檔名，可自行更改
 ```
 
-## 使用SCP ##
+### 使用SCP ###
 
     使用SCP的好處在於，SCP有經過加密，可避免安全性問題，在Server開啟SSH功能，以下會寫出Windows以及Linux開啟OpenSSH Server的方法
 
@@ -75,10 +77,11 @@ Destination filename [C:\Users\user1\]? r1-config #目的地檔名
 
 ## 還原 ##
 
+Router與Switch還原方式不同，下方示範兩者還原方式
 
-若是因為系統損壞進入rommon mode的話，可使用以下方式修復
+## Router ##
 
-## 使用TFTP ##
+### 使用TFTP ###
 
 ```bash
 IP_ADDRESS=192.168.1.1 #Router IP
@@ -94,7 +97,7 @@ Do you wish to continue? y/n: [n]: yes
 boot
 ```
 
-## 使用SCP ##
+### 使用SCP ###
 
 ```bash
 Address or name of remote host []? 10.1.1.100 #SCP Server IP 
@@ -102,6 +105,23 @@ Source username [R1]? user1 #登入帳號為user1
 Source filename []? r1-config #要獲取的檔案名稱
 Destination filename [startup-config]? #存到本地的檔案名稱
 Password: #輸入user1的密碼
+```
+
+## Switch ##
+
+Switch復原比較複雜一點，因為無法單純使用TFTP或者SCP就還原，須使用xmodem將設定檔傳回flash:，下方使用SecureCRT進行示範
+
+```bash
+#當Switch開機時讀不到系統，會出現以下畫面
+switch:
+```
+
+接著開啟SecureCRT -> 點選上方工具列的Transfer -> Send Xmodem -> 選擇傳入的系統檔 -> 等待傳送完成
+
+```bash
+#使用剛剛傳好的系統檔開機，以3560系統檔名稱為例
+boot flash:c3560-advipservicek9-mz.122-15.SED.bin
+#等待開機後，就完成系統還原
 ```
 
 ## 排程 ##
