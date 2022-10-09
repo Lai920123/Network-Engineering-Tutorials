@@ -16,6 +16,8 @@ routing
 vlan 
 #範例:開啟IPv6功能
 sdm prefer dual-ipv4-and-ipv6
+#開啟後須重啟才會套用
+reload
 ```
 
 ## 參考文章 ##
