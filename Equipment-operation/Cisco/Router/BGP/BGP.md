@@ -17,9 +17,9 @@
 ## Peer成立條件 ##
 
     BGP預設keepalive interval為60秒，hold time為180秒
-    在BGP裡，把Neighbors稱作Peers，Peers利用TCP 179 Port進行溝通，BGP要建立Peers須達成以下條件
-    1.Autonomous System Number相同
-    2.
+    在BGP裡，把Neighbors稱作Peers，Peers，與IGP(RIP,OSPF,EIGRP等...)不同，BGP使用TCP 179 Port進行溝通，BGP要建立Peers只須達成以下條件
+    1.Peer之間的連通性
+    2.Autonomous System Number相同
 
 ## 基本配置 ##
 
