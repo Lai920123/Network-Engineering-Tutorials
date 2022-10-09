@@ -32,6 +32,12 @@ router bgp 1 #配置BGP ASN 1，ASN的範圍為1-4294967295
     network 192.168.1.0 mask 255.255.255.0 #宣告網段
 ```
 
+>若是兩點之間有其他網路設備使兩點無法建立鄰居，可使用Multihop指令將兩個Router連起來
+
+```bash
+neighbor 123.0.1.1 ebgp-multihop 2 #2為最大跳躍數，就是兩台Router中間相隔的Hop數目，依照實際情況更改
+```
+
 ## 優化
 
 ### 使用Loopback做為鄰居IP ###
