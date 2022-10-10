@@ -1,19 +1,5 @@
 # 備份和還原 #
 
-## [Backup](#備份) ##
-
-- [使用TFTP備份](#使用tftp) 
-
-- [使用SCP備份](#使用scp) 
-
-## [Restore](#還原) ##
-
-- [使用TFTP還原](#使用tftp) 
-
-- [使用SCP還原](#使用scp) 
-
-## [排程](#e68e92e7a88b-1) ##
-
 ![](topology1.png)
 
 ## 備份 ##
@@ -109,11 +95,18 @@ Password: #輸入user1的密碼
 
 ## Switch ##
 
-Switch復原比較複雜一點，因為無法單純使用TFTP或者SCP就還原，須使用xmodem將設定檔傳回flash:，下方使用SecureCRT進行示範
+### Xmodem ###
+
+>Switch復原比較麻煩一點，因為無法單純使用TFTP或者SCP就還原，須使用xmodem將設定檔傳回flash:，不過此種方法速度非常慢，大約需要3小時左右，不過經過調整線路速率後，速度可能會變快，但因多次嘗試後，如果調太快，有可能造成傳到一半卡住的狀況，所以最適合我的速率為14400(我並沒有深入研究關於console線的細節)，若是大家測試時可以調快的話也可以依照實際情況進行調整，以下使用SecureCRT進行示範
+
+開啟設備後，將Console插入設備中，並開啟SecureCRT，因xmodem傳輸速度太慢，下面就不附上連上設備後的圖，如果有機會遇到不小心刪掉ios的狀況(希望是不要)，會再將圖補上
 
 ```bash
 #當Switch開機時讀不到系統，會出現以下畫面
 switch:
+#調整線路速率
+set BAUD 14400
+copy xmodem: flash:c3560-ipservicesk9-mz.150-1.SE.bin #打完這行後，馬上按照以下圖例點選
 ```
 
 接著開啟SecureCRT -> 點選上方工具列的Transfer -> Send Xmodem -> 選擇傳入的系統檔 -> 等待傳送完成
