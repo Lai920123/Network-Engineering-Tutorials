@@ -1,21 +1,23 @@
 # Spanning-Tree
 
-## Spanning-Tree的演變
+## Spanning-Tree的演變 ## 
 
-```powershell
-802.1D -> IEEE
-PVST+ -> Cisco
-802.1w(RSTP) -> IEEE
-Rapid PVST -> Cisco
-```
+
+    802.1D -> IEEE
+    PVST+ -> Cisco
+    802.1w(RSTP) -> IEEE
+    Rapid PVST -> Cisco
+    MST
+    
 
 ## Bandwidth
 
-| 10M | 100 |
-| --- | --- |
-| 100M | 19 |
-| 1G | 4 |
-| 10G | 2 |
+|頻寬| 路徑成本(舊) | 路徑成本(新)|
+| --- | --- | --- |
+| 10M | 100 ||
+| 100M | 19 ||
+| 1G | 4 ||
+| 10G | 2 ||
 
 ## 查看Spanning-Tree
 
