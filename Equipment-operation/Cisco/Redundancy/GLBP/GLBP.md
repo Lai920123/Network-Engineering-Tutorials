@@ -32,7 +32,7 @@ ip sla 1
 ip sla schedule 1 life forever start-time now #配置ip sla排程
 track 1 ip sla 1 reachability #track 1 對應至ip sla 1
 int f0/0 #進入設置GLBP的介面
-    glbp 10 track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15 ，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Active
+    glbp 10 weighting track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15 ，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Active
 ```
 
 ### 使用md5驗證 ###
