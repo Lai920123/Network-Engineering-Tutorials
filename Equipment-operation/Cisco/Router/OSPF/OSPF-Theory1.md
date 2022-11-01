@@ -1,49 +1,22 @@
-# OSPF #
+# OSPF-Theory1 #
 
-* [簡介](#簡介) 
-
-	- [Link-State Protocols](#link-state-advertisement)
-
-	- [Multicast Address](#multicast-address)
-
-	- [SPF Algorithm](#spf-algorithm)
-  
-* [OSPF鄰接過程](#ospf鄰接過程)
-
-	- [Down](#down)
-	- [Init](#init)
-	- [Two-way](#two-way)
-	- [Exstart](#exstart)
-	- [Exchange](#exchange)
-	- [Loading](#loading)
-	- [Full](#full)
-
-* [OSPF封包類型](#ospf封包類型)
-
-* [Neighbor和Adjacency的差異](#neighbor和adjacency的差異)
-
-* [成為鄰居條件](#成為鄰居條件) 
-
-* [路徑成本計算](#路徑成本計算)
-
-	
-
+>下面會介紹基本的鄰居建立過程,BR,ABR和ASBR介紹和路徑成本的計算方式，而LSA將會在OSPF-Theory2談到
 
 ## 簡介 ##
 
 	OSPF為開放標準的Link-State路由協定，可運作於多廠牌設備當中
 
-### Link-State Protocols ###
+## Link-State Protocols ##
 
 	在鍊路狀態的路由協定中，每個路由器都擁有一張網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
 
-### Multicast Address ###
+## Multicast Address ##
 
 	組播位置，OSPF的組播位置有兩種，分別為
 	224.0.0.5 - DR,BDR向DROTHER發送DD,LSA Request和LSA Update時使用
 	224.0.0.6 - DROTHER向DR,BDR發送DD,LSA Request和LSA Update時使用
 
-### SPF Algorithm ###
+## SPF Algorithm ##
 
 	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
 
@@ -69,9 +42,7 @@
 
 ## ABR ##
 
-![](ABR.png)
-
-	Area Border Router 區域邊界路由器，連接兩個Area以上稱為ABR，以上圖為例，R2為ABR
+	Area Border Router 區域邊界路由器，連接兩個Area以上稱為ABR，以上圖為例，R2和R3為ABR
 
 ## ASBR ##
 
@@ -91,77 +62,10 @@
 
 	不是DR也不是BDR則稱為DROTHERs
 
-
-## OSPF封包類型 ##
-
-|Type|用途|
-|---|---|
-|Hello|發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為40秒|
-|DBD(Database Description 資料庫描述)|DBD中包含了LSA的部份描述，接收到DBD後，就會發現缺少哪些LSA的訊息，再進行後續的請求
-|LSR(Link-State Request 鍊路狀態請求)|向其他Router請求詳細的LSA信息|
-|LSU(Link-State Update 鍊路狀態更新)|傳送指定請求的LSA|
-|LSACK(Link-State Acknowledgment 鍊路狀態確認)|用來進行LSU的確認|
-
-## Link-State Advertisement ##
-
-	每個LSA都包含了一個Sequence number，Sequence number大小為4-byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
-
-### LSDB ###
-
-	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
-
 ## Neighbor和Adjacency的差異 ##
 
 	Neighbor - 建立鄰居的過程只到two-way就結束
 	Adjacency - 建立鄰接包含整個過程
-
-## OSPF鄰接過程 ##
-
-    下面以此拓樸做說明
-
-![Untitled](Adjacency1.png)
-
-    完整鄰接過程
-
-![Untitled](Adjacency2.png)
-
-### Down ###
-
-    不發送Hello 
-
-### Init ###
-
-![Untitled](Init.png)
-
-    開始向對方發送Hello
-
-### Two-way ###
-
-![Untitled](2way.png)
-
-    進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
-
-### Exstart ###
-
-![Untitled](exstart.png)
-
-    預備交換鍊路資訊
-
-### Exchange ###
-
-![Untitled](exchange.png)
-
-    交換DBD，讓對方知道它需要哪些LSA
-
-### Loading ###
-
-![Untitled](Loading.png)
-
-    開始交換LSA
-
-### Full ###
-
-    交換完成，建立鄰接關係
 
 ## 成為鄰居條件 ##
 
@@ -172,6 +76,53 @@
 	5.認證類型以及密碼一致
 	6.MTU相同
 
+## OSPF鄰接過程 ##
+
+下面以此拓樸做說明
+
+![Untitled](Adjacency1.png)
+
+完整鄰接過程
+
+![Untitled](Adjacency2.png)
+
+### Down ###
+
+不發送Hello 
+
+### Init ###
+
+![Untitled](Init.png)
+
+開始向對方發送Hello
+
+### Two-way ###
+
+![Untitled](2way.png)
+
+進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
+
+### Exstart ###
+
+![Untitled](exstart.png)
+
+預備交換鍊路資訊
+
+### Exchange ###
+
+![Untitled](exchange.png)
+
+交換DBD，讓對方知道它需要哪些LSA
+
+### Loading ###
+
+![Untitled](Loading.png)
+
+開始交換LSA
+
+### Full ###
+
+交換完成，建立鄰接關係
 
 ## 路徑成本計算
 
@@ -181,8 +132,13 @@
 10^8 = 100M 
 #範例
 #介面卡頻寬為100M
-100000000/100000000 = 1
+10^8/100 = 100/100 = 1
 #但有個問題是，若介面卡頻寬為1G也就是1000M，計算結果會取正整數，也就是1，這就會造成
-#100M和1000M的計算結果是相同的，解決方法為修改介面卡頻寬
+#100M和1000M的計算結果是相同的，解法為修改介面卡頻寬，以下為修改命令
+#進入ospf修改
+router ospf 1
+auto-cost reference-bandwidth 1000 #單位為Mbits
+#修改介面卡
+int f0/0
+ip ospf cost 1
 ```
-
