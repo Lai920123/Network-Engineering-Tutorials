@@ -1,6 +1,6 @@
 # OSPF-Theory1 #
 
->下面會介紹基本的鄰居建立過程,BR,ABR和ASBR介紹和路徑成本的計算方式，而LSA將會在OSPF-Theory2談到
+>下面會介紹基本的鄰居建立過程,BR,ABR和ASBR介紹和路徑成本的計算方式，而OSPF-Theory2將會談到LSA詳細的類型以及SPF演算法的原理
 
 ## 簡介 ##
 
