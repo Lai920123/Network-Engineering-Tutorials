@@ -1,6 +1,8 @@
 # OSPF配置方法 #
 
 
+## OSPFv1 ## 
+
 ## 基礎配置 ##
 ```bash
 #設定OSPF
@@ -48,3 +50,5 @@ debug ip ospf adj
 #重啟ospf process 
 clear ip ospf process
 ```
+
+## OSPFv3 ##
