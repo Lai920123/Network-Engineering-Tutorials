@@ -4,7 +4,7 @@
 
 ## L2 EtherChannel ##
 
-### Static ###
+## Static ##
 
 建立channel-group 
 
@@ -12,7 +12,7 @@
 channel-group <1-255> mode on
 ```
 
-### LACP(Link Aggregation Control Protocol) 鏈路聚合控制協定 ###
+## LACP(Link Aggregation Control Protocol) 鏈路聚合控制協定 ##
 
 建立channel-group 
 
@@ -29,7 +29,7 @@ LACP還具有Hot Standby的功能,最多可以有8+8的線路加入port-channel 
 lacp port-priority <0-65535>
 ```
 
-### PAgP(Port Aggregation Protocol) 端口聚合協定 ###
+## PAgP(Port Aggregation Protocol) 端口聚合協定 ##
 
 Cisco專有 
 
@@ -40,7 +40,7 @@ channel-group <1-255> mode auto
 channel-group <1-255> mode desirable
 ```
 
-### Load Balance EtherChannel ###
+## Load Balance ##
 
 將多條線綁成一條線後，要如何知道流量經由哪一條實體的線路出去，單條線路負載過大或過小都不好，要做到load balance，有幾種方式
 
