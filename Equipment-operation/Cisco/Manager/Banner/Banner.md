@@ -15,7 +15,5 @@ config-save，配置完成時顯示的banner
 範例
 
 ```bash
-banner motd / 
-Hello
-World/
+banner motd /Hello World/ #包住字串的用甚麼符號都可以，只要前後相同即可
 ```
