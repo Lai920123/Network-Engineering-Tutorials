@@ -54,21 +54,17 @@ logging 192.168.100.100 #指定傳送的Log Server
 
 ## 交換機防護 ##
 
->交換機可對連入介面的主機進行MAC位置的綁定，阻止外來交換機或者主機接入至交換機，並且設定反制行為
+>交換機可對連入介面的主機進行MAC位置的綁定，阻止外來交換機或者主機接入至交換機，並且設定反制行為，反制行為有三種，Protect,Restrict和Shutdown，Protect會丟棄非法封包，不過不進行警告，Restrict丟棄不合法封包並發送Log和SNMP Trap，Shutdown會關閉port，並發送Log和SNMP Trap
 
-### 靜態Port Security ###
+### Port Security ###
 
 ```bash
 int f0/1 #進入要防護的介面
     switchport mode access 
     switchport port-security maximum 1 #最大MAC數量為1
-    switchport port-security mac-address xxxx.xxxx.xxxx #xxxx.xxxx.xxxx請更改為允許接入主機的MAC置
-```
-
-### 動態沾黏Port Security ###
-
-```bash
-
+    switchport port-security mac-address xxxx.xxxx.xxxx #xxxx.xxxx.xxxx可靜態指定允許接入主機的MAC位置，也可使用sticky進行動態黏接
+    switchport port-security violation shutdown #違規行為為shutdown
+    switchport port-security #啟動port-security 
 ```
 
 ## 路由器防護 ##
