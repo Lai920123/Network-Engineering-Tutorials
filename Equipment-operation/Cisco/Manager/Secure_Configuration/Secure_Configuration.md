@@ -35,14 +35,37 @@ line vty 0 4
     exec-timeout 3 #也可設定超時，線路多久沒動時會斷開連接，單位為分鐘，預設是5分鐘
 ```
 
-## 配置Log ##
+## 配置Syslog ##
+
+>將Log發送到Log Server，在發生事件時，能夠通過Log進行故障排除，非常重要，在配置Syslog時，要注意時間以及時區，這樣在傳輸時才會以正確的時間記錄
 
 ```bash
+clock set 12:00:00 1 Oct 2022 #設定目前時間
+clock timezone Taipei 8 #設定時區
+```
 
+```bash
+service timestamps log datatime msec localtime show-timezone year #日誌格式
+service sequence-numbers #啟用序號服務
+logging buffered 32768 #本地日誌緩存大小
+logging 192.168.100.100 #指定傳送的Log Server
 ```
 
 
 ## 交換機防護 ##
+
+>交換機可對連入介面的主機進行MAC位置的綁定，阻止外來交換機或者主機接入至交換機，並且設定反制行為
+
+### 靜態Port Security ###
+
+```bash
+int f0/1 #進入要防護的介面
+    switchport mode access 
+    switchport port-security maximum 1 #最大MAC數量為1
+    switchport port-security mac-address xxxx.xxxx.xxxx #xxxx.xxxx.xxxx請更改為允許接入主機的MAC置
+```
+
+### 動態沾黏Port Security ###
 
 ```bash
 
