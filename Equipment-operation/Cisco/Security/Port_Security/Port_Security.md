@@ -55,4 +55,10 @@ errdisable recovery interval 300 #錯誤關閉恢復間隔時間為300秒
 errdisable recovery cause psecure-violation #自動復原原因為port-securit的違規行為
 ```
 
+## 查看err-disable的介面 ##
 
+最後介紹一個超級好用的指令，查詢所有err-disable的介面
+
+```bash
+show interface status err-disabled 
+```
