@@ -7,17 +7,24 @@
 
 ## 配置方法 ##
 
-下方只包含配置DHCP Snooping的方式，IP或網段等請自行決定
-
-![](topology.png)
-
 ```bash
 ip dhcp snooping #全域開啟DHCP Snooping 
 ip dhcp snooping vlan 1 #套用至VLAN 1
 no ip dhcp snooping information option #下方有解釋
+int f0/0
+    ip dhcp snooping trust #配置信任介面
+int f0/1
+    ip dhcp snooping limit rate 10 #在非信任介面配置速率限制
 ```
 
 
 ## Relay Agent Information Option ##
 
     DHCP的Option 82為Relay Agent Information Option，當Client傳送Discovery至Server時，若需要經過Relay Agent，
+
+## 檢查命令 ##
+
+```bash
+show ip dhcp snooping #查看信任介面與非信任介面
+show ip dhcp snooping binding #查看binding內容
+```
