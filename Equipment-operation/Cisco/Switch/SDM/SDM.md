@@ -1,4 +1,4 @@
-# Switch Database Management #
+# Switch Database Management 交換機資料庫管理 #
 
     思科於匯聚層等級的交換機上設置了SDM樣板，你可使用SDM樣板配置交換機的系統資源，以優化特定功能，例如是否開啟IPv6功能
 

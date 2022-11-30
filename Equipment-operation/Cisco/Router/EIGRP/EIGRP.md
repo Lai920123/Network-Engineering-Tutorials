@@ -1,10 +1,8 @@
 # Enhanced Interior Gateway Routing Protocol (增強型內部閘道路由協定) #
 
-EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境
-
+>EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境
 
 ## Multicast Address ##
-
 
 	224.0.0.10
 
@@ -15,6 +13,7 @@ EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速�
 	External EIGRP = 170
 
 ## Neighbors ##
+
 	EIGRP預設Hello Time為5秒，Hold Time為15秒
 	EIGRP Neighbors建立條件，以下都須相同才可建立Neighbors 
 	1.Autonomous System Number
@@ -23,8 +22,6 @@ EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速�
 	4.認證訊息
 	5.Hello Time
 	6.Hold Time
-
-
 
 ## EIGRP參數和設定 ##
 
