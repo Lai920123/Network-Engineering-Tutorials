@@ -1,26 +1,18 @@
-# VTP
+# Vlan Trunking Protocol #
 
-Vlan Trunking Protocol
+## 模式 ##
 
-## VTP模式
+## Server Mode ##
 
-### Server Mode
+>可更改本機的VLAN Database，收到較新的VLAN資訊會將更新資訊傳送給其他switch
 
-    可更改本機的VLAN Database，收到較新的VLAN資訊會將更新資訊傳
+## Client Mode ##
 
-    送給其他switch
+>不可更改本機的VLAN Database，收到較新的VLAN資訊會將更新資訊傳送給其他switch
 
-### Client Mode
+## Transparent Mode ##
 
-    不可更改本機的VLAN Database，收到較新的VLAN資訊會將更新資訊   
-
-    傳送給其他switch
-
-### Transparent Mode
-
-    可更改本機的VLAN資訊，收到較新的VLAN資訊會將更新資訊傳
-
-    送給其他switch，但不會更新自己的VLAN Database
+>可更改本機的VLAN資訊，收到較新的VLAN資訊會將更新資訊傳送給其他switch，但不會更新自己的VLAN Database
 
 ## 查看VTP狀態
 
@@ -92,8 +84,11 @@ vtp mode server
 
 ```
 
-## 關閉VTP(較新作業系統)
+## 關閉VTP
 
 ```bash
+#目前沒有查到關閉VTP的指令，只能將模式更改為Transparent
+vtp mode transparent 
+#較新作業系統
 vtp mode off
 ```
