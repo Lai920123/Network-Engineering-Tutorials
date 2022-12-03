@@ -1,7 +1,5 @@
 # IPv6 #
 
-## IPv6-Header ##
-
 ## 類型 ##
 
     與IPv4不同，IPv6沒有廣播
@@ -105,7 +103,9 @@
 ---
 
 ## 動態配置GUA的方法 ###
+
     動態配置GUA有以下三種方法
+
 ### SLAAC ###
     路由器RA會發送prefix length,default gateway的資訊給主機,此種方式不需要DHCPv6的服務。
     SLAAC的運作方式:

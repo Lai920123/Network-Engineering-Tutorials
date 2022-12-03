@@ -2,7 +2,7 @@
 
 >每台設備都需要一個IP才可與其他設備進行通訊，若是一間教室有30台電腦，要手動配置30個IP太過於麻煩，所以通常會於網路設備上配置DHCP，讓設備自動配發IP，降低管理難度
 
-## 配置方法 ##
+## IPv4 DHCP配置方法 ##
 
 ```bash
 ip excluded-address 10.1.1.1 10.1.1.10 #要排除的IP，有些IP可能用於閘道或者其餘用途需保留避免IP衝突
@@ -37,3 +37,7 @@ ip dhcp pool PC1 #創建一個保留區給PC1
 ## 參考文章 ##
 
 https://www.jannet.hk/dynamic-host-configuration-protocol-dhcp-zh-hant/
+
+## IPv6 DHCP配置方法 ##
+
+>IPv6的DHCP分為三種SLAAC,stateful,stateless 
