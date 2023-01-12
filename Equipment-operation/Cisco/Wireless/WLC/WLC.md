@@ -25,15 +25,15 @@
 
 ### 拓樸 ###
 
-![Untitled](WLC/Topology1.png)
+![Untitled](Topology1.png)
 
 ### 初始化 ###
         
     連接WLC與管理電腦，並開啟DHCP使IP自動取得，預設的Cisco WLC IP為192.168.1.1，取得IP後開啟瀏覽器並輸入http:\\192.168.1.1應該會出現以下畫面，接著創建使用者以及密碼之後按下Start
         
-![Untitled](WLC/Untitled.png)
+![Untitled](Untitled.png)
         
-![Untitled](WLC/Untitled%201.png)
+![Untitled](Untitled%201.png)
 
         System Name：這台機器的名稱
         
@@ -54,7 +54,7 @@
         Management VLAN ID：管理VLAN ID，先不設定
         
         都輸入完成後，點選Next
-![Untitled](WLC/Untitled%202.png) 
+![Untitled](Untitled%202.png) 
 
     Network Name：SSID名稱
     Security：
@@ -68,19 +68,19 @@
         
     都輸入完成後，點選Next
         
-![Untitled](WLC/Untitled%202.png)
+![Untitled](Untitled%202.png)
         
     目前不須設定，點選Next即可
         
-![Untitled](WLC/Untitled%203.png)
+![Untitled](Untitled%203.png)
         
     確定設定都正確無誤，點選Apply 
         
-![Untitled](WLC/Untitled%204.png)
+![Untitled](Untitled%204.png)
         
     會跳通知警告說系統將重新開機並配置剛剛的設定，點選OK
         
-![Untitled](WLC/Untitled%205.png)
+![Untitled](Untitled%205.png)
         
     完成WLC的初始化
         
