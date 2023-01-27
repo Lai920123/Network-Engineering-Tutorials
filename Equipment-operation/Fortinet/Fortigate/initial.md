@@ -1,5 +1,12 @@
 # 初始化 #
 
+配置主機名稱
+
+```bash
+config system global 
+    set hostname FW1
+```
+
 查看IP Address 
 
 ```bash
@@ -24,6 +31,7 @@ config system interface
         set type physical #接口類型
         set role wan #可選，設置為WAN介面
         set snmp-index 2 #SNMP自動配置
+end 
 ```
 
 配置好後就可以使用GUI輸入http://ipaddress/進入管理頁面進行管理
