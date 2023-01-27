@@ -26,4 +26,4 @@ config system interface
         set snmp-index 2 #SNMP自動配置
 ```
 
-配置好後就可以使用GUI輸入http://ipaddress/進入管理頁面
+配置好後就可以使用GUI輸入http://ipaddress/進入管理頁面進行管理
