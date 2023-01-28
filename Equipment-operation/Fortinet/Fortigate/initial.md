@@ -1,5 +1,7 @@
 # 初始化 #
 
+>Fortigate預設帳號為admin，密碼為空
+
 配置主機名稱
 
 ```bash
@@ -34,4 +36,9 @@ config system interface
 end 
 ```
 
+配置default gateway 
+
+```bash
+config router 
+```
 配置好後就可以使用GUI輸入http://ipaddress/進入管理頁面進行管理
