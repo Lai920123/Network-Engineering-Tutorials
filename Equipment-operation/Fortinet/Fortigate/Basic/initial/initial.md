@@ -39,6 +39,9 @@ end
 配置default gateway 
 
 ```bash
-config router 
+config router static 
+    edit 1 #1為序號，可隨便取
+    set device port1
+    set gateway 192.168.1.1 
 ```
 配置好後就可以使用GUI輸入http://ipaddress/進入管理頁面進行管理
