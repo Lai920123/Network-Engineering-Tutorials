@@ -37,11 +37,15 @@ config system interface
     edit port1 
     set mode dhcp 
     set allowaccess ping http https 
+    next
+    edit port2 
+    set ip address 192.168.1.1 255.255.255.0
+    set allowaccess ping http https 
 end
 ```
 
 配置DHCP
 
 ```bash
-
+config system dhcp server
 ```
