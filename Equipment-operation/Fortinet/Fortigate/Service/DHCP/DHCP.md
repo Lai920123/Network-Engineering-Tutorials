@@ -36,11 +36,11 @@ config system global
 config system interface 
     edit port1 
     set mode dhcp 
-    set allowaccess ping http https 
+    set allowaccess ping https 
     next
     edit port2 
-    set ip address 192.168.1.1 255.255.255.0
-    set allowaccess ping http https 
+    set ip 192.168.1.1 255.255.255.0
+    set allowaccess ping https 
 end
 ```
 
@@ -48,4 +48,17 @@ end
 
 ```bash
 config system dhcp server
+    edit 1
+        set state enable #啟用DHCP Server
+        set lease-time 86400 #租約時間
+        set dns-server1 8.8.8.8 #DNS Server
+        set default-gateway 192.168.1.1
+        set netmask 255.255.255.0
+        set interface port2
+        config ip-range 
+            edit 1
+                set start-ip 192.168.1.100 
+                set end-ip 192.168.1.200
+                next
+        end
 ```
