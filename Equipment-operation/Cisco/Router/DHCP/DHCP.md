@@ -5,7 +5,7 @@
 ## IPv4 DHCP配置方法 ##
 
 ```bash
-ip excluded-address 10.1.1.1 10.1.1.10 #要排除的IP，有些IP可能用於閘道或者其餘用途需保留避免IP衝突
+ip dhcp excluded-address 10.1.1.1 10.1.1.10 #要排除的IP，有些IP可能用於閘道或者其餘用途需保留避免IP衝突
 ip dhcp pool LAN1 #建立dhcp pool，LAN1為自訂名稱，可自取
     network 10.1.1.0 255.255.255.0 #網段
     default-router 10.1.1.1 #預設閘道
