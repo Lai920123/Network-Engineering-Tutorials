@@ -50,6 +50,16 @@ Host *
     PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
+## 或者將大部分算法都開啟 ##
+
+```bash
+Host *
+        KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group14-sha1,ecdh-sha2-nistp256,ecdh-sha2-nistp384,diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256
+        HostKeyAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-rsa,ssh-rsa-cert-v01@openssh.com
+        PubkeyAcceptedKeyTypes ecdsa-sha2-nistp256,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-rsa,ssh-rsa-cert-v01@openssh.com
+        Ciphers aes128-ctr,aes128-gcm@openssh.com,aes192-ctr,aes256-ctr,chacha20-poly1305@openssh.com,aes128-cbc,3des-cbc
+```
+
 ## Reference ##
 
 預設SSH支援演算法
