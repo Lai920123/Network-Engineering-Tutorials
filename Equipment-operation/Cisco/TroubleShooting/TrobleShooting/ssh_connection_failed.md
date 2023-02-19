@@ -50,10 +50,10 @@ Host *
     PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
+## Reference ##
 
+預設SSH支援演算法
 
-
-
-
+https://privx.docs.ssh.com/docs/supported-ssh-key-exchange-algorithms
 
 
