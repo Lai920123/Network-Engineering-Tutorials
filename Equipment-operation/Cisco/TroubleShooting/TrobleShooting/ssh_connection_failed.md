@@ -50,7 +50,7 @@ Host *
     PubkeyAcceptedKeyTypes +ssh-rsa
 ```
 
-## 或者將大部分算法都開啟 ##
+## 或者將大部分算法都開啟(不建議，但是方便) ##
 
 ```bash
 Host *
