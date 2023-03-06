@@ -4,6 +4,7 @@
 ## 實例 ##
     
 ### ISP ###
+
 ```python
 enable 
 configure terminal
@@ -20,7 +21,8 @@ router ospf 1 #routing protocol
     network 123.0.2.0 0.0.0.255 area 0
 ```
 
-## HQ
+## HQ ##
+
 ```python
 enable
 configure terminal
@@ -51,7 +53,7 @@ crypto isakmp policy 10 #配置IKE Phase 1
     authentication pre-share #驗證使用PSK
     encryption aes #加密使用aes
     hash sha #驗證資料完整性使用sha
-    group 2 #金鑰交換使用DH2
+    group 14 #金鑰交換使用DH14
     exit
 crypto isakmp key cisco address 123.0.2.1 #isakmp PSK
 crypto isakmp transform-set TS esp-aes esp-sha-hmac #配置IPSec Phase 2，可選擇AH或ESP的驗證和加密方式
@@ -67,7 +69,7 @@ int e0/0 #套用
     
 ```
 
-## BRANCH
+## BRANCH ##
 
 ```python
 enable
@@ -99,13 +101,13 @@ crypto isakmp policy 10 #配置IKE Phase 1
         authentication pre-share #驗證使用PSK
     encryption aes #加密使用aes
     hash sha #驗證資料完整性使用sha
-    group 2 #金鑰交換使用DH2
+    group 14 #金鑰交換使用DH14
     exit
 crypto isakmp key cisco address 123.0.1.1 #isakmp PSK
 crypto isakmp transform-set TS esp-aes esp-sha-hmac #配置IPSec Phase 2，可選擇AH或ESP的驗證和加密方式
     mode transport #封裝模式使用Transport Mode
     exit
-crypto  map GRE_OVER_IPSEC 10 ipsec-isakmp #設定關聯
+crypto map GRE_OVER_IPSEC 10 ipsec-isakmp #設定關聯
     set peer 123.0.1.1 
     set transform-set TS
     match address 100
@@ -114,7 +116,7 @@ int e0/0 #套用
     crypto map GRE_OVER_IPSEC 
 ```
 
-## PC1
+## PC1 ##
 
 ```python
 enable
@@ -126,7 +128,7 @@ int e0/0
     no shutdown 
 ```
 
-## PC2
+## PC2 ##
 
 ```python
 enable 
