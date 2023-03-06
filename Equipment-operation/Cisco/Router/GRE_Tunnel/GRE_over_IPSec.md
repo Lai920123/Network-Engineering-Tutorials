@@ -66,7 +66,6 @@ crypto map GRE_OVER_IPSEC 10 ipsec-isakmp #設定關聯
     exit
 int e0/0 #套用
     crypto map GRE_OVER_IPSEC 
-    
 ```
 
 ## BRANCH ##
@@ -98,7 +97,7 @@ router ospf 1 #routing protocol
 #IPSec 
 access-list 100 permit gre host 123.0.2.1 host 123.0.1.1 #感興趣流量
 crypto isakmp policy 10 #配置IKE Phase 1
-        authentication pre-share #驗證使用PSK
+    authentication pre-share #驗證使用PSK
     encryption aes #加密使用aes
     hash sha #驗證資料完整性使用sha
     group 14 #金鑰交換使用DH14
