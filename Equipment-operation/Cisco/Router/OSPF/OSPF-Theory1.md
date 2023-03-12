@@ -100,7 +100,7 @@
 
 ![Untitled](2way.png)
 
-進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
+進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2，選舉會先看Priority，若是Priority相同，就會比router-id，較大的為DR，其他為BDR或DROTHER
 
 ### Exstart ###
 

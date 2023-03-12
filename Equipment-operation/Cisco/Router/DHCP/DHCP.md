@@ -31,7 +31,6 @@ ip helper-address 10.1.1.1
 ip dhcp pool PC1 #創建一個保留區給PC1
     host 10.1.1.100 255.255.255.0 
     client-identifier 0063.6973.636f.2d 
-
 ```
 
 ## 參考文章 ##
