@@ -1,6 +1,6 @@
 # Enhanced Interior Gateway Routing Protocol (增強型內部閘道路由協定) #
 
->EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境
+>EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境，且跳躍數最多為100
 
 ## Multicast Address ##
 

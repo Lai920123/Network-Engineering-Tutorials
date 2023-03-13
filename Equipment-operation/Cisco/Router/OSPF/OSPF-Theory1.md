@@ -1,34 +1,32 @@
 # OSPF-Theory1 #
 
->下面會介紹基本的鄰居建立過程,BR,ABR和ASBR介紹和路徑成本的計算方式，而OSPF-Theory2將會談到LSA詳細的類型以及SPF演算法的原理
-
 ## 簡介 ##
 
-	OSPF為開放標準的Link-State路由協定，可運作於多廠牌設備當中
+OSPF為開放標準的Link-State路由協定，收斂速度雖沒有EIGRP快，但無限制跳躍數，且可運作於多廠牌設備當中
 
 ## Link-State Protocols ##
 
-	在鍊路狀態的路由協定中，每個路由器都擁有一張網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
+在鍊路狀態的路由協定中，每個路由器都擁有一張完整的網路拓樸，可以分辨出接收到的路由信息是由誰發出來的
 
 ## Multicast Address ##
 
-	組播位置，OSPF的組播位置有兩種，分別為
-	224.0.0.5 - DR,BDR向DROTHER發送DD,LSA Request和LSA Update時使用
-	224.0.0.6 - DROTHER向DR,BDR發送DD,LSA Request和LSA Update時使用
+OSPF的組播位置有兩種，分別為
 
-## SPF Algorithm ##
+- 224.0.0.5 - DR,BDR向DROTHER發送DD,LSA Request和LSA Update時使用
 
-	Shorest Path First Algorithm 最短路徑優先演算法，也可叫做Dijksra Algorithm，是以發明此演算法的人命名，OSPF使用此演算法算出最短路徑
+- 224.0.0.6 - DROTHER向DR,BDR發送DD,LSA Request和LSA Update時使用
 
-## Area概念 ##
+## 為什麼要劃分Area ##
 
-	1. 最小化路由表
-	2. 本地的拓樸變動，只會影響到該區域
-	3. 有些LSA只會在該區域內傳播，不會傳送到整個拓樸中
+- 最小化路由表
+
+- 本地的拓樸變動，只會影響到該區域
+
+- 有些LSA只會在該區域內傳播，不會傳送到整個拓樸中
 
 ## Backbone area ##
 
-	骨幹區域，又稱為Transit area或者area 0
+骨幹區域，又稱為Transit area或者area 0
 
 ## Regular area ##
 
@@ -50,13 +48,17 @@
 
 	Autonomous System Border Router 自治系統邊界路由器，連接其他AS的Router稱為ASBR，以上圖為例，R2為ASBR
 
+## DR/BDR選舉 ##
+
+選舉會先看Priority，若是Priority相同，就會比router-id，較大的為DR，其他為BDR或DROTHER
+
 ## DR ##
 
 	Designated Router 指定路由器，由DR跟BDR和DROTHERs進行LSA的溝通，再統一發送結果，DROTHERs之間不會進行LSA的溝通，避免造成過多不必要的流量
 
 ## BDR
 
-	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election
+	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election，重啟ospf使用clear ip ospf process
 
 ## DROTHERs
 
@@ -100,7 +102,7 @@
 
 ![Untitled](2way.png)
 
-進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2，選舉會先看Priority，若是Priority相同，就會比router-id，較大的為DR，其他為BDR或DROTHER
+進行DR/BDR選舉，建立鄰居關係，以上圖為例，可以看到選舉結果DR為R1，BDR為R2
 
 ### Exstart ###
 
