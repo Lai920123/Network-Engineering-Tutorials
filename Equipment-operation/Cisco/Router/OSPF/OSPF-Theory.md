@@ -30,7 +30,7 @@ OSPF的組播位置有兩種，分別為
 
 ## Regular area ##
 
-	常規區域，又稱為nonbackbone areas，非骨幹區域的area
+常規區域，又稱為nonbackbone areas，非骨幹區域的area
 
 ## BR ##
 
@@ -72,11 +72,10 @@ OSPF的組播位置有兩種，分別為
 ## 成為鄰居條件 ##
 
 	1.Area ID相同
-	2.Area Type相同
-	3.網段相同
-	4.Hello Interval以及Dead Interval需相同
-	5.認證類型以及密碼一致
-	6.MTU相同
+	2.網段相同
+	3.Hello Interval以及Dead Interval需相同，預設Hello Interval為10秒，Dead Interval為4倍也就是40秒
+	4.認證類型以及密碼一致
+	5.MTU相同
 
 ## OSPF鄰接過程 ##
 
@@ -126,7 +125,7 @@ OSPF的組播位置有兩種，分別為
 
 交換完成，建立鄰接關係
 
-## 路徑成本計算
+## 路徑成本計算 ##
 
 ```bash
 #公式，注意計算單位，10^8單位為bit，interface為K,M或G
@@ -144,3 +143,21 @@ auto-cost reference-bandwidth 1000 #單位為Mbits
 int f0/0
 ip ospf cost 1
 ```
+
+## OSPF封包類型 ##
+
+|Type|用途|
+|---|---|
+|Hello|發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為40秒|
+|DBD(Database Description 資料庫描述)|DBD中包含了LSA的部份描述，接收到DBD後，就會發現缺少哪些LSA的訊息，再進行後續的請求
+|LSR(Link-State Request 鍊路狀態請求)|向其他Router請求詳細的LSA信息|
+|LSU(Link-State Update 鍊路狀態更新)|傳送指定請求的LSA|
+|LSACK(Link-State Acknowledgment 鍊路狀態確認)|用來進行LSU的確認|
+
+## Link-State Advertisement ##
+
+	每個LSA都包含了一個Sequence number，Sequence number大小為4byte，從-0x80000001 ~ 0x7FFFFFFF，在SPF的算法中，會經由比較LSA Sequence number的大小來判斷此LSA是否為新的LSA，越大則代表越新，接著在加入LSDB中
+
+### LSDB ###
+
+	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
