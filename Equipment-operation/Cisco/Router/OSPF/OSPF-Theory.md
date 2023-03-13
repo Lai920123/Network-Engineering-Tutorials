@@ -58,7 +58,7 @@ OSPF的組播位置有兩種，分別為
 
 ## BDR
 
-	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election，重啟ospf使用clear ip ospf process
+	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election(重啟修改priority那台以外的的其他台)，重啟ospf使用clear ip ospf process
 
 ## DROTHERs
 
@@ -73,7 +73,7 @@ OSPF的組播位置有兩種，分別為
 
 	1.Area ID相同
 	2.網段相同
-	3.Hello Interval以及Dead Interval需相同，預設Hello Interval為10秒，Dead Interval為4倍也就是40秒
+	3.Hello Interval以及Dead Interval需相同，預設Hello Interval為10秒，Dead Interval為四倍大40秒
 	4.認證類型以及密碼一致
 	5.MTU相同
 
