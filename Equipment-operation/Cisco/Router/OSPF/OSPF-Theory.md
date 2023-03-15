@@ -48,10 +48,6 @@ OSPF的組播位置有兩種，分別為
 
 	Autonomous System Border Router 自治系統邊界路由器，連接其他AS的Router稱為ASBR，以上圖為例，R2為ASBR
 
-## DR/BDR選舉 ##
-
-選舉會先看Priority，若是Priority相同，就會比router-id，較大的為DR，其他為BDR或DROTHER
-
 ## DR ##
 
 	Designated Router 指定路由器，由DR跟BDR和DROTHERs進行LSA的溝通，再統一發送結果，DROTHERs之間不會進行LSA的溝通，避免造成過多不必要的流量
@@ -59,6 +55,10 @@ OSPF的組播位置有兩種，分別為
 ## BDR
 
 	Backup Designated Router 備份指定路由器，若是DR故障，則BDR會晉升成為DR繼續進行LSA的溝通，但若是故障的DR又重新回到拓樸中，也不會重新進行election，等到下一次重啟OSPF時才會重新進行election(重啟修改priority那台以外的的其他台)，重啟ospf使用clear ip ospf process
+
+## DR/BDR選舉 ##
+
+OSPF會在每個區域選出DR與BDR，用於統一發放鏈路狀態更新，DR/BDR選舉會先看Priority，Priority大的成為DR，第二大的成為BDR，其餘成為DROTHER，若是Priority相同，就會比router-id，較大的為DR，第二大的成為BDR，其他成為DROTHER
 
 ## DROTHERs
 
@@ -144,15 +144,26 @@ int f0/0
 ip ospf cost 1
 ```
 
-## OSPF封包類型 ##
+## OSPF 封包類型 ##
 
 |Type|用途|
 |---|---|
-|Hello|發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為40秒|
+|Hello|發現鄰居並建立鄰接，OSPF預設Hello Interval為10秒，Dead Interval為四倍40秒|
 |DBD(Database Description 資料庫描述)|DBD中包含了LSA的部份描述，接收到DBD後，就會發現缺少哪些LSA的訊息，再進行後續的請求
 |LSR(Link-State Request 鍊路狀態請求)|向其他Router請求詳細的LSA信息|
 |LSU(Link-State Update 鍊路狀態更新)|傳送指定請求的LSA|
 |LSACK(Link-State Acknowledgment 鍊路狀態確認)|用來進行LSU的確認|
+
+## LSA類型 ##
+
+|LSA Type|Description| 
+|---|---|
+|1|Router LSA|
+|2|Network LSA|
+|3|Summary LSA|
+|4|ASBR summary LSA|
+|5|Autonomous system LSA|
+|6-11|Other types|
 
 ## Link-State Advertisement ##
 
@@ -161,3 +172,7 @@ ip ospf cost 1
 ### LSDB ###
 
 	Link-State Datebase 鍊路狀態資料庫，同個區域中的每個Router會有相同的LSDB
+
+## Route Summarization ## 
+
+OSPF只能在ABR和ASBR做路由匯總，在匯總後會產生一筆錄由指向null防止迴圈

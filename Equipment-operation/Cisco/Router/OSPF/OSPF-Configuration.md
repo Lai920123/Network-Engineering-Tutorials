@@ -1,7 +1,7 @@
 # OSPF配置方法 #
 
 
-## OSPFv1 ## 
+## OSPFv2 ## 
 
 ## 基礎配置 ##
 ```bash
@@ -32,6 +32,13 @@ int f0/0
     ip ospf cost 1
 ```
 
+## 路由匯總 ##
+
+```bash
+router ospf 1
+	area 1 
+```
+
 ## 查找資訊 ##
 
 ```bash
@@ -52,3 +59,4 @@ clear ip ospf process
 ```
 
 ## OSPFv3 ##
+
