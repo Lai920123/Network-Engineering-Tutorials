@@ -61,4 +61,11 @@ VRRPv2支援IPv4，VRRPv3支援IPv4和IPv6
 
 ```bash
 fhrp version vrrp v3 #只有vrrp需手動開啟v3，要注意的是若是預先有配置IPv4的VRRPv2，要先解除掉才可以設定成VRRPv3，否則會出現Can't select: VRRP monolith version still running錯誤信息
+int e0/0.1
+vrrp 1 address-family ipv4 
+address 10.1.1.254
+priority 110 
+timers advertise 200 
+track 
+
 ```
