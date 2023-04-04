@@ -1,6 +1,10 @@
 # Embedded Event Manager(EEM) 嵌入式事件管理器 #
 
+EEM支援20多種事件檢測器，可根據不同網路事件進行自動操作 
+
 ## 常用作法 #
+
+
 
 帶起人為關閉端口，防止人員誤關
 
@@ -21,7 +25,7 @@ event manager applet INTERFACE-DOWN
 ```bash
 enable 
 configure terminal
-event manager applet ENTER-GLOBAL-MODE
+event manager applet GLOBAL-MODE-ALERT
     event cli pattern "conf.* t.*" enter
     action 1.0 syslog priority critical msg "Configuration mode was entered" 
     action 2.0 syslog priority information msg "All command are monitored and recorded Disconnect IMMEDIATELY if you are not an authorized user!"
