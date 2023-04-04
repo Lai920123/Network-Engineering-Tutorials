@@ -11,9 +11,7 @@ HSRP使用組播位置
 
     224.0.0.2
 
-## 配置方法 ##
-
-### IPv4 ###
+## HSRPv1 ##
 
 ### 基礎配置 ###
 ```bash
@@ -54,7 +52,9 @@ int f0/0 #進入要配置的介面
     hsrp 10 authentication md5 key-chain hsrp1 #將key-chain套用至介面
 ```
 
-### IPv6 ###
+## HSRPv2 ##
+
+HSRPv1不支援IPv6，要支援IPv6的話需開啟HSRPv2
 
 ```bash
 

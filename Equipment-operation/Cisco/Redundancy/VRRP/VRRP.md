@@ -1,19 +1,18 @@
 # Virtual Router Redundancy Protocol 虛擬路由冗餘協定 #
 
 ## 簡介 ##
+
     VRRP與HSRP,GLBP的差別為，VRRP為標準協議，若是網路中存在非Cisco的設備，就須使用VRRP，VRRP用於進行閘道備援，閘道備援是非常重要的技術，不管在企業或校園網路中，只要閘道出現問題，可能造成整個園區網路癱瘓
 
 ## State ##
 
-    VRRP State的表示方法為Master,Backup，與HSRP的Active,Standby不同，且VRRP預設Master Advertisement interval為1秒，
+    VRRP State的表示方法為Master,Backup，與HSRP的Active,Standby不同，且VRRP預設Master Advertisement interval為1秒
 
 ## 虛擬IP與虛擬MAC ##
 
     VRRP Virtual MAC為0000.5E00.0100 + Group ID，例如Group ID為15，則Virtual MAC為0000.5E00.0100 + 15 = 0000.5E00.010F
 
-## 配置方法 ##
-
-### IPv4 ###
+## VRRPv2 ##
 
 ### 基礎配置 ###
 
@@ -56,8 +55,10 @@ int f0/0 #進入要配置的介面
     vrrp 10 authentication md5 key-chain vrrp1 #將key-chain套用至介面
 ```
 
-### IPv6 ###
+## VRRPv3 ##
+
+VRRPv2支援IPv4，VRRPv3支援IPv4和IPv6
 
 ```bash
-
+fhrp version vrrp v3 #只有vrrp需手動開啟v3，要注意的是若是預先有配置IPv4的VRRPv2，要先解除掉才可以設定成VRRPv3，否則會出現Can't select: VRRP monolith version still running錯誤信息
 ```
