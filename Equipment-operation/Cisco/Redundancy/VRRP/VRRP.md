@@ -8,6 +8,7 @@
     VRRP State的表示方法為Master,Backup，與HSRP的Active,Standby不同，且VRRP預設Master Advertisement interval為1秒，
 
 ## 虛擬IP與虛擬MAC ##
+
     VRRP Virtual MAC為0000.5E00.0100 + Group ID，例如Group ID為15，則Virtual MAC為0000.5E00.0100 + 15 = 0000.5E00.010F
 
 ## 配置方法 ##
@@ -19,10 +20,11 @@
 ```bash
 vrrp 10 ip 192.168.1.254 #VRRP Group Number 10，虛擬IP為192.168.1.254
 ```
+
 ### 優化 ###
 
 ```bash
-vrrp 10 priority 110 ##優先權，優先權高的會成為Master，低的成為Backup，預設為100
+vrrp 10 priority 110 ##優先權，優先權高的會成為Master，低的成為Backup，預設為95
 vrrp 10 timers advertise msec 200 #調整advertisement interval
 vrrp 10 preempt #溝通過程中若是Priority發生變化，會依照最新的Priority決定設備將扮演Master or Backup，預設為開啟
 ```
@@ -36,7 +38,7 @@ ip sla 1 #新增IP SLA
 ip sla schedule 1 life forever start-time now #配置ip sla排程
 track 1 ip sla 1 reachability #track 1 對應至ip sla 1
 int vlan 10 #進入設置vrrp的介面
-    vrrp 10 track 1 decrement 15 #套用track 1，若是Track 1 Down則Priority減15，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Master
+    vrrp 10 track 1 decrement 15 #套用track 1於priority較高的介面，若是Track 1 Down則Priority減15，追蹤對外介面，當介面出現問題時會自動將Priority降低，使其他正常的設備扮演Master
 ```
 
 ### 使用md5驗證 ###

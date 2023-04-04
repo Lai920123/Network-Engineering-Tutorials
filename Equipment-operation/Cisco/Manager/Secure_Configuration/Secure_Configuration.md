@@ -7,7 +7,7 @@
 可藉由設定console密碼來防止物理連入
 
 ```bash
-username admin secret P@ssw0rd
+username admin privilege 15 algorithm-type sha256 secret Cisco123 #密碼使用SHA255加密
 line console 0 
     login local #使用本地使用者登入
     exec-timeout 3 #也可設定超時，線路多久沒動時會斷開連接，單位為分鐘，預設是5分鐘
@@ -15,10 +15,11 @@ line console 0
 
 ## 特權模式防護 ##
 
-進入特權模式時要輸入的密碼
+設置特權模式密碼
 
 ```bash
 enable secret P@ssw0rd #建立使用secret而不是password，因password是以明文紀錄於設定檔中，且Cisco的加密演算法已被破解，參考此網頁https://packetlife.net/toolbox/type7/
+enable algorithm-type sha256 secret Cisco123 #使用SHA256加密(更安全)
 ```
 
 ## 遠端連線防護 ##
