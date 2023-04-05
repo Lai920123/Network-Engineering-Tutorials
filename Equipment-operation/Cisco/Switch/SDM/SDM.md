@@ -14,10 +14,12 @@ sdm prefer ?
     dual-ipv4-and-ipv6 
     routing
     vlan 
-#範例:開啟IPv6功能
+#開啟IPv6功能
 sdm prefer dual-ipv4-and-ipv6
 #開啟後須重啟才會套用
 reload
+#查看資源使用率
+show platform tcam utilization 
 ```
 
 ## 參考文章 ##
