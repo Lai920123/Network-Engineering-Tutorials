@@ -55,17 +55,69 @@ int f0/0 #進入要配置的介面
     vrrp 10 authentication md5 key-chain vrrp1 #將key-chain套用至介面
 ```
 
-## VRRPv3 ##
+## VRRPv3(未完成) ##
 
 VRRPv2支援IPv4，VRRPv3支援IPv4和IPv6
 
 ```bash
 fhrp version vrrp v3 #只有vrrp需手動開啟v3，要注意的是若是預先有配置IPv4的VRRPv2，要先解除掉才可以設定成VRRPv3，否則會出現Can't select: VRRP monolith version still running錯誤信息
+#R1
 int e0/0.1
-vrrp 1 address-family ipv4 
-address 10.1.1.254
-priority 110 
-timers advertise 200 
-track 
+	vrrp 1 address-family ipv4
+	address 10.1.1.254 primary 
+	priority 110 
+	timers advertise 200
+	track 1 decrement 15 
+	preempt 
+	vrrp 1 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:2000 primary #填入要成為master的Link-Local Address 
+	priority 110 
+	timers advertise 200 
+	track 1 decrement 15 
+#R2
+int e0/0.10
+	vrrp 10 address-family ipv4
+	address 10.1.10.254 primary 
+	priority 110 
+	timers advertise 200
+	track 1 decrement 15 
+	preempt 
+	vrrp 10 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:2000 primary 
+	priority 110 
+	timers advertise 200 
+	track 1 decrement 15 
 
+int e0/0.20
+	vrrp 20 address-family ipv4
+	address 10.1.20.254 primary 
+	timers advertise 200
+	vrrp 20 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:3000 primary 
+	timers advertise 200 
+
+int e0/0.1
+	vrrp 1 address-family ipv4
+	address 10.1.1.254 primary 
+	timers advertise 200
+	vrrp 1 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:2000 primary 
+	timers advertise 200 
+int e0/0.10
+	vrrp 10 address-family ipv4
+	address 10.1.10.254 primary 
+	timers advertise 200
+	vrrp 10 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:2000 primary 
+	timers advertise 200 
+int e0/0.20
+	vrrp 20 address-family ipv4
+	address 10.1.20.254 primary 
+	timers advertise 200
+	priority 110
+	vrrp 20 address-family ipv6
+	address FE80::A8BB:CCFF:FE00:3000 primary 
+	priority 110 
+	timers advertise 200 
+	track 1 decrement 15 
 ```
