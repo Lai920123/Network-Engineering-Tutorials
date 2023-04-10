@@ -23,7 +23,7 @@
 
 ## 基本配置 ##
 
->因BGP可調整的東西非常多，以下列出常見的幾種，其餘的請自行Google
+>因BGP可調整的東西非常多，以下列出常見的幾種
 
 ```bash
 router bgp 1 #配置BGP ASN 1，ASN的範圍為1-4294967295
@@ -38,7 +38,7 @@ router bgp 1 #配置BGP ASN 1，ASN的範圍為1-4294967295
 neighbor 123.0.1.1 ebgp-multihop 2 #2為最大跳躍數，就是兩台Router中間相隔的Hop數目，依照實際情況更改
 ```
 
-## 優化
+## 優化 ##
 
 ### 使用Loopback做為鄰居IP ###
 
@@ -72,14 +72,6 @@ router bgp 1
     neighbor 2.2.2.2 peer-group group1 #套用peer group 
     neighbor 3.3.3.3 peer-group group1 #套用peer group
 ```
-
-
-## 實例 ##
-
-## Topology ##
-
-![](Topology1.png)
-
 
 ## 參考文章 ##
 

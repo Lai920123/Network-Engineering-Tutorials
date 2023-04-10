@@ -96,7 +96,7 @@ int loopback 0
 
 ## NAT Virtual Interface ##
 
-NAT Virtual Interface移除了在介面配置NAT inside,outside,
+NAT Virtual Interface移除了在介面配置NAT inside,outside,為解決進行靜態NAT時內部使用者無法使用外部地址進行靜態NAT訪問內部伺服器，需使用私有IP才可訪問的問題
 
 ```bash
 #配置ACL
