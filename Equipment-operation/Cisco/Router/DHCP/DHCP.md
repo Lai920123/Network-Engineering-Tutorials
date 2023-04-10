@@ -24,7 +24,7 @@ ip helper-address 10.1.1.1
 
 ![](hex.png)
 
->使用Cisco設備設定保留區要特別注意client-identifier這個參數，參數的內容為cisco- + mac address + -Interface ID轉為hex，可參考上圖，例如PC1的MAC為aaaa.bbbb.cccc，那轉為hex並加上cisco-和-Interface ID後會長這樣0063.6973.636f.2d61.6161.6162.6262.6263.6363.632d.
+>使用Cisco設備設定保留區要特別注意client-identifier這個參數，參數的內容為cisco- + mac address + -Interface ID轉為hex，可參考上圖，例如PC1的MAC為aaaa.bbbb.cccc，端口位於交換機的Fa0/1，那轉為hex並加上cisco-和-Interface ID後會長這樣0063.6973.636f.2d61.6161.6162.6262.6263.6363.632d.6661.302f.31
 
 
 ```bash
@@ -37,6 +37,3 @@ ip dhcp pool PC1 #創建一個保留區給PC1
 
 https://www.jannet.hk/dynamic-host-configuration-protocol-dhcp-zh-hant/
 
-## IPv6 DHCP配置方法 ##
-
->IPv6的DHCP分為三種SLAAC,stateful,stateless 

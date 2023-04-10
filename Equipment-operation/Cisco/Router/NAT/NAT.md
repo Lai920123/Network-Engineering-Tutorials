@@ -101,7 +101,6 @@ NAT Virtual Interface移除了在介面配置NAT inside,outside,為解決進行�
 ```bash
 #配置ACL
 access-list 1 permit 192.168.1.0 0.0.0.255 
-
 int f0/0
     ip nat enable #啟用NAT
 int f0/1
