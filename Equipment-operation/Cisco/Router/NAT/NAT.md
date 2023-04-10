@@ -106,7 +106,13 @@ int f0/0
     ip nat enable #啟用NAT
 int f0/1
     ip nat enable 
-
 ip nat source static tcp 172.16.1.10 80 209.165.201.5 80 #靜態NAT
 ip nat source list 1 interface f0/0 overload #PAT
 ``` 
+
+查看的方式也與傳統的NAT不太一樣，需要加上nvi一詞
+
+```bash
+show ip nat nvi translations 
+show ip nat nvi statistics 
+```
