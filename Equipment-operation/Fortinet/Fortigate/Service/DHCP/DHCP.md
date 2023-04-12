@@ -49,7 +49,7 @@ end
 ```bash
 config system dhcp server
     edit 1
-        set state enable #啟用DHCP Server
+        set status enable #啟用DHCP Server
         set lease-time 86400 #租約時間
         set dns-server1 8.8.8.8 #DNS Server
         set default-gateway 192.168.1.1
