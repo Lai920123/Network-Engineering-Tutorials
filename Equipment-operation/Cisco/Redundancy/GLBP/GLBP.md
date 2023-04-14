@@ -28,7 +28,7 @@ glbp 10 weighting track 1 decrement 15
 ```bash
 ip sla 1
     icmp-echo 8.8.8.8 source-ip 192.168.1.1 #ping測試8.8.8.8，來源ip為192.168.1.1
-    frequency 5 #測試頻率為2秒
+    frequency 2 #測試頻率為2秒一次
 ip sla schedule 1 life forever start-time now #配置ip sla排程
 track 1 ip sla 1 reachability #track 1 對應至ip sla 1
 int f0/0 #進入設置GLBP的介面
