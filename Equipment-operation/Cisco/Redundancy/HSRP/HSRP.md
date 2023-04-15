@@ -43,13 +43,13 @@ int vlan 10 #進入設置hsrp的介面
 ```bash
 #以下兩種方式擇一即可
 #使用key-string
-int f0/0 #進入要配置的介面
+int vlan 10 #進入要配置的介面
     hsrp 10 authentication md5 key-string Cisco123
 #使用key-chain
 key chain hsrp1 #chain的名字
     key 1 #key id 
     key-string Cisco123 #密碼
-int f0/0 #進入要配置的介面
+int vlan 10 #進入要配置的介面
     hsrp 10 authentication md5 key-chain hsrp1 #將key-chain套用至介面
 ```
 
@@ -58,5 +58,11 @@ int f0/0 #進入要配置的介面
 HSRPv1不支援IPv6，要支援IPv6的話需開啟HSRPv2
 
 ```bash
-
+int vlan 10
+    standby version 2
+    standby 11 ip 192.168.10.254 #ipv4/6的group number不能一樣
+    standby 10 ipv6 FE80::FFFF
+    standby 10 timers 200 msec 700 
+    standby 10 preempt 
+    standby 10 priority 105 
 ```
