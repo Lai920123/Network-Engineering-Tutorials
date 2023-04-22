@@ -71,7 +71,7 @@ vtp version 3
 
 ```bash
 #在特權模式下
-vtp primary vlan 
+vtp primary 
 #接著需輸入vtp密碼，密碼驗證完畢後，就可升級成為Primary Server
 ```
 
