@@ -1,25 +1,4 @@
-# Border Gateway Protocol 邊界閘道協定 #
-
-## 簡介 ##
-
->BGP通常應用於大型網路當中，例如ISP之間的路由交換，因BGP有多種可調整的屬性，跟以往學到的OSPF，EIGRP比起來相對困難，因此使用實例讓大家能夠較好理解BGP
-
-## 類型 ##
-
->BGP分為兩種類型分別為IBGP與EBGP
-
-![](Type.png)
-
-    IBGP - 於相同的AS組成Peers，就稱為IBGP Peers
-    EBGP - 於不同的AS組成Peers，就稱為EBGP Peers
-    以上圖為例，R2連接R2的介面會組成IBGP Peers，而R1連接R2的介面會組成EBGP Peers
-
-## Peer成立條件 ##
-
-    BGP預設keepalive interval為60秒，hold time為180秒
-    在BGP裡，把Neighbors稱作Peers，Peers，與IGP(RIP,OSPF,EIGRP等...)不同，BGP使用TCP 179 Port進行溝通，BGP要建立Peers只須達成以下條件
-    1.Peer之間的連通性
-    2.Autonomous System Number相同
+# BGP Configuration #
 
 ## 基本配置 ##
 

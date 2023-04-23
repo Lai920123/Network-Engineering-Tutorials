@@ -1,10 +1,14 @@
 # Enhanced Interior Gateway Routing Protocol (增強型內部閘道路由協定) #
 
->EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境，且跳躍數最多為100
+>EIGRP為Cisco專有的路由協定，屬於距離向量路由協定，收斂速度快，但只能用於使用Cisco設備的環境
 
 ## Multicast Address ##
 
 	224.0.0.10
+
+## Maximum hop count ##
+
+	EIGRP在Cisco路由器上預設的最大跳躍數為100，不過這可藉由調整達到最高跳躍數255，使用metric maximum-hops 255進行調整
 
 ## Administrative Distance ##
 
