@@ -2,7 +2,7 @@
 
 ## 簡介 ##
 
->BGP通常應用於大型網路當中，例如ISP之間的路由交換，因BGP有多種可調整的屬性，跟以往學到的OSPF，EIGRP比起來相對困難，因此使用實例讓大家能夠較好理解BGP
+>BGP通常應用於大型網路當中，例如ISP之間的路由交換，因BGP有多種可調整的屬性，跟以往學到的OSPF，EIGRP比起來相對困難
 
 ## 類型 ##
 
@@ -32,7 +32,7 @@
 BGP和EIGRP與OSPF不同，EIGRP和OSPF使用Hello封包進行鄰居的建立以及保持連線，BGP將鄰居的建立與保持連線拆分為兩個信息，分別是Open與Keepalive
 
     Open - 建立鄰居時發送的信息，包含hold time和rotuer ID
-    Keepalive - 保持連線
+    Keepalive - 用於保持BGP連線狀態
     Update - 路由更新信息，包含路徑屬性與網段信息
-    Notification - 
+    Notification - 當檢測到錯誤信息或者BGP連線中斷時會發出的信息
 

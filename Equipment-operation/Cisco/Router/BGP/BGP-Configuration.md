@@ -21,12 +21,19 @@ neighbor 123.0.1.1 ebgp-multihop 2 #2為最大跳躍數，就是兩台Router中�
 
 ### 使用Loopback做為鄰居IP ###
 
->在IGP中，可使用Loopback做為鄰居IP，因Loopback為邏輯端口，會永遠開啟，且IGP中通常會配置其他IGP(RIP,OSPF,EIGRP等...)，可防止因為介面關閉導致無法路由，此方法較少使用於EBGP，因為eBGP並不會使用IGP將兩個AS連起來
+![](Image/update-source.png)
+
+>在IBGP中，使用Loopback做為鄰居IP可避免因實體介面關閉而Down掉導致無法路由，因IGP中通常會配置其他IGP(RIP,OSPF,EIGRP等...)，所以可使用這種方法，此方法較少使用於EBGP，因為eBGP並不會使用IGP將兩個AS連起來，例如上圖R2與R3要建立BGP的鄰居關係，直接使用平常的作法在R2輸入neighbor 3.3.3.3 remote-as 1的話是無法建立起鄰居的，因R2的來源位置為12.1.1.1，但R3使用的鄰居IP為R2的lookback位址2.2.2.2，所以無法建立起鄰居，這時就需要多加一行update-source更改來源位置為lookback介面，即可建立起鄰居，做一邊鄰居即可建立起來，不過建議最好是兩邊都做
 
 ```bash
+R2#
 router bgp 1
-    neighbor 8.8.8.8 remote-as 1 #IP要跟改為Loopback位置
-    neighbor 8.8.8.8 update-source loopback0
+    neighbor 3.3.3.3 remote-as 1 
+    neighbor 3.3.3.3 update-source loopback 0
+R3#
+router bgp 1
+    neighbor 2.2.2.2 remote-as 1
+    neighbor 3.3.3.3 update-source loopback 0
 ```
 
 ### 密碼驗證 ###
@@ -50,6 +57,12 @@ router bgp 1
     neighbor 1.1.1.1 peer-group group1 #套用peer group
     neighbor 2.2.2.2 peer-group group1 #套用peer group 
     neighbor 3.3.3.3 peer-group group1 #套用peer group
+```
+
+## 查詢指令 ##
+
+```bash
+show ip bgp summary #查看bgp鄰居
 ```
 
 ## 參考文章 ##
