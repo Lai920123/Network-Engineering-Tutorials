@@ -33,7 +33,7 @@ vrrp 10 preempt #溝通過程中若是Priority發生變化，會依照最新的P
 ```bash
 ip sla 1 #新增IP SLA
     icmp-echo 8.8.8.8 source-ip 192.168.1.1 #ping測試8.8.8.8，來源ip為192.168.1.1
-    frequency 5 #測試頻率為2秒
+    frequency 2 #測試頻率為2秒一次
 ip sla schedule 1 life forever start-time now #配置ip sla排程
 track 1 ip sla 1 reachability #track 1 對應至ip sla 1
 int vlan 10 #進入設置vrrp的介面
