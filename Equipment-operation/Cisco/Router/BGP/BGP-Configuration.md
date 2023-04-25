@@ -39,7 +39,7 @@ R3#
 router bgp 1
     neighbor 5.5.5.5 remote-as 5
     neighbor 5.5.5.5 update-source loopback 0 
-    neighbor 5.5.5.5 ebgp-multihop 2 #因預設bgp封包的ttl為1，所以如果再eBGP的環境中只到介面就沒了，要到loopback介面，還需要一跳，所以需增加ttl值，此命令可將ttl設定為0-255的值，可依照實際環境進行增減，不指定值直接Enter的話為255，此狀況只有eBGP才會發生
+    neighbor 5.5.5.5 ebgp-multihop 2 #因預設bgp封包的ttl為1，所以如果再eBGP的環境中只到介面就沒了，要到loopback介面，還需要一跳，所以需增加ttl值，此命令可將ttl設定為0-255的值，可依照實際環境進行增減，不指定值直接Enter的話為255，此狀況只有eBGP才會發生，IBGP的預設ttl為255
 #且要是無法抵達對方的loopback位置，可寫靜態路由
 ip route 5.5.5.5 255.255.255.255 35.1.1.5 
 ```
