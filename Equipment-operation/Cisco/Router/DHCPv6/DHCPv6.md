@@ -24,7 +24,6 @@ ipv6 dhcp pool POOL1
     domain-name cisco.com 
 int e0/0
     ipv6 nd prefix 2001:db8:a01:1::/64 no-advertise
-    
 ```
 
 ## Stateless DHCPv6 ## 
