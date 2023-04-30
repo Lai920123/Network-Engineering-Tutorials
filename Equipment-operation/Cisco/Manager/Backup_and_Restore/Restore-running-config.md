@@ -11,3 +11,9 @@ Destination filename [startup-config]? #存到本地的檔案名稱
 Password: #輸入user1的密碼
 ```
 
+或者使用複寫的方式，可以在不用reload設備的狀況下還原
+
+```bash
+configure replace flash:r1-config list
+Enter Y if you are sure you want to proceed. ? [no]: y
+```
