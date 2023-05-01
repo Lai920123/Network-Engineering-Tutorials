@@ -33,6 +33,16 @@ ip dhcp pool PC1 #創建一個保留區給PC1
     client-identifier 0063.6973.636f.2d 
 ```
 
+
+## renew/release ##
+
+Windows作業系統中，要將網路卡release/renew需要使用ipconfig /release和ipconfig /renew，而在Cisco的IOS中可以使用以下指令進行
+
+```bash
+release dhcp e0/0
+renew dhcp e0/0
+```
+
 ## 參考文章 ##
 
 https://www.jannet.hk/dynamic-host-configuration-protocol-dhcp-zh-hant/
