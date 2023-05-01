@@ -34,7 +34,7 @@ ip dhcp pool PC1 #創建一個保留區給PC1
 ```
 
 
-## renew/release ##
+## Renew/Release ##
 
 Windows作業系統中，要將網路卡release/renew需要使用ipconfig /release和ipconfig /renew，而在Cisco的IOS中可以使用以下指令進行
 
