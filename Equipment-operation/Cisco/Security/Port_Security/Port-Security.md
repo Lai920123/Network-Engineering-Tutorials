@@ -6,15 +6,15 @@
 
 ### Protect ###
 
->不關閉介面，允許流量通過，不紀錄Log和SNMP，不建議使用
+>不關閉介面，將封包Drop，不紀錄Log和SNMP，不建議使用
 
 ### Restrict ###
 
->不會關閉介面，允許流量通過，並紀錄Log和SNMP，
+>不會關閉介面，將封包Drop，並紀錄Log和SNMP，
 
 ### Shutdown ###
 
->關閉介面，流量不可通過，並記錄Log和SNMP，預設值
+>將介面變成err-disable，並記錄Log和SNMP，預設值
 
 ## 手動配置MAC Address ##
 
