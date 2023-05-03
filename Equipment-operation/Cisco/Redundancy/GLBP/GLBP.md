@@ -2,7 +2,7 @@
 
 ## 簡介 ##
 
-    GLBP與HSRP相同是Cisco專有的FHRP協定，用於進行閘道備援，閘道備援是非常重要的技術，不管在企業或校園網路中，只要閘道出現問題，可能造成整個園區網路癱瘓，不過GLBP與HSRP不同，多了Load Balancing的功能，HSRP與VRRP只能夠做到分流，無法做到完整的Load Balancing
+    GLBP與HSRP相同是Cisco專有的FHRP協定，用於進行閘道備援，不過GLBP與HSRP不同，多了Load Balancing的功能，HSRP與VRRP只能夠做到分流，無法做到完整的Load Balancing
 
 ## 配置方法 ##
 
