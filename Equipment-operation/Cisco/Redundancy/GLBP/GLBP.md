@@ -4,6 +4,14 @@
 
     GLBP與HSRP相同是Cisco專有的FHRP協定，用於進行閘道備援，不過GLBP與HSRP不同，多了Load Balancing的功能，HSRP與VRRP只能夠做到分流，無法做到完整的Load Balancing
 
+## Active Virtual Gateway ##
+
+分配虛擬MAC給每個Virtual Forwarder，每個Client的ARP請求回覆不同的MAC達到負載平衡
+
+## Active Virtual Forwarder ##
+
+每個群組最多4個成員，每個AVF會使用AVG分配的虛擬MAC轉發流量
+
 ## 配置方法 ##
 
 ### IPv4 ###
