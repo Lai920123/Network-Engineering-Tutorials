@@ -1,6 +1,5 @@
 # OSPF配置方法 #
 
-
 ## OSPFv2 ## 
 
 ## 基礎配置 ##
@@ -95,3 +94,13 @@ clear ip ospf process
 
 ## OSPFv3 ##
 
+## 基礎配置 ##
+
+```bash
+ipv6 router ospf 1
+	router-id 1.1.1.1 
+int e0/0
+    ipv6 ospf 1 area 0 #1為process id
+int e0/1
+    ipv6 ospf 1 area 0 
+```
