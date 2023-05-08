@@ -63,15 +63,6 @@ default-information originate #如果沒加always，則需要先手動設一條�
 default-information originate always 
 ```
 
-## 雜湊驗證 ##
-
-```bash
-router ospf 1
-    area 0 authentication message-digest
-int e0/0
-    ip ospf message-digest 1 md5 Cisco123 
-```
-
 ## Stub ## 
 
 OSPF Stub可以將多筆再發佈的路由轉成一筆預設路由，讓末端的路由器只要路由表中找不到路由就直接找ABR
