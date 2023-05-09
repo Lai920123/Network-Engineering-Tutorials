@@ -97,6 +97,22 @@ clear ip ospf process
 ## 基礎配置 ##
 
 ```bash
+ipv6 unicast-routing #開啟ipv6繞送
+router ospfv3 1
+	router-id 1.1.1.1 
+	address-family ipv4 unicast 
+	address-family ipv6 unicast 
+int e0/0
+    ospfv3 1 ipv4 area 0
+	ospfv3 1 ipv6 area 0
+int e0/1
+    ospfv3 1 ipv4 area 1
+	ospfv3 1 ipv6 area 1
+
+```
+
+```bash
+ipv6 unicast-routing #開啟ipv6繞送
 ipv6 router ospf 1
 	router-id 1.1.1.1 
 int e0/0
