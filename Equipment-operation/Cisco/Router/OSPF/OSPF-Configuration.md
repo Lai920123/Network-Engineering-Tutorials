@@ -12,25 +12,7 @@ router ospf <PID> #PID不需要相同，但通常會為了好辨識設定為相�
 	network 192.168.0.0 0.0.0.255 area 2
 ```
 
-## 調整Priority ##
 
-```bash
-#選舉DR/BDR時會用到，越大越好，更改完後，要重啟ospf process
-int e0/0
-	ip ospf priority 100
-int e0/1
-	ip ospf priority 0 #直接放棄選舉
-```
-
-## 修改介面頻寬(計算成本用,非真實頻寬) ##
-
-```bash
-router ospf 1
-auto-cost reference-bandwidth 1000 #單位為Mbits
-#修改介面卡
-int f0/0
-    ip ospf cost 1
-```
 
 ## 路由匯總 ##
 
@@ -94,7 +76,29 @@ clear ip ospf process
 
 ## OSPFv3 ##
 
-## 基礎配置 ##
+配置OSPFv3有兩種方法，下面會示範兩種方法的配置方式
+
+## 第一種 ##
+
+配置單獨的IPv6 OSPF進程，若是要同時使用ipv4/ipv6的OSPF，就需要建立兩個單獨的進程，會消耗更多的系統資源
+
+```bash
+router ospf 1
+    router-id 1.1.1.1 
+	network 192.168.1.0 0.0.0.255 area 0
+	network 192.168.100.0 0.0.0.255 area 1
+ipv6 unicast-routing #開啟ipv6繞送，不管使用哪種方式都要開啟，一定要記得開
+ipv6 router ospf 1
+	router-id 1.1.1.1 
+int e0/0
+    ipv6 ospf 1 area 0
+int e0/1
+    ipv6 ospf 1 area 1 
+```
+
+## 第二種 ##
+
+將ipv4/ipv6的設定配置於同一個進程，可以更有效的使用系統資源，也更好管理
 
 ```bash
 ipv6 unicast-routing #開啟ipv6繞送
@@ -111,12 +115,3 @@ int e0/1
 
 ```
 
-```bash
-ipv6 unicast-routing #開啟ipv6繞送
-ipv6 router ospf 1
-	router-id 1.1.1.1 
-int e0/0
-    ipv6 ospf 1 area 0 #1為process id
-int e0/1
-    ipv6 ospf 1 area 0 
-```
