@@ -12,4 +12,6 @@
 
 ## Metric Calculation ##
 
-Metric計算公式為 $$ 256 x \left( \frac{10}{bandwidth}+\frac{Delay}{10} \right) $$
+Metric計算公式為 $$ 256 x \left(\frac{10}{bandwidth}+\frac{Delay}{10}\right) $$
+
+![1](http://latex.codecogs.com/svg.latex?\int_a^bf(x)\ dx)
