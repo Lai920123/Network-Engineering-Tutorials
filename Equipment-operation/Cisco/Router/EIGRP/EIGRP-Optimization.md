@@ -9,6 +9,15 @@ router eigrp 1
     metric maximum-hops 255 
 ```
 
+## 調整頻寬 ##
+
+此頻寬非實際傳輸頻寬，而是用來計算用的頻寬，當有兩條相同路由指向不同路徑時，若線路頻寬相同，那就做負載平衡，但如果一條線路的頻寬為100M，一條為10M，就不適合做負載平衡，這時候就需要用bandwidth調整頻寬讓路由優先走速度較快的那條，直到這條down掉才會切換為速度較低的那條線路
+
+```bash
+int f0/0
+    bandwidth 100 #單位為kb
+```
+
 ## 調整間隔時間(雙方都必須調整) ##
 
 調整間隔時間可加速收斂速度，預設Hello Interval為5秒，Hold Interval為15秒，建議設定比例為1:3，若Hello Interval大於Hold Interval會造成鄰居不斷中止和恢復，造成route flapping 
@@ -34,7 +43,7 @@ EIGRP預設將自動匯總關閉
 auto-summary 
 ```
 
-## 
+## 手動路由匯總 ##
 
 ```bash 
 ip summary-address eigrp 1 192.168.0.0 255.255.0.0 #1為Autonomous System Number，之後為匯總的範圍
