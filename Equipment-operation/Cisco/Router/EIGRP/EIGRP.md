@@ -12,9 +12,9 @@
 
 ## Administrative Distance ##
 
-	EIGRP Summary route = 5
 	Internal EIGRP = 90
 	External EIGRP = 170
+	EIGRP Summary route = 5
 
 ## Neighbors ##
 
