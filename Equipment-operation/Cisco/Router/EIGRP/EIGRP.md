@@ -45,31 +45,6 @@ router eigrp 1 #Autonomous System Number必須相同
 redistribute static #再發佈靜態路由 
 ```
 
-### 調整間隔時間(雙方都必須調整) ###
-
-```bash
-int f0/0 #須從介面調整
-	ip hello-interval eigrp 1 10 #1為Autonomous System Number，10為要更改的Hello間隔
-	ip hold-time eigrp 1 30 ##1為Autonomous System Number，10為要更改的Hold間隔
-```
-
-### 優化 ###
-
-```bash
-passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
-no passive-interface e0/0 #此介面可發送Hello以及路由更新
-auto-summary #自動匯總
-ip summary-address eigrp 1 192.168.0.0 255.255.0.0 #1為Autonomous System Number，之後為匯總的範圍
-#驗證，可選
-key chain CHAIN1 #建立key chain
-	key 1 #新增key，id為1
-	key-string P@ssw0rd #認證密碼	
-int f0/0 
-    ip authentication mode eigrp 1 md5 #介面啟用MD5驗證
-	ip authentication key-chain eigrp 1 CHAIN1 #介面套用key-chain
-```	
-
-
 ## IPv6 ##
 
 EIGRP for IPv6可使用兩種方法配置
@@ -84,14 +59,6 @@ int e0/0
 	ipv6 eigrp 1 #從介面啟用eigrp for ipv6
 int e0/1 
 	ipv6 eigrp 1 #從介面啟用eigrp for ipv6
-```
-
-### 優化 ###
-
-```bash
-passive-interface default #所有介面停止發送Hello,開啟後會停止發送路由更新，以及傳入的路由更新
-no passive-interface e0/0 #此介面可發送Hello以及路由更新
-auto-summary #自動匯總
 ```
 
 ### 檢查設定 ###
