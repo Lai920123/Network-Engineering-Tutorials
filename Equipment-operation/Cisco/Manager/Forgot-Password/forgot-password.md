@@ -21,7 +21,7 @@ line console 0
 int range e0/0 - 4
     no shutdown 
 #將register改回0x2142 
-config-register 0x2142
+config-register 0x2102
 #修改後存檔
 copy running-config startup-config 
 #重開機後使用新密碼可登入並且端口正常啟動即可
