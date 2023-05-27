@@ -7,10 +7,9 @@
     PVST+ -> Cisco
     802.1w(RSTP) -> IEEE
     Rapid PVST -> Cisco
-    MST
-    
+    MST 
 
-## Bandwidth ## 
+## Path Cost ## 
 
 |頻寬| 路徑成本(舊) | 路徑成本(新)|
 | --- | --- | --- |
