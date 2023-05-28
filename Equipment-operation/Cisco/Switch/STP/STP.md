@@ -9,15 +9,6 @@
     Rapid PVST -> Cisco
     MST 
 
-## Path Cost ## 
-
-|頻寬| 路徑成本(OLD) | 路徑成本(NEW)|
-| --- | --- | --- |
-| 10M | 100 ||
-| 100M | 19 ||
-| 1G | 4 ||
-| 10G | 2 ||
-
 ## Max Age ## 
 
 預設BPDU每2秒會發送一次Hello，Max Age為20秒
@@ -35,7 +26,25 @@
 
 ## STP選舉比較順序 ##
 
+>Hint:所有STP選舉都是比小
 
+1. 比Bridge ID(選Root Bridge時使用，其餘不用)
+2. 比root path cost(連到Root Bridge的路徑成本，請參考下面表格)
+3. 比對方的Bridge ID 
+4. 比對方的Port ID
+
+## Path Cost ## 
+
+|頻寬| 路徑成本(OLD) | 路徑成本(NEW)|
+| --- | --- | --- |
+| 4M  | 250 ||
+| 10M | 100 ||
+| 16M | 62  ||
+| 45M | 39  || 
+| 100M | 19 ||
+| 155M | 14 ||
+| 1G | 4 ||
+| 10G | 2 ||
 
 ## UplinkFast ## 
 
