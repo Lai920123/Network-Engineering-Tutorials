@@ -2,12 +2,11 @@
 
 ## STP的演變 ## 
 
-
-    802.1D -> IEEE
-    PVST+ -> Cisco
-    802.1w(RSTP) -> IEEE
-    Rapid PVST -> Cisco
-    MST 
+1. STP(802.1D) - 由IEEE發行，最初的STP標準
+2. PVST+ - 由Cisco發行，對802.1D進行了增強，允許為每個VLAN建立一個實例
+3. RSTP(802.1w) - 由IEEE發行，改進了收斂速度，但只允許單個STP實例，若不是使用Cisco設備，也建議至少開到此模式
+4. Rapid PVST+ - 由Cisco發行，對802.1w進行了增強，擁有更快的收斂速度
+5. Multiple Spanning-tree Protocol(802.1s) - 允許使用者建立獨立的實例，將多個VLAN段分配到實例中，減少消耗硬體資源和方便管理
 
 ## Max Age ## 
 
