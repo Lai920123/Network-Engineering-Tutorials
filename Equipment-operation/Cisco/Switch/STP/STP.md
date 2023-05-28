@@ -11,7 +11,7 @@
 
 ## Path Cost ## 
 
-|頻寬| 路徑成本(舊) | 路徑成本(新)|
+|頻寬| 路徑成本(OLD) | 路徑成本(NEW)|
 | --- | --- | --- |
 | 10M | 100 ||
 | 100M | 19 ||
@@ -26,6 +26,17 @@
 
 當拓樸中添加了新的裝置，Switch就會向Root Switch發送Topolohy Change Notification(TCN) BPDU，當Root Switch收到TCN BPDU後，會將Mac Address Table的Timeout時間縮短為15秒(Forward Delay)，所以Topology Change會持續35秒(Max Age + Forward Delay)
 
+## STP選舉順序 ##
+
+1. 選出Root Bridge 
+2. 在非Root Bridge的每台Switch中選出Root Port
+3. 在每一條線路中選出Designated Port
+4. 非Root Port也非Designated Port的則會變成Block Port
+
+## STP選舉比較順序 ##
+
+
+
 ## UplinkFast ## 
 
 UplinkFast是為了防止Access Layer交換機的Uplink發生故障時能夠快速進行轉換，不用等30秒的收斂時間，Uplinkfast會先將Block Port設定為Standby狀態，當Root Port斷掉時立刻轉換成Forwarding，不過在Rapid-pvst+中已經內建了uplinkfast，所以無需再下這條指令
@@ -39,7 +50,7 @@ show spanning-tree uplinkfast
 spanning-tree uplinkfast 
 ```
 
-## backbonefast ## 
+## Backbonefast ## 
 
 ```bash
 #查看是否開啟backbonefast，若是在rapid-pvst+模式會顯示BackboneFast is enabled but inactive in rapid-pvst mode
@@ -109,26 +120,80 @@ int e0/0
     spanning-tree bpdufilter enable 
 ```
 
-可以以下面這張圖來進行測試在連結Switch的介面開啟BPDU Filter的反應 
+根據這張拓樸圖來進行測試在連結Switch的介面開啟BPDU Filter的反應 
 
 ![](Image/bpdufilter1.png)
 
 SW1 
 
 ```bash
-spanning-tree portfast edge bpdufilter default 
 int range e0/0-2 
     spanning-tree portfast edge 
+    spanning-tree bpdufilter enable 
 ```
 
 SW2 
 
 ```bash
-
+int range e0/0-2
+    spanning-tree portfast edge 
+    spanning-tree bpdufilter enable 
 ```
+
+配置完成後，開啟Wireshark抓SW1介面e0/1的封包，並使用PC1 ping 8.8.8.8，可以看到造成了廣播風暴
+
+![](Image/bpdufilter2.png)
 
 ## Root Guard ##
 
+Root Guard通常會配置於Distrubution Layer接到Access Layer Switch的端口，防止Access Layer的Switch因為較低的priority而變成root bridge，造成Distrubution Layer Switch的介面變成Block Port
+
+![](Image//Root%20Guard1.png)
+
+根據這張拓樸圖通常會在DSW1和DSW2的E0/1配置Root Guard，但配置Root Guard後會造成Root inconsistent，Switch將無法在此線路傳送資料，直到異常裝置停止傳送superior BPDUs
+
+先讓DSW1成為Root Bridge 
+
+```bash
+#DSW1
+spanning-tree vlan 1 priority 8192 
+```
+
+在DSW1和DSW2開啟Root Guard 
+
+```bash
+#DSW1
+int e0/1 
+    spanning-tree guard root 
+#DSW2
+int e0/1 
+    spanning-tree guard root 
+```
+
+將ASW1的priority調整為0
+
+```bash
+#ASW1
+spanning-tree vlan 1 priority 0
+```
+
+從DSW1的Console可以看到Root Guard將e0/1 Block掉了
+
+![](Image/Root%20Guard2.png)
+
+使用show spanning-tree可以看到狀態變為BKN(Broken簡寫)
+
+![](Image/Root%20Guard3.png)
+
+復原方法就是將ASW1的Priority調整回32768 
+
+```bash
+spanning-tree vlan 1 priority 32768 
+```
+
+介面unblocking
+
+![](Image/Root%20Guard4.png)
 
 
 ## Loop Guard ##
