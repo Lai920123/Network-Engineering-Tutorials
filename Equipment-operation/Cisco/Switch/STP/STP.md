@@ -96,7 +96,36 @@ show errdisable recovery
 
 ## BPDU Filter ##
 
+啟用BPDU Filter的介面將不接收也不發送BPDU，相當於關掉STP，不建議打開BPDU Filter，除非在必須使用的環境中，若是有，也不要在連接交換器的介面開啟他，否則可能造成迴圈
 
+```bash
+#全域開啟BPDU Filter，這會使所有開啟Portfast的介面不傳送也不接收BPDU
+spanning-tree portfast edge bpdufilter default 
+int e0/0 #介面需開啟portfast才會生效
+    spanning-tree portfast edge 
+#在介面中開啟BPDU Filter 
+int e0/0 
+    spanning-tree portfast edge 
+    spanning-tree bpdufilter enable 
+```
+
+可以以下面這張圖來進行測試在連結Switch的介面開啟BPDU Filter的反應 
+
+![](Image/bpdufilter1.png)
+
+SW1 
+
+```bash
+spanning-tree portfast edge bpdufilter default 
+int range e0/0-2 
+    spanning-tree portfast edge 
+```
+
+SW2 
+
+```bash
+
+```
 
 ## Root Guard ##
 
