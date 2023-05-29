@@ -120,11 +120,8 @@ show errdisable recovery
 ```bash
 #全域開啟BPDU Filter，這會使所有開啟Portfast的介面不傳送也不接收BPDU
 spanning-tree portfast edge bpdufilter default 
-int e0/0 #介面需開啟portfast才會生效
-    spanning-tree portfast edge 
 #在介面中開啟BPDU Filter 
 int e0/0 
-    spanning-tree portfast edge 
     spanning-tree bpdufilter enable 
 ```
 
@@ -136,7 +133,6 @@ SW1
 
 ```bash
 int range e0/0-2 
-    spanning-tree portfast edge 
     spanning-tree bpdufilter enable 
 ```
 
@@ -144,7 +140,6 @@ SW2
 
 ```bash
 int range e0/0-2
-    spanning-tree portfast edge 
     spanning-tree bpdufilter enable 
 ```
 
@@ -154,11 +149,11 @@ int range e0/0-2
 
 ## Root Guard ##
 
-Root Guard通常會配置於Distrubution Layer接到Access Layer Switch的端口，防止Access Layer的Switch因為較低的priority而變成root bridge，造成Distrubution Layer Switch的介面變成Block Port
+Root Guard通常會配置於Distrubution Layer接到Access Layer Switch的端口，防止Access Layer的Switch因為較低的priority而變成root bridge，造成上行鏈路變成Block Port
 
 ![](Image//Root%20Guard1.png)
 
-根據這張拓樸圖通常會在DSW1和DSW2的E0/1配置Root Guard，但配置Root Guard後會造成Root inconsistent，Switch將無法在此線路傳送資料，直到異常裝置停止傳送superior BPDUs
+根據這張拓樸圖通常會在DSW1和DSW2的E0/1配置Root Guard，但配置Root Guard後會造成Root inconsistent，Switch將無法在此線路傳送資料，直到異常裝置停止傳送superior BPDUs(將Priority調整為較高的值)
 
 先讓DSW1成為Root Bridge 
 
@@ -207,11 +202,34 @@ spanning-tree vlan 1 priority 32768
 ## UDLD ## 
 
 Unidirectional Link Detection
+
 ## Loop Guard ##
 
+開啟Loop Guard的介面當超過Max Age時間未收到BPDU時，將被轉換成Loop inconsistent，無法轉發流量，避免產生迴圈
+
+![](Image/Loop%20Guard3.png/)
+
 ```bash
+#SW1
 int e0/0 
     spanning-tree guard loop 
+#SW2
+int e0/1 #在SW2的E0/1開啟bpdufilter測試不發送BPDU時SW3的反應
+    spanning-tree bpdufilter enable 
+```
+
+當SW3的E0/0超過Max Age時間未收到BPDU時，會將端口變成Loop inconsistent
+
+![](Image/Loop%20Guard1.png)
+
+並跳出以下訊息 
+
+![](Image/Loop%20Guard2.png)
+
+查看inconsistent的介面
+
+```bash
+show spanning-tree inconsistent 
 ```
 
 ## MST ## 
@@ -259,3 +277,5 @@ show spanning-tree mst 1 #查看mst instance 1
 ## Reference ## 
 
 https://www.cisco.com/c/zh_tw/support/docs/lan-switching/spanning-tree-protocol/69980-errdisable-recovery.html
+
+https://www.jannet.hk/spanning-tree-protocol-stp-zh-hant/#Loop_Guard
