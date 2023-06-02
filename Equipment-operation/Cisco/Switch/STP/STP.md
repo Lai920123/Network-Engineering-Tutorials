@@ -29,7 +29,7 @@
 
 1. 比Bridge ID(選Root Bridge時使用，其餘不用)
 2. 比root path cost(連到Root Bridge的路徑成本，請參考下面表格)
-3. 比對方的Bridge ID 
+3. 比對方的Bridge ID
 4. 比對方的Port ID
 
 ## Path Cost ## 
@@ -44,6 +44,13 @@
 | 155M | 14 ||
 | 1G | 4 ||
 | 10G | 2 ||
+
+## 更改Port Number ## 
+
+```bash
+int e0/0
+spanning-tree port-priority 32
+```
 
 ## UplinkFast ## 
 
