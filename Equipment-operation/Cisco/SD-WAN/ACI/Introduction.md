@@ -2,7 +2,7 @@
 
 Application Centric Infrastructure(ACI)是Cisco開發的
 
-## 各種名詞介紹 ##
+## 組件介紹 ##
 
 APIC - 應用策略基礎建設控制器，也就是控制器，負責管理策略，配置節點
 
