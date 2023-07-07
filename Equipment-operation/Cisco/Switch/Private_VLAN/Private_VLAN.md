@@ -24,5 +24,4 @@ vlan 12
     private-vlan community #設定為共有VLAN
 vlan 10
     private-vlan association 11,12 #VLAN 10關聯VLAN11,12
-
 ```
