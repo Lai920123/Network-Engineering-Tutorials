@@ -12,3 +12,4 @@ VXLAN是為了解決傳統網路中的問題，通過使用VTEP封裝MAC到UDP�
 |運作方式|在二層訊框中使用VLAN Tag進行封裝|使用MAC-in-UDP封裝|
 
 ## VTEP ## 
+

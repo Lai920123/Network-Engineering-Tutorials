@@ -35,6 +35,14 @@ int e1/1-30
     no shutdown 
 ```
 
+## 存檔 ##
+
+NXOS沒有write，需使用copy running-config startup-config進行存檔
+
+```bash
+copy running-config startup-config 
+```
+
 ## 查詢命令 ##
 
 ```bash
