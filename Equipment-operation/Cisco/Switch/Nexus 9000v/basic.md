@@ -26,6 +26,13 @@ conf t
 hostname Nexus1 
 ```
 
+## 啟用功能 ##
+
+```bash
+feature ospf #開啟OSPF
+feature ospfv3 #開啟OSPFv3
+```
+
 ## 一次配置多個介面 ##
 
 NXOS與IOS不同，不需要打range，直接選擇介面範圍即可
@@ -48,4 +55,5 @@ copy running-config startup-config
 ```bash
 show interface brief #查看介面摘要
 show interface status #查看介面狀態
+show feature #查看開啟與關閉的功能
 ```
