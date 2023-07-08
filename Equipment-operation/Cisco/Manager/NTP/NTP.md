@@ -24,7 +24,8 @@ NTP，用於通過分佈式的NTP server與Client端進行時間同步，使網�
 ## 配置 ##
 
 ### Topology ###
-![](NTP/NTP.png)
+
+![](NTP.png)
 
     注意上方拓樸圖的NTP Mode
 
@@ -32,30 +33,30 @@ NTP，用於通過分佈式的NTP server與Client端進行時間同步，使網�
 #R1[NTP Server/Client Mode]
 enable 
 configure terminal 
-    clock timezone Taipei 8 #設定時區
-    exit
+clock timezone Taipei 8 #設定時區
+exit
 clock set 08:33:00 19 Aug 2022 #設定時間
 clock update-calendar #同步到硬體時鐘
 configure terminal
-    ntp master [stratum level] #設定層級，層級為距離權威時間源的NTP跳數，層級1為源頭像是無線電或原子鐘，層級2從層級1接收時間，以此類推，範圍為1~15，如果未指定，預設值為8
-    ntp source e0/0 #NTP源，可設定外部NTP Server，如果要使用Router作為NTP源，配置Router的任意介面或IP即可
+ntp master [stratum level] #設定層級，層級為距離權威時間源的NTP跳數，層級1為源頭像是無線電或原子鐘，層級2從層級1接收時間，以此類推，範圍為1~15，如果未指定，預設值為8
+ntp source e0/0 #NTP源，可設定外部NTP Server，如果要使用Router作為NTP源，配置Router的任意介面或IP即可
 
 
 #R2[Server Mode]
 enable 
 configure terminal 
-    clock timezone Taipei 8
-    ntp server 192.168.1.2
+clock timezone Taipei 8
+ntp server 192.168.1.2
 
 #R3[Client Mode]
 enable 
 configure terminal 
-    clock timezone Taipei 8
-    ntp server 192.168.1.2
+clock timezone Taipei 8
+ntp server 192.168.1.2
 
 #R4[Client Mode]
 enable 
 configure terminal 
-    clock timezone Taipei 8
-    ntp server 192.168.1.2
+clock timezone Taipei 8
+ntp server 192.168.1.2
 ```
