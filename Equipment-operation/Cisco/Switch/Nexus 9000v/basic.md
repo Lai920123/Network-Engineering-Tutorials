@@ -57,3 +57,7 @@ show interface brief #查看介面摘要
 show interface status #查看介面狀態
 show feature #查看開啟與關閉的功能
 ```
+
+## N9K開機時進入Loader介面解決方法 ##
+
+https://www.cnblogs.com/lsgxeva/p/14214469.html
