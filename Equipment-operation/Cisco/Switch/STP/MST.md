@@ -4,6 +4,8 @@ Multiple Spanning-tree Protocol，由IEEE發行，允許使用者建立獨立的
 
 ![](Image/mst1.png)
 
+## 配置方法 ##
+
 ```bash
 [SW1]
 int range e0/0-1 #將連結Switch的Port設定為Trunk Mode，為了讓VLAN起來，因此實驗沒有於端口配置VLAN
@@ -33,10 +35,26 @@ spanning-tree mst 2 priority 0 #修改instance2的priority為0，使SW2成為ins
 spanning-tree mode mst #更改spanning-tree mode為mst 
 ```
 
-查看命令 
+## 優化 ##
+
+調整線路成本
+
+```bash
+spanning-tree mst 1 cost 2000
+```
+
+調整Port ID
+
+```bash
+int e0/0 
+    spanning-tree mst 1 port-priority 64 
+```
+
+## 查詢命令 ##
 
 ```bash
 show spanning-tree mst configuration #查看mst配置
+show spanning-tree mst configuration digest #查看digest是否正確
 show spanning-tree mst 1 #查看mst instance 1
 ```
 
