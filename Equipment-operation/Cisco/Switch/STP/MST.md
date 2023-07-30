@@ -39,3 +39,5 @@ spanning-tree mode mst #更改spanning-tree mode為mst
 show spanning-tree mst configuration #查看mst配置
 show spanning-tree mst 1 #查看mst instance 1
 ```
+
+>Hint:在做MST時，在Trunk Interface不進行Allow VLAN過濾
