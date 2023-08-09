@@ -26,9 +26,9 @@ standby 10 ip 192.168.1.254 #10為Group Number，兩端設定須相同
 ### 優化 ###
 
 ```bash
-standby 10 priority 105 #優先權，優先權高的會成為Active，低的成為Standby，預設為100
-standby 10 preempt #在每個執行HSRP的介面中設置搶占，溝通過程中若是Priority發生變化，會依照最新的Priority決定設備將扮演Active or Standby 
+standby 10 priority 105 #優先權，值為0~255，優先權高的會成為Active，低的成為Standby，預設為100
 standby 10 timers msec 200 msec 700 #調整Hello Interval和Hold Time，單位為毫秒，預設Hello Interval為3秒，Hold Time為10秒導致溝通速度慢，可適當調整以增進效能
+standby 10 preempt delay 300 #在每個執行HSRP的介面中設置搶占，溝通過程中若是Priority發生變化，會依照最新的Priority決定設備將扮演Active or Standby，不一定要配置Delay，配置Preempt Delay用意是當故障接口重新復原後，將檢測到有一Active，Standby會先等待Delay時間後再接管Active，避免Active路由器未準備好就直接進行接管，可能會有一段時間無法上網的情況，可以依情況以及機器效能調整Delay時間
 standby 10 authentication md5 key-string Cisco123 #MD5驗證
 ```
 
@@ -66,7 +66,7 @@ HSRPv1不支援IPv6，要支援IPv6的話需開啟HSRPv2
 ```bash
 int vlan 10
     standby version 2
-    standby 11 ip 192.168.10.254 #ipv4/6的group number不能一樣
+    standby 10 ip 192.168.10.254 #ipv4/6的group number不能一樣
     standby 10 ipv6 FE80::FFFF
     standby 10 timers 200 msec 700 
     standby 10 preempt 
