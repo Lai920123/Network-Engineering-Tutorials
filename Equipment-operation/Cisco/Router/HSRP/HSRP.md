@@ -2,13 +2,19 @@
 
 ## 簡介 ##
 
-    HSRP是Cisco專有的FHRP協定，用於進行閘道備援，不過一次只能有一個Active轉發流量，所以會有一台是無法轉發流量的，做不到完整的附載平衡
+HSRP是Cisco專有的FHRP協定，用於進行閘道備援，不過一次只能有一個Active轉發流量，所以會有一台是無法轉發流量的，做不到完整的附載平衡
 
 ## Multicast Address ##
 
 HSRP使用組播位置
 
     224.0.0.2
+
+## HSRP MAC Address ##
+
+HSRP使用的MAC位置是0000.0c07.acxx，xx為群組編號
+
+![](Image/MAC.png)
 
 ## HSRPv1 ##
 
@@ -27,6 +33,7 @@ standby 10 authentication md5 key-string Cisco123 #MD5驗證
 ```
 
 ### 防止對外端口Down ### 
+
 ```bash
 ip sla 1 #新增IP SLA
     icmp-echo 8.8.8.8 source-ip 192.168.1.1 #ping測試8.8.8.8，來源ip為192.168.1.1
