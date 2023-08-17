@@ -57,3 +57,7 @@ int tunnel 0
     tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE #設定IPSec profile
 ```
+
+## Reference ##
+
+https://ccie.lol/knowledge-base/ipsec-two-mode/
