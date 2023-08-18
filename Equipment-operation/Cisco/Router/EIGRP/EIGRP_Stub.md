@@ -1,2 +1,0 @@
-# EIGRP Stub #
-
