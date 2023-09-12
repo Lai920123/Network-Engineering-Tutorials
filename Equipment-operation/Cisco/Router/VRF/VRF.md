@@ -154,10 +154,10 @@ Site-B運行OSPF PID 200
 
 ```bash
 vrf definition Site-A
-    address-family ipv4 unicast #需開啟address-family 
+    address-family ipv4 unicast #使用OSPFv3需在vrf definition中開啟address-family 
     address-family ipv6 unicast 
 vrf definition Site-B
-    address-family ipv4 unicast #需開啟address-family 
+    address-family ipv4 unicast #使用OSPFv3需在vrf definition中需開啟address-family 
     address-family ipv6 unicast 
 int e0/0
     vrf forwarding Site-A
