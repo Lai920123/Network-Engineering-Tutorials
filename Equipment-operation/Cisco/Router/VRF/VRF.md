@@ -179,15 +179,19 @@ router ospfv3 200
     address-family ipv4 unicast vrf Site-B
     address-family ipv6 unicast vrf Site-B
 int e0/0
+    ipv6 enable #使用OSPFv3需再介面開啟ipv6
     ospfv3 100 ipv4 area 0
     ospfv3 100 ipv6 area 0
 int e0/2.10
+    ipv6 enable #使用OSPFv3需再介面開啟ipv6
     ospfv3 100 ipv4 area 1
     ospfv3 100 ipv6 area 1
 int e0/1
+    ipv6 enable #使用OSPFv3需再介面開啟ipv6
     ospfv3 200 ipv4 area 0
     ospfv3 200 ipv6 area 0
 int e0/2.20
+    ipv6 enable #使用OSPFv3需再介面開啟ipv6
     ospfv3 200 ipv4 area 1
     ospfv3 200 ipv6 area 1
 ```
