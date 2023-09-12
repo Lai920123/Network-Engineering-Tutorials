@@ -154,7 +154,11 @@ Site-B運行OSPF PID 200
 
 ```bash
 vrf definition Site-A
+    address-family ipv4 unicast #需開啟address-family 
+    address-family ipv6 unicast 
 vrf definition Site-B
+    address-family ipv4 unicast #需開啟address-family 
+    address-family ipv6 unicast 
 int e0/0
     vrf forwarding Site-A
     ip address 172.16.1.1 255.255.255.252
