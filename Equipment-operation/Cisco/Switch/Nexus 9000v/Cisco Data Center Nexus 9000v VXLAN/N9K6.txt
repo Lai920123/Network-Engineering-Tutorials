@@ -1,0 +1,14 @@
+configure terminal
+hostname N9K6
+vlan 10
+    name VLAN10
+int e1/1-2
+    no switchport
+int e1/1
+    ip address 10.2.6.6/24
+    no shutdown
+int e1/2
+    ip address 10.4.6.6/24
+    no shutdown
+int lo0 
+    ip address 10.0.0.6/32
