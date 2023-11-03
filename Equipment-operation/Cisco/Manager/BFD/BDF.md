@@ -73,7 +73,6 @@ router eigrp instance1
             bfd
 ```
 
-
 ## BGP ##
 
 ```bash
@@ -100,9 +99,6 @@ show bfd summary
 ```
 
 ![Alt text](Image/image4.png)
-
-
-
 
 ## Reference ## 
 
