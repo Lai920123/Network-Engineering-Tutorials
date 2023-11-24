@@ -450,8 +450,18 @@ router ospfv3 10
 
 ![](Image/Redistribute.png)
 
->當較大AD值的路由協定向較小AD值得路由協定進行再發佈時，以上圖為例，再R1和R3配置雙點雙向路由再發佈時，會發現R1或R3有一台會收到由OSPF發佈往R2 Loopback 0的路由，但這會造成
+>當較大AD值的路由協定向較小AD值得路由協定進行再發佈時，以上圖為例，再R1和R3配置雙點雙向路由再發佈時，會發現R1或R3有一台會收到由OSPF發佈往R2 Loopback 0的路由，但這會造成RIP的路由因AD值較大被OSPF的路由覆蓋，造成R3或R1要達到R2的Loopback 0需要經過R4繞一圈之後再回來，這樣的路由是不合理的，因此可以再OSPF對特定的路由進行AD值得修改，讓RIP的路由AD值大於OSPF不被覆蓋掉
+
+R1 
 
 ```bash
+router ospf 10 
+    distance 121 3.3.3.3 0.0.0.0 #這裡要要設定的是R3的Router-ID
+```
 
+R2 
+
+```bash
+router ospf 10 
+    distance 121 1.1.1.1 0.0.0.0 #這裡要要設定的是R1的Router-ID
 ```
