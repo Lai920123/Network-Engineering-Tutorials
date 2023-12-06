@@ -1,6 +1,4 @@
-# Qos #
-
-Quality of Service 服務品質
+# Quality of Service #
 
 [簡介](#簡介)
 
@@ -40,78 +38,59 @@ Quality of Service 服務品質
 
 ## 簡介 ##
     
-    在有限的頻寬下，Qos可以保證需要流量的服務能夠優先通過，例如在語音服務中，用戶對於延遲較為敏感，若是在通話時延遲甚至斷開連線，用戶體驗將會大受影響，但一般傳輸資料時或者查看網頁時，掉幾個包還算可以接受，所以需要使用Qos設定出優先順序，讓需要的封包能夠優先通行
+在有限的頻寬下，Qos可以保證需要流量的服務能夠優先通過，例如在語音服務中，用戶對於延遲較為敏感，若是在通話時延遲甚至斷開連線，用戶體驗將會大受影響，但一般傳輸資料時或者查看網頁時，掉幾個包還算可以接受，所以需要使用Qos設定出優先順序，讓需要的封包能夠優先通行
 
 ## 頻寬不足的解決方案 ##
-    1. 升級線路，但花費也會增加
-    2. 優先轉發重要頻寬
-    3. 壓縮2層訊匡
-    4. 壓縮3層IP表頭
+
+1. 升級線路，但花費也會增加
+2. 優先轉發重要頻寬
+3. 壓縮2層訊匡
+4. 壓縮3層IP表頭
+	
 ## QoS Models ##    
+
 ### Best effort ###
 
-    預設值，盡力而為，不區分任何流量，同等對待所有封包，例如FIFO
-    Benefits 
-        1. 不需要特別處理封包
-    Drawbacks
-    
-		1. 服務品質無保證
-		2. 無服務區分性
+預設值，盡力而為，不區分任何流量，同等對待所有封包，例如FIFO<br>
+Benefits 
+
+1. 不需要特別處理封包
+
+Drawbacks
+
+1. 服務品質無保證
+2. 無服務區分性
 		
-### IntServ ###
+### Integrated Services(IntServ) 綜合服務  ###
 
-    Integrated Services 綜合服務    
-    預留網路資源，讓封包通過時有足夠資源提供服務，但一般流量無法使用此預留路線，例如RSVP
-### DiffServ ###
+預留網路資源，讓封包通過時有足夠資源提供服務，但一般流量無法使用此預留路線，例如RSVP
 
-    Differentiated Services 區分服務
-    不預留網路資源，當流量暢通時，所有流量都可以使用線路，當發生雍塞(Congestion)時，才會分類按照優先度進行流量管制，但設定較複雜
+### Differentiated Services(DiffServ) 區分服務 ###
 
-
+不預留網路資源，當流量暢通時，所有流量都可以使用線路，當發生雍塞(Congestion)時，才會分類按照優先度進行流量管制
+ 
 ## 分類標記 ##
-在IP標頭的ToS欄位標記封包的優先權，ToS長度為8bit，可選擇使用IPP或者DSCP
-### <font color=black style="background:#a5a5a5">IP Precedence(IPP) IP優先級</font> ###
-	在IP Header的Tos(Type of Service)欄位的前3bit寫入優先級
+
+在IP標頭的ToS欄位標記封包的優先權，ToS長度為8bit，可選擇使用IPP(前3個Bit)或者DSCP(前6個Bit)
+
+### IP Precedence(IPP) IP優先級 ###
+
+在IP標頭的Tos(Type of Service)欄位的前3bit寫入優先級
 
 | IPP  | binary  | Decimal | RFC分類 |
 | --- |  ---  | --- | --- |
-| Routine | 000 | 0 | Best Effort Data |
-| Priority | 001 | 1 | Medium Priority Data |
-| Immediate | 010 | 2 | High Priority Data |
+| Routine | 000 | 0 | Best Effort Data 盡力而為 |
+| Priority | 001 | 1 | Medium Priority Data 中等優先順序 |
+| Immediate | 010 | 2 | High Priority Data 高等優先順序 |
 | Flash | 011 | 3 | Call Control/Signaling |
-| Flash Override | 100 | 4 | Video |
-| Criticla | 101 | 5 | VoIP |
-| Internetwork Control | 110 | 6 | Internetworking/Routing |
-| Network Control | 111 | 7 | Reserved |
+| Flash Override | 100 | 4 | Video 影像 |
+| Criticla | 101 | 5 | VoIP 基於IP的語音服務|
+| Internetwork Control | 110 | 6 | Internetworking/Routing 繞送|
+| Network Control | 111 | 7 | Reserved 預留的 |
 
-### <font color=black style="background:#a5a5a5">Differentiated Services Code Point(DSCP) 差異化服務代碼點</font> ###
+### Differentiated Services Code Point(DSCP) 差異化服務代碼點 ###
 
-	同樣使用ToS寫入優先級，不過使用前6bit，前3bit用來判斷重要性，4~5bit代表Drop Preferences，第6bit目前未使用所以保持為0，在DSCP的立場上Assured Forwarding不存在重要性差異，但若Packet經過不支援DSCP的Software Queuing系統，就會有分別，所以仍會看成AF4x比AF1x重要，當網路Congestion時，Drop Preferences越大就越傾向Drop，因此在同一AF內AF13比AF11差，較容易被Drop，可使用公式快速計算出AF十進位值 AFxy = (8*x)+(2*y)
-
-### Per-Hop Behaviors 每一跳的行為 ###
-
-	Default PHB 預設
-	- 六個bit全為0
-	- FIFO
-	- 每一個封包平等對待
-
-	EF Expedited Forwarding 加速轉發
-	- 確保最低延遲
-	- 保證頻寬可優先轉發
-	- 該類別流量不可超過保證頻寬，超過將被Drop
-	- 常使用於Voice或影音等對延遲較為敏感的服務 
-
-	AF Assured Forwarding 保證轉發
-	- 保證頻寬
-	- 當網路未發生壅塞時，允許佔用額外的頻寬
-	- 有四個標準類(AF1~4)
-
-	Class-Selector 
-	- 相容IPP
-	- CS越大，優先權越高
-	- CS0~7 = IPP0~7
-
-
+使用ToS欄位，前3bit用來判斷重要性，4~5bit代表Drop Preferences，第6bit目前未使用所以保持為0，在DSCP中AF值不存在差異，除非經過不支援DSCP的Software Queuing系統，就會有分別，所以習慣看成AF4x比AF1x重要，當網路壅塞時，Drop Preferences越大就越傾向Drop，因此在同一AF內AF13比AF11差，較容易被Drop
 
 | 分類名稱 | 次分類 | binary | Decimal | Cisco recommended |
 | --- | --- | --- | --- | --- |
@@ -137,84 +116,101 @@ Quality of Service 服務品質
 | CS6 |  | 110000 | 48 | Network Control |
 | CS7 |  | 111000 | 56 | Reserved |
 
-### 單字意思 ###
+>可使用公式快速計算出AF十進位值 AFxy = (8*x)+(2*y)
 
-	Drop Preferences 丟棄偏好
+### Per-Hop Behaviors 每一跳的行為 ###
 
-	Software Queuing 軟體排序 
+Default PHB 預設
+- 六個bit全為0
+- FIFO
+- 每一個封包平等對待
 
-	Hardware Quening 硬體排序
+EF Expedited Forwarding 加速轉發
+- 確保最低延遲
+- 保證頻寬可優先轉發
+- 該類別流量不可超過保證頻寬，超過將被Drop
+- 常使用於Voice或影音等對延遲較為敏感的服務 
 
-	Congestion 壅塞
+AF Assured Forwarding 保證轉發
+- 保證頻寬
+- 當網路未發生壅塞時，允許佔用額外的頻寬
+- 有四個標準類(AF1~4)
+
+Class-Selector(CS) 類別選擇
+- 相容IPP
+- CS越大，優先權越高
+- CS0~7 = IPP0~7
 
 ### ToS換算公式 ###
+
 	ToS = 8bit
-
 	IPP只取前3bit，轉換為Tos公式為前3bit的值*32
-
 	DSCP只取前6bit，轉換為Tos公式為前6bit的值*4
-
 	例如：
-
 	ToS = 10000000
-
 	IPP = 100，取得值後再\*32就會是ToS的值，所以公式為4*32 = 128
-
 	DSCP = 100000，取得值後再\*32就會是ToS的值，所以公式為32*4 = 128
 
 ## Qos Mechanisms ##
+
 ### Classification 分類 ###
-	將不同類別的流量進行分類，有以下多種方式進行分類，配置方法點選下方連結
-	- Access list
-	- IP precedence value 
-	- IP DSCP value
-	- Qos group number
-	- MPLS experimental bits
-	- Protocol (including NBAR)
-	- IEEE 802.1Q/ISL CoS
-	- Priority values
-	- Input Interface
-	- Source Mac Address
-	- Destination Mac Address
-	- RTP(UDP) port range
-	- Any packet
-[Classification配置](#classification不同方式配置)
+
+- Access list
+- IP precedence value 
+- IP DSCP value
+- Qos group number
+- MPLS experimental bits
+- Protocol (including NBAR)
+- IEEE 802.1Q/ISL CoS
+- Priority values
+- Input Interface
+- Source Mac Address
+- Destination Mac Address
+- RTP(UDP) port range
+- Any packet
+
 ### Marking 標記 ###
-	根據不同流量對每個封包進行標記
+
+根據不同流量對每個封包進行標記
+
 ### Congestion Management 壅塞管理 ###
-	根據每個封包上的標記，將封包放置到對應的Queue當中
+
+根據每個封包上的標記，將封包放置到對應的Queue當中
+
 ### Congestion Avoidance 壅塞避免 ###
-	當預先定義的隊列達到限制的閥值，壅塞避免可能隨機丟棄封包，或是在更早的時候開始丟棄封包，避免壅塞
+
+當預先定義的隊列達到限制的閥值，壅塞避免可能隨機丟棄封包，或是在更早的時候開始丟棄封包，避免壅塞
+
 ### Policing and Shaping 管制和整形 ###
-	Policing 管制 - 達到限制的閥值時，丟棄封包
-	Shaping 整形 - 達到限制的閥值時，先將封包放入緩存，此緩存大小與記憶體有關，等有空閒時，再進行發送
+
+Policing 管制 - 達到限制的閥值時，丟棄封包<br>
+Shaping 整形 - 達到限制的閥值時，先將封包放入緩存，此緩存大小與記憶體有關，等有空閒時，再進行發送
 ### Link Efficiency 鍊路效率 ###
-	Compression 壓縮 - 壓縮表頭可以有效的降一語音傳輸的流量消耗，發送端只須在開始時傳送一個完整的表頭，之後重複的內容可以不傳
-	Link Fragmentation and Interleaving 鍊路分片和交互 - 當兩個60byte的語音封包中間夾了一個1500byte的封包時，在第一個語音封包傳送後，第二個語音封包要傳送須等待1500byte的封包通過才可傳送，就會造成延遲，所以鍊路分片語交互就是用來將長的封包分成短的，並且和語音封包交互傳送，減少傳送之間的間隔
-	
+
+Compression 壓縮 - 壓縮表頭可以有效的降一語音傳輸的流量消耗，發送端只須在開始時傳送一個完整的表頭，之後重複的內容可以不傳<br>
+Link Fragmentation and Interleaving 鍊路分片和交互 - 當兩個60byte的語音封包中間夾了一個1500byte的封包時，在第一個語音封包傳送後，第二個語音封包要傳送須等待1500byte的封包通過才可傳送，就會造成延遲，所以鍊路分片語交互就是用來將長的封包分成短的，並且和語音封包交互傳送，減少傳送之間的間隔
+
 ## Qos Queuing ## 
+
 ### First In First Out(FIFO) ###
-	先進先出，不按照優先順序
 
-![Untitled](QoS/Untitled.png)
+預設方式，先進先出，不按照優先順序
+
+![Untitled](Image/Untitled.png)
  
-### Weighted Fair Queuing(WFQ) ###
+### Weighted Fair Queuing(WFQ) 加權公平對列###
     
-	加權公平對列
-		
-	Scheduler 調度器
-		
-	Traffice Flow 流量
-		
-	當流量未爆滿時，不會建立Software Queue
+Scheduler 調度器<br>	
+Traffice Flow 流量<br>
+當流量未爆滿時，不會建立Software Queue<br>
 
-![Untitled](QoS/Untitled%201.png)
+![Untitled](Image/Untitled%201.png)
 
-	當流量爆滿時，WFQ會按照Traffice Flow的數量產生Software Queue，並根據IPP計算出每條Flow的weight，Scheduler從Software Queue拿出Packet的次數為反比，即是weight越大，拿出packet的次數越少，weight越小，拿出packet的次數越多
+當流量爆滿時，WFQ會按照Traffice Flow的數量產生Software Queue，並根據IPP計算出每條Flow的weight，Scheduler從Software Queue拿出Packet的次數為反比，即是weight越大，拿出packet的次數越少，weight越小，拿出packet的次數越多
     
-![Untitled](QoS/Untitled%202.png)
+![Untitled](Image/Untitled%202.png)
     
-	理論上每條Queue只服務一條Traffic Flow，除非Traffic Flow數量超過Max Queue(預設為64條)，這時候不同的Flow才會被安排在同一條Queue，Cisco Router是透過此公式計算Weight的32384/(IPP+1) = weight
+理論上每條Queue只服務一條Traffic Flow，除非Traffic Flow數量超過Max Queue(預設為64條)，這時候不同的Flow才會被安排在同一條Queue，Cisco Router是透過此公式計算Weight的32384/(IPP+1) = weight
 		
 	例如IPP=7
 		
@@ -228,7 +224,7 @@ Quality of Service 服務品質
 
 	相對於WFQ自動建立Software Queue，CBWFQ可以預先建立不同的Queue並設定Bandwidth，每秒Scheduler在Class 1抓取100K，在Class 2抓取200K，另外，在Class Default中包含了一個WFQ
 		
-![Untitled](QoS/Untitled%203.png)
+![Untitled](Image/Untitled%203.png)
     
 
 ### Low Latency Queue(LLQ) ###
@@ -237,7 +233,7 @@ Quality of Service 服務品質
 
 	只要Hardware Queue有空間，Scheduler必先從LLQ拿取Packet，接著才會依照優先權抓取Class 2，Class 3的Packet
 
-![Untitled](QoS/Untitled%205.png)
+![Untitled](Image/Untitled%204.png)
 
 ### 建立方法 ###
 
@@ -339,20 +335,25 @@ random-detect precedence <IPP> <Minimum Threshold> <Maximum Threshold> <Probabil
 random-detect dscp <class> <Minimum Threshold> <Maximum Threshold> <Probability Denominator>
 ```
 ## Qos配置 ##
+
 ### Classification不同方式配置 ###
+
 ### Access list ###
+
 ```bash
 access-list 100 permit tcp any any lt 1024 #比對常見服務
 class-map Common-Services #建立class-map並套用ACL
     match access-group 100
 ```
 ### IP precedence value ###
+
 ```bash
 class-map IPP
     match ip precedence <0-7>
 	match ip precedence 1 #等同於DSCP CS1
 ```
 ### IP DSCP value ###
+
 ```bash
 class-map dscp 
     match dscp 1 #批配IPv4和IPv6
@@ -360,6 +361,7 @@ class-map dscp
 	match ip dscp AF11 AF12 AF13 CS6
 ```
 ### Qos group number ###
+
 設備不支援IPP也不支援DSCP時可以使用
 ```bash
 access-list 100 permit ip 192.168.1.0 0.0.0.255 any #比對流量
