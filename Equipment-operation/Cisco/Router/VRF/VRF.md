@@ -2,6 +2,14 @@
 
 VRF允許單台路由器運行多個路由表，並且完全獨立不會互相干擾，通常會與MPLS結合使用，沒有MPLS的VRF稱為VRF Lite
 
+## Route distinguishers 路由區分符 ##
+
+用於在MPLS網路中區分不同客戶端的網路，假設今天有1000條10.0.0.0/24從不同vrf的客戶端發送至Route Reflector，就需要使用RD來區分每條路由是從哪個客戶	端發佈進來的例如客戶端A會稱為[Customer A RD]:10.0.0.0/24，而客戶端B則稱為[Customer B RD]:10.0.0.0/24 
+
+## Route targets 路由目標 ##
+
+
+
 ![](Image/VRF-1.png)
 
 ## R1 ## 
