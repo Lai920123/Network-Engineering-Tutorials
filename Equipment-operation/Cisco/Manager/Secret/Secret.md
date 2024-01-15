@@ -23,10 +23,12 @@ Cisco提供了16種特權等級，分別為0~15，每個等級都對應著不同
 ```bash
 #privilege可加可不加，代表特權等級
 enable privilege 15 secret ?
-0 不加密 
-5 使用MD5雜湊演算法進行加密
-8 使用PBKDF2雜湊演算法進行加密
-9 使用SCRYPT雜湊演算法進行加密
+Type 0 不加密 
+Type 5 使用MD5雜湊演算法進行加密
+Type 6 使用AES128雜湊演算法進行加密
+Type 7 使用Vigenere混淆演算法進行加密
+Type 8 使用SHA256雜湊演算法進行加密
+Type 9 使用SCRYPT雜湊演算法進行加密
 ```
 
 
