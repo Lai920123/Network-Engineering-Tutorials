@@ -215,4 +215,6 @@ show ospfv3 vrf Site-B neighbor
 
 ## Reference ##
 
+https://ccnp-sp.gitbook.io/studyguide/routing/l3vpn/an-in-depth-look-at-rd-and-rt-pt.-1
+
 https://community.cisco.com/t5/ipv6/how-to-configure-ospfv3-with-vrf-in-ios-a-guide/td-p/2250812

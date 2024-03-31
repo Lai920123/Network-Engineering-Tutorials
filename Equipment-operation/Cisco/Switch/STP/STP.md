@@ -18,9 +18,9 @@
 
 ## STP選舉順序 ##
 
-1. 選出Root Bridge 
-2. 在非Root Bridge的每台Switch中選出Root Port
-3. 在每一條線路中選出Designated Port
+1. 選出Root Bridge (BID最小的為Root Bridge，若是有VLAN，BID為32768 + VLAN ID，如果相等，MAC Address最小的為Root Bridge) 
+2. 在非Root Bridge的每台Switch中選出一個Root Port
+3. 在每一條線路中選出一個Designated Port
 4. 非Root Port也非Designated Port的則會變成Block Port
 
 ## STP選舉比較順序 ##
