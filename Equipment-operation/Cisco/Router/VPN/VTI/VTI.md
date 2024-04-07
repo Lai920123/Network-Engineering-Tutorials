@@ -26,7 +26,7 @@ crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac #配置IPSec Phase 2�
 crypto ipsec profile IPSEC_PROFILE #建立IPSec profile
     set transform-set TS #設定IPSec transform set
 int tunnel 0 
-    ip unnunbered e0/0 #使用e0/0的IP作為Tunnel Interface的IP
+    ip unnumbered e0/0 #使用e0/0的IP作為Tunnel Interface的IP
     tunnel source e0/0 #來源介面
     tunnel destination 2.2.2.1 
     tunnel mode ipsec ipv4 
@@ -51,7 +51,7 @@ crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac #配置IPSec Phase 2�
 crypto ipsec profile IPSEC_PROFILE #建立IPSec profile
     set transform-set TS #設定IPSec transform set
 int tunnel 0 
-    ip unnunbered e0/0 #使用e0/0的IP作為Tunnel Interface的IP
+    ip unnumbered e0/0 #使用e0/0的IP作為Tunnel Interface的IP
     tunnel source e0/0 #來源介面
     tunnel destination 1.1.1.1
     tunnel mode ipsec ipv4 
