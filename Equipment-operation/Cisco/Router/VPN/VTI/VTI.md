@@ -31,6 +31,8 @@ int tunnel 0
     tunnel destination 2.2.2.1 
     tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE #設定IPSec profile
+#建立靜態路由指向BRANCH內網使HQ與BRANCH內網能通過加密通道
+ip route 172.16.1.0 255.255.255.0 tun 0 
 ```
 
 ## BRANCH ## 
@@ -56,6 +58,8 @@ int tunnel 0
     tunnel destination 1.1.1.1
     tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE #設定IPSec profile
+#建立靜態路由指向HQ內網使HQ與BRANCH內網能通過加密通道
+ip route 192.168.1.0 255.255.255.0 tun 0 
 ```
 
 ## Reference ##
