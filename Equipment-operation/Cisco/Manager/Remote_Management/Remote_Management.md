@@ -1,5 +1,13 @@
 # Remote Management #
 
+## In-band Management ##
+
+指的是在網路內進行管理如Telnet、SSH、HTTP、HTTPS等
+
+## out-of-band Management ##
+
+使用網路外的媒介進行管理，如Console、AUX、Modem等
+
 ## Telnet ##
 
 ```bash
