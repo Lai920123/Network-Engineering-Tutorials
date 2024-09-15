@@ -67,6 +67,7 @@ int e0/2
 
 access-list 1 permit 192.168.1.0 0.0.0.255
 
+#不用route-map也可，route-map可用來調整更詳細的參數
 route-map e0/0 permit 1
     match ip address 1
     match interface e0/0    
@@ -76,6 +77,10 @@ route-map e0/1 permit 1
 
 ip nat inside source route-map e0/0 interface e0/0 overload
 ip nat inside source route-map e0/1 interface e0/1 overload
+
+#不用的話只需要打以下即可
+ip nat inside source list1 e0/0 interface e0/0 overload
+ip nat inside source list1 e0/1 interface e0/1 overload
 
 ip route 0.0.0.0 0.0.0.0 123.0.1.2 5
 ip route 0.0.0.0 0.0.0.0 123.0.1.6 10
