@@ -13,6 +13,14 @@ int e0/0
 ipv6 unicast-routing 
 ```
 
+## Stateless DHCPv6 ## 
+
+路由器提供SLAAC產生的GUA，Stateless DHCPv6 Server提供DNS Server以及域名資訊
+
+```bash
+
+```
+
 ## Stateful DHCPv6 ## 
 
 路由器提供Default Gateway，DHCPv6 Server提供IPv6位置和其餘參數 
@@ -26,12 +34,6 @@ int e0/0
     ipv6 nd prefix 2001:db8:a01:1::/64 no-advertise
 ```
 
-## Stateless DHCPv6 ## 
 
-路由器提供SLAAC產生的GUA，DHCPv6 Server提供DNS Server以及域名資訊
-
-```bash
-
-```
 
 
