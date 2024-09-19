@@ -2,7 +2,7 @@
 
 ## Stateless address auto-configuration(SLAAC) ##
 
-SLAAC可用來使IPv6節點能夠自動產生GUA，提供Prefix, Default Gateway，但不提供DNS以及域名資訊 
+SLAAC可用來使IPv6節點能夠自動產生GUA，提供Prefix, Default Gateway，但不提供DNS以及域名資訊
 
 ```bash
 #配置介面IP
