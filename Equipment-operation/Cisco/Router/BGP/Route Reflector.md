@@ -19,3 +19,34 @@ Route Reflector是用來讓IBGP網路中不需要全連接的情況下，也能�
 
 ## Cluster-ID ##
 
+
+## 配置方法 ##
+
+![alt text](image-1.png)
+
+## Route Reflector ## 
+
+為了解決iBGP水平分割的問題(iBGP接收到路由不會傳給另一個iBGP Peers)，BGP可藉由開啟Route Reflector來讓iBGP的路由能夠透過Route Reflector傳遞出去
+
+![alt text](Image/Route%20Reflector%204.png)
+
+```bash
+[R1]
+router bgp 1
+    neighbor 2.2.2.2 remote-as 1 
+    neighbor 2.2.2.2 update-source lo0 
+    neighbor 2.2.2.2 next-hop-self 
+[R3]
+router bgp 1
+    neighbor 2.2.2.2 remote-as 1 
+    neighbor 2.2.2.2 update-source lo0 
+    neighbor 2.2.2.2 next-hop-self 
+[R2]
+router bgp 1 
+    neighbor 1.1.1.1 route-reflector-client 
+    neighbor 3.3.3.3 route-reflector-client 
+```
+
+## Reference ##
+
+https://www.catchpoint.com/bgp-monitoring/bgp-route-reflector
