@@ -8,7 +8,7 @@ VRF允許單台路由器運行多個路由表，並且完全獨立不會互相�
 
 ## Route targets 路由目標 ##
 
-
+依照RD的方式區分出路由後，RT可以用來選擇是否要接收或發出這些路由，使用import RD的exoport RD方式選擇出是否接收或發出路由
 
 ![](Image/VRF-1.png)
 
