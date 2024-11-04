@@ -85,7 +85,7 @@ Drawbacks
 | Flash | 011 | 3 | Call Control/Signaling |
 | Flash Override | 100 | 4 | Video 影像 |
 | Criticla | 101 | 5 | VoIP 基於IP的語音服務|
-| Internetwork Control | 110 | 6 | Internetworking/Routing 繞送|
+| Internetwork Control | 110 | 6 | Internetworking/Routing 繞送 例如:OSPF/EIGRP|
 | Network Control | 111 | 7 | Reserved 預留的 |
 
 ### Differentiated Services Code Point(DSCP) 差異化服務代碼點 ###
@@ -185,6 +185,7 @@ Class-Selector(CS) 類別選擇
 
 Policing 管制 - 達到限制的閥值時，丟棄封包<br>
 Shaping 整形 - 達到限制的閥值時，先將封包放入緩存，此緩存大小與記憶體有關，等有空閒時，再進行發送
+
 ### Link Efficiency 鍊路效率 ###
 
 Compression 壓縮 - 壓縮表頭可以有效的降一語音傳輸的流量消耗，發送端只須在開始時傳送一個完整的表頭，之後重複的內容可以不傳<br>
