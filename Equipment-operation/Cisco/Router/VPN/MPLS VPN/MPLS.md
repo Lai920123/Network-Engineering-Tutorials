@@ -8,6 +8,11 @@
 mpls ldp router-id lo0 force #加上Force才會立即改變
 ```
 
+
+## MPLS VPN 數據傳輸過程 ##
+
+AR2收到封包 -> 查VRF VPN_IN表 -> 查詢BGP路由 -> AR2由BGP打標籤 -> AR2查詢BGP全局表 -> AR2查詢MPLS LFIB -> AR2打上標籤後轉發
+
 ## Reference ##
 
 Implicit Explicit https://blog.ipspace.net/kb/tag/MPLS/Implicit_Explicit_NULL/

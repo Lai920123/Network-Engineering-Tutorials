@@ -80,9 +80,9 @@ Drawbacks
 | IPP  | binary  | Decimal | RFC分類 |
 | --- |  ---  | --- | --- |
 | Routine | 000 | 0 | Best Effort Data 盡力而為 |
-| Priority | 001 | 1 | Medium Priority Data 中等優先順序 |
-| Immediate | 010 | 2 | High Priority Data 高等優先順序 |
-| Flash | 011 | 3 | Call Control/Signaling |
+| Priority | 001 | 1 | Medium Priority Data 普通業務流量 中等優先順序 |
+| Immediate | 010 | 2 | High Priority Data 關鍵流量 高等優先順序 |
+| Flash | 011 | 3 | Call Control/Signaling 信令 |
 | Flash Override | 100 | 4 | Video 影像 |
 | Criticla | 101 | 5 | VoIP 基於IP的語音服務|
 | Internetwork Control | 110 | 6 | Internetworking/Routing 繞送 例如:OSPF/EIGRP|
@@ -90,37 +90,38 @@ Drawbacks
 
 ### Differentiated Services Code Point(DSCP) 差異化服務代碼點 ###
 
-使用ToS欄位，前3bit用來判斷重要性，4~5bit代表Drop Preferences，第6bit目前未使用所以保持為0，在DSCP中AF值不存在差異，除非經過不支援DSCP的Software Queuing系統，就會有分別，所以習慣看成AF4x比AF1x重要，當網路壅塞時，Drop Preferences越大就越傾向Drop，因此在同一AF內AF13比AF11差，較容易被Drop
+使用ToS欄位，前3bit = X用來判斷重要性，4~5bit = Y代表Drop Preferences，第6bit目前未使用所以保持為0，在DSCP中AF值不存在差異，除非經過不支援DSCP的Software Queuing系統，就會有分別，所以習慣看成AF4x比AF1x重要，當網路壅塞時，Drop Preferences越大就越傾向Drop，因此在同一AF內AF13比AF11差，較容易被Drop
 
-| 分類名稱 | 次分類 | binary | Decimal | Cisco recommended |
-| --- | --- | --- | --- | --- |
-| DF |  | 000000 | 0 | Best Effort |
-| CS1 |  | 001000 | 8 | Scavenger |
-| AF1 | AF11 | 001010 | 10 | Bulk Data |
-|  | AF12 | 001100 | 12 | Bulk Data |
-|  | AF13 | 001110 | 14 | Bulk Data |
- CS2 |  | 010000 | 16 | Admin System |
-| AF2 | AF21 | 010010 | 18 | Transaction Data |
-|  | AF22 | 010100 | 20 | Transaction Data |
-|  | AF23 | 010110 | 22 | Transaction Data |
-| CS3 |  | 011000 | 24 | Signling |
-| AF3 | AF31 | 011010 | 26 | Multimedia Streaming |
-|  | AF32 | 011100 | 28 | Multimedia Streaming |
-|  | AF33 | 011110 | 30 | Multimedia Streaming |
-| CS4 |  | 100000 | 32 | Real-time Interactive |
-| AF4 | AF41 | 100010 | 34 | Multimedia Conferencing |
-|  | AF42 | 100100 | 36 | Multimedia Conferencing |
-|  | AF43 | 100110 | 38 | Multimedia Conferencing |
-| CS5 |  | 101000 | 40 | Broadcast Video |
-| EF |  | 101110 | 46 | VoIP Telephony |
-| CS6 |  | 110000 | 48 | Network Control |
-| CS7 |  | 111000 | 56 | Reserved |
+| 分類名稱         | 次分類 | Binary  | Decimal | Cisco Recommended           |
+|------------------|--------|---------|---------|-----------------------------|
+| **DF**           |        | 000000  | 0       | Best Effort                 |
+| **CS1**          |        | 001000  | 8       | Scavenger                   |
+| **AF1 普通業務** | AF11   | 001010  | 10      | Bulk Data                   |
+|                  | AF12   | 001100  | 12      | Bulk Data                   |
+|                  | AF13   | 001110  | 14      | Bulk Data                   |
+| **CS2**          |        | 010000  | 16      | Admin System                |
+| **AF2 關鍵業務** | AF21   | 010010  | 18      | Transaction Data            |
+|                  | AF22   | 010100  | 20      | Transaction Data            |
+|                  | AF23   | 010110  | 22      | Transaction Data            |
+| **CS3**          |        | 011000  | 24      | Signaling                   |
+| **AF3 信令**     | AF31   | 011010  | 26      | Multimedia Streaming        |
+|                  | AF32   | 011100  | 28      | Multimedia Streaming        |
+|                  | AF33   | 011110  | 30      | Multimedia Streaming        |
+| **CS4**          |        | 100000  | 32      | Real-time Interactive       |
+| **AF4 影像**     | AF41   | 100010  | 34      | Multimedia Conferencing     |
+|                  | AF42   | 100100  | 36      | Multimedia Conferencing     |
+|                  | AF43   | 100110  | 38      | Multimedia Conferencing     |
+| **CS5**          |        | 101000  | 40      | Broadcast Video             |
+| **EF**           |        | 101110  | 46      | VoIP Telephony              |
+| **CS6**          |        | 110000  | 48      | Network Control             |
+| **CS7**          |        | 111000  | 56      | Reserved                    |
+
 
 >可使用公式快速計算出AF十進位值 AFxy = (8*x)+(2*y)
 
 ### Per-Hop Behaviors 每一跳的行為 ###
 
-Default PHB 預設
+DF (預設)
 - 六個bit全為0
 - FIFO
 - 每一個封包平等對待
@@ -135,11 +136,12 @@ AF Assured Forwarding 保證轉發
 - 保證頻寬
 - 當網路未發生壅塞時，允許佔用額外的頻寬
 - 有四個標準類(AF1~4)
+- X = 1-4 轉發優先級 Y = 1-3 丟棄優先級，越大越重要
 
 Class-Selector(CS) 類別選擇
-- 相容IPP
+- 向後兼容IPP
 - CS越大，優先權越高
-- CS0~7 = IPP0~7
+- CS1~7 = IPP0~7
 
 ### ToS換算公式 ###
 
@@ -192,12 +194,6 @@ Compression 壓縮 - 壓縮表頭可以有效的降一語音傳輸的流量消�
 Link Fragmentation and Interleaving 鍊路分片和交互 - 當兩個60byte的語音封包中間夾了一個1500byte的封包時，在第一個語音封包傳送後，第二個語音封包要傳送須等待1500byte的封包通過才可傳送，就會造成延遲，所以鍊路分片語交互就是用來將長的封包分成短的，並且和語音封包交互傳送，減少傳送之間的間隔
 
 ## Qos Queuing ## 
-
-### First In First Out(FIFO) ###
-
-預設方式，先進先出，不按照優先順序
-
-![Untitled](Image/Untitled.png)
  
 ### Weighted Fair Queuing(WFQ) 加權公平對列###
     
