@@ -1,26 +1,9 @@
-# 靜態VXLAN配置案例三層集中式閘道 #
+# 動態VXLAN配置 #
 
-Topology
-
-![](Image/Static-Topology-1.png)
-
-**目標:**
-
-1. 實現VLAN 10與VLAN 10互通，VLAN 20與VLAN 20互通
-2. 網路必須隔離開，VLAN 10無法訪問VLAN 20的主機
-
-**缺點:**
-
-1. 增加配置難度，只要有多一個VLAN就需要手動於NVE配置Peer
-2. 通過沖刷學習MAC位置，沖刷流量大
-123
 ```bash
 [R4]
 int g0/0
     ip address 14.1.1.4 255.255.255.0
-    no shutdown 
-int g0/1
-    ip address 34.1.1.4 255.255.255.0
     no shutdown 
 int g0/2
     ip address 24.1.1.4 255.255.255.0
@@ -31,13 +14,14 @@ router ospf 1
     router-id 4.4.4.4
     network 14.1.1.0 0.0.0.255 area 0
     network 24.1.1.0 0.0.0.255 area 0
-    network 34.1.1.0 0.0.0.255 area 0
     network 4.4.4.4 0.0.0.0 area 0
 
 [NXOS1]
+feature bgp #啟用BGP功能
 feature ospf #啟用OSPF功能
 feature nv overlay #啟用Network Virtualization Overlay功能
 feature vn-segment-vlan-based #啟用VLAN與VXLAN binding功能
+nv overlay evpn #開啟bgp evpn功能
 vlan 10
     vn-segment 10 #binding VNI
 vlan 20 
@@ -60,21 +44,30 @@ int e1/3
     switchport 
     switchport mode access 
     switchport access vlan 20 
+router bgp 100
+  router-id 1.1.1.1
+  template peer VXLAN
+    remote-as 100
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community extended
+  neighbor 3.3.3.3
+    inherit peer VXLAN
 int nve 1
     no shutdown 
     source-interface loopback 0
+    host-reachability protocol bgp 
     member vni 10 
-        ingress-replication protocol static
-            peer-ip 2.2.2.2 
-            peer-ip 3.3.3.3
+        ingress-replication protocol bgp 
     member vni 20 
-        ingress-replication protocol static
-            peer-ip 2.2.2.2
-            peer-ip 3.3.3.3 
+        ingress-replication protocol bgp 
+
 [NXOS2]
+feature bgp #啟用BGP功能
 feature ospf #啟用OSPF功能
 feature nv overlay #啟用Network Virtualization Overlay功能
 feature vn-segment-vlan-based #啟用VLAN與VXLAN binding功能
+nv overlay evpn #開啟bgp evpn功能
 vlan 10
     vn-segment 10 #binding VNI
 vlan 20 
@@ -97,22 +90,31 @@ int e1/3
     switchport 
     switchport mode access 
     switchport access vlan 20 
+router bgp 100
+  router-id 2.2.2.2
+  template peer VXLAN
+    remote-as 100
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community extended
+  neighbor 3.3.3.3
+    inherit peer VXLAN
 int nve 1
     no shutdown 
     source-interface loopback 0
+    host-reachability protocol bgp 
     member vni 10 
-        ingress-replication protocol static
-            peer-ip 1.1.1.1
-            peer-ip 3.3.3.3
-    member vni 20
-        ingress-replication protocol static
-            peer-ip 1.1.1.1
-            peer-ip 3.3.3.3
+        ingress-replication protocol bgp 
+    member vni 20 
+        ingress-replication protocol bgp 
+
 [NXOS3]
+feature bgp #啟用BGP功能
 feature interface-vlan #啟用單臂路由功能
 feature ospf #啟用OSPF功能
 feature nv overlay #啟用Network Virtualization Overlay功能
 feature vn-segment-vlan-based #啟用VLAN與VXLAN binding功能
+nv overlay evpn #開啟bgp evpn功能
 vrf context YELLOW
 vrf context BLUE
 vlan 10
@@ -138,28 +140,39 @@ int vlan 20
 int lo0
     ip address 3.3.3.3 255.255.255.0
     ip router ospf 1 area 0
+router bgp 100
+    router-id 3.3.3.3
+    template peer VXLAN
+        remote-as 100
+        update-source loopback0
+        address-family l2vpn evpn
+            send-community extended
+            route-reflector-client 
+    neighbor 1.1.1.1
+        inherit peer VXLAN
+    neighbor 2.2.2.2 
+        inherit peer VXLAN
 int nve 1
     no shutdown 
     source-interface loopback 0
+    host-reachability protocol bgp 
     member vni 10 
-        ingress-replication protocol static
-            peer-ip 1.1.1.1
-            peer-ip 2.2.2.2
-    member vni 20
-        ingress-replication protocol static
-            peer-ip 1.1.1.1
-            peer-ip 2.2.2.2
+        ingress-replication protocol bgp 
+    member vni 20 
+        ingress-replication protocol bgp 
+
 [PC1]
-ip 192.168.1.100/24 192.168.1.254
+ip 192.168.1.100/24 
 [PC2]
-ip 192.168.2.100/24 192.168.2.254 
+ip 192.168.2.100/24
 [PC3]
-ip 192.168.1.101/24 192.168.1.254 
+ip 192.168.1.101/24 
 [PC4]
-ip 192.168.2.101/24 192.168.2.254 
+ip 192.168.2.101/24 
 #Show命令
 show mac address-table #查看MAC位置表
 show nve peers detail #查看nve介面狀態
+show bgp l2vpn evpn summary #查看L2VPN鄰居狀態
+show bgp l2vpn evpn #查看L2VPN路由表
 ```
-   
 
