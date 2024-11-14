@@ -15,8 +15,13 @@
 
 - **靜態VXLAN Tunnel**
   - 管理員手動配置每一個nve interface，配置較多
+  
+![](Image/VTEP-2.png)
+
 - **動態VXLAN Tunnel**
   - 使用BGP動態建立VXLAN Tunnel，利用BGP EVPN路由傳遞VNI和VTEP信息，從而動態建立VXLAN Tunnel
+
+![](Image/VTEP-1.png)
 
 ## 集中式與分佈式閘道 ##
 
@@ -28,6 +33,8 @@
   - 非最佳轉發路徑，ARP表瓶頸
   - 閘道路由器須維護大量終端的MAC地址表，對設備負擔較大
 
+![](Image/集中式閘道.png)
+
 **分佈式Gateway**
 
 - **優點**
@@ -35,6 +42,8 @@
   - VTEP節點只學習連接節點下的終端設備ARP表
 - **缺點**
   - 部屬難度較高
+
+![](Image/分佈式閘道.png)
 
 ## EVPN路由類型 ##
 
