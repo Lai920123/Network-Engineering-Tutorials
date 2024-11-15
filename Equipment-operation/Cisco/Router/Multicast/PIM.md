@@ -6,6 +6,10 @@
 - Many to Many  
 - Many to one 
 
+## Reverse path forward(RPF) ##
+
+
+
 ## 組播地址範圍 ##
 
 組播使用的地址是Class D，也就是224.0.0.0-239.255.255.255，其中又分成幾類
