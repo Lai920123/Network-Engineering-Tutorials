@@ -39,6 +39,10 @@ router bgp 1
     neighbor 3.3.3.3 route-reflector-client 
 ```
 
+## Tips ##
+
+RR只存在於Control Plane，並不轉發流量
+
 ## Reference ##
 
 https://www.catchpoint.com/bgp-monitoring/bgp-route-reflector
