@@ -112,6 +112,8 @@ int lo0
 router ospf 1
     router-id 1.1.1.1
     network 0.0.0.0 0.0.0.0 area 0
+int range g0/0-1 
+    ip pim dense-mode 
 [R2]
 enable 
 conf t
@@ -124,11 +126,14 @@ int g0/1
     no shutdown 
 int g0/2
     ip address 10.1.1.1 255.255.255.0
+    no shutdown 
 int lo0
     ip address 2.2.2.2 255.255.255.255
 router ospf 1
     router-id 2.2.2.2
     network 0.0.0.0 0.0.0.0 area 0
+int range g0/0-12
+    ip pim dense-mode 
 [R3]
 enable 
 conf t
@@ -141,11 +146,14 @@ int g0/1
     no shutdown 
 int g0/2
     ip address 192.168.1.1 255.255.255.0
+    no shutdown 
 int lo0
     ip address 3.3.3.3 255.255.255.255
 router ospf 1
     router-id 3.3.3.3
     network 0.0.0.0 0.0.0.0 area 0
+int range g0/0-2
+    ip pim dense-mode 
 [R4]
 enable 
 conf t
@@ -161,10 +169,13 @@ int lo0
 router ospf 1
     router-id 4.4.4.4
     network 0.0.0.0 0.0.0.0 area 0
+int range g0/0-1 
+    ip pim dense-mode 
 [Source]
 enable 
 conf t
 hostname Source 
+ip route 0.0.0.0 0.0.0.0 10.1.1.1
 int g0/0
     ip address 10.1.1.100 255.255.255.0
     no shutdown 
@@ -172,6 +183,7 @@ int g0/0
 enable 
 conf t
 hostname PC1
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
 int g0/0
     ip address 192.168.1.100 255.255.255.0
     no shutdown 
@@ -179,6 +191,7 @@ int g0/0
 enable 
 conf t
 hostname PC2
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
 int g0/0
     ip address 192.168.1.101 255.255.255.0
     no shutdown 
@@ -186,6 +199,7 @@ int g0/0
 enable
 conf t 
 hostname PC3
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
 int g0/0
     ip address 192.168.1.102 255.255.255.0
     no shutdown 
@@ -193,6 +207,7 @@ int g0/0
 enable
 conf t 
 hostname PC4
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
 int g0/0
     ip address 192.168.1.103 255.255.255.0
     no shutdown 
