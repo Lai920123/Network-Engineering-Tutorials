@@ -35,7 +35,7 @@
 - **Broadcast** 在廣播網路環境需要選出一個DR，由他來發送Query
 
 **DR選舉**
-- 比較PIM鄰居優先級，預設為1，預設有搶占功能
+- 比較PIM鄰居優先級，預設為1，預設有搶占功能，只有PIMv2支援，PIMv1不支援
 - 較高介面IP作為PIM的DR
 
 ## Dense Mode ##
@@ -48,6 +48,7 @@ int range g0/0-2
     ip pim dense-mode 
 ```
 
+Prune
 ## Sparse Mode ##
 
 通過RP查看是否有組員，有組員才發組播流量，沒有的話就不發，路由器沒收到組播的話也不會形成路由表，可減少設備的開銷，使用Sparse Mode的RPF檢查是以RP的最優路徑進行檢查
