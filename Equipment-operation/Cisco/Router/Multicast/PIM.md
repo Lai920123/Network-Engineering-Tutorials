@@ -28,6 +28,15 @@
 ## Shared Distribution Trees ##
 
 
+## DR ##
+
+**網路類型**
+- **Point-to-Point ** 在點到點的網路環境不需要選舉DR，因沒有意義
+- **Broadcast** 在廣播網路環境需要選出一個DR，由他來發送Query
+
+**DR選舉**
+- 比較PIM鄰居優先級，預設為1，預設有搶占功能
+- 較高介面IP作為PIM的DR
 
 ## Dense Mode ##
 
