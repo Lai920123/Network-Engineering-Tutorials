@@ -48,7 +48,8 @@ int range g0/0-2
     ip pim dense-mode 
 ```
 
-Prune
+**Prune** 一種Dense Mode的優化機制，Cisco設備3min Flood一次，若是沒有組員，路由器會發送Prune封包給上游，減少傳遞不必要的流量
+
 ## Sparse Mode ##
 
 通過RP查看是否有組員，有組員才發組播流量，沒有的話就不發，路由器沒收到組播的話也不會形成路由表，可減少設備的開銷，使用Sparse Mode的RPF檢查是以RP的最優路徑進行檢查
