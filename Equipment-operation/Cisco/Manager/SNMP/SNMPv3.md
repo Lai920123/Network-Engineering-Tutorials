@@ -15,6 +15,7 @@
 >因其他兩種比較少用到，所以下方只提供authPriv的配置方法
 
 ```bash
+snmp-server view VIEW1 iso included #
 snmp-server view VIEW1 mib-2 included #建立SNMP View 
 snmp-server group SNMPGROUP1 v3 priv read VIEW1 write VIEW1 access 1 #建立SNMPv3 group名為SNMPGROUP1，版本為SNMPv3，讀寫使用VIEW1，並只有ACL 1能夠存取
 snmp-server user Admin SNMPGROUP1 v3 auth md5 Cisco123 priv des Cisco123 #建立SNMPv3 User名為Admin，驗證使用md5並使用des加密
@@ -22,3 +23,12 @@ snmp-server location Taoyaun #設備位置(選填)
 snmp-server contact admin@gmail.com #聯絡人(選填)
 snmp-server enable traps #設置通知類型，後面空白代表全部通知
 ```
+
+
+snmp-server view VIEW1 iso included 
+snmp-server view VIEW1 mib-2 included
+snmp-server group SNMPGROUP1 v3 priv read VIEW1 write VIEW1 access 10
+snmp-server user admin SNMPGROUP1 v3 auth sha D107@Management priv aes 128 D107@Management
+snmp-server location Taoyaun
+snmp-server contact uch.lab.d107@gmail.com
+snmp-server enable traps 

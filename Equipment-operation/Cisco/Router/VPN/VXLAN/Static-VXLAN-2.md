@@ -13,7 +13,7 @@ Topology
 
 1. 增加配置難度，只要有多一個VLAN就需要手動於NVE配置Peer
 2. 通過沖刷學習MAC位置，沖刷流量大
-123
+
 ```bash
 [R4]
 int g0/0
