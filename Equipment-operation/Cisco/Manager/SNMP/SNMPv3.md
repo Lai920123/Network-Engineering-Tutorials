@@ -25,10 +25,3 @@ snmp-server enable traps #設置通知類型，後面空白代表全部通知
 ```
 
 
-snmp-server view VIEW1 iso included 
-snmp-server view VIEW1 mib-2 included
-snmp-server group SNMPGROUP1 v3 priv read VIEW1 write VIEW1 access 10
-snmp-server user admin SNMPGROUP1 v3 auth sha D107@Management priv aes 128 D107@Management
-snmp-server location Taoyaun
-snmp-server contact uch.lab.d107@gmail.com
-snmp-server enable traps 

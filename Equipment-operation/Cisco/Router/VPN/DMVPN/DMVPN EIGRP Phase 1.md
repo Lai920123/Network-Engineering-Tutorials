@@ -49,6 +49,8 @@ int tunnel 0
 
 確認Tunnel介面都可以連通後，接著要配置路由協定，這裡會分別寫出傳統模式與Named-Mode的配置方法，兩者稍微不同
 
+>在EIGRP中因為是Distance Vector協議，所以會有水平分割的問題(不會於同一個介面發送接收到的路由)，所以須在Hub關閉水平分割，spoke才可接收到對方的路由
+
 ### Tranditional ### 
 
 HQ
