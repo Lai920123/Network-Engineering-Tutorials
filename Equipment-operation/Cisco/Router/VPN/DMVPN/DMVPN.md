@@ -45,10 +45,7 @@ DMVPN分成三個Phase，下面會解釋三個階段分別在做甚麼
 在Phase 3中，第一個包會向HUB取得Spoke2的NHRP映射，接下來Spoke1發送NHRP查詢，HUB會直接將查詢Redirect至Spoke2，讓Spoke2來應答
 
 **優點** 
-  - 123
-
-**缺點**
-  - 123
+  - 由於Spoke1與Spoke2是經由HUB進行Redirect，所以HUB端可以做路由匯總
 
 ## Reference ## 
 

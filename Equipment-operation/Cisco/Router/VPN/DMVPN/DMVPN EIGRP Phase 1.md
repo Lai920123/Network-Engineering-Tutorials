@@ -102,7 +102,7 @@ router eigrp DMVPN
 show dmvpn #查看DMVPN是否成功啟用
 traceroute 192.168.3.1 source 192.168.2.1 #在Phase 1 Spoke通信還是需要通過HUB
 show ip nhrp brief #查看ip nhrp映射是否正確
-show ip route ospf #從BRANCH1查看從BRANCH2收到的內網路由下一跳為HUB
+show ip route eigrp #從BRANCH1查看從BRANCH2收到的內網路由下一跳為HUB
 ```
 
 ## DMVPN over IPSEC ##
@@ -117,14 +117,12 @@ crypto isakmp policy 10 #建立isakmp policy
     lifetime 3600 #SA的生命週期為3600秒
     exit 
 crypto isakmp key Cisco123 address 0.0.0.0 #設定PSK以及指定對端IP
-    exit 
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac #配置IPSec Phase 2，可選擇AH或ESP的驗證和加密方式
     mode tunnel #模式為tunnel mode，視情況可選擇transport mode
     exit
 crypto ipsec profile IPSEC_PROFILE #建立IPSec profile
     set transform-set TS #設定IPSec transform set
 int tunnel 0 
-    tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE
 [BRANCH1]
 crypto isakmp policy 10 #建立isakmp policy 
@@ -135,14 +133,12 @@ crypto isakmp policy 10 #建立isakmp policy
     lifetime 3600 #SA的生命週期為3600秒
     exit 
 crypto isakmp key Cisco123 address 0.0.0.0 #設定PSK以及指定對端IP
-    exit 
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac #配置IPSec Phase 2，可選擇AH或ESP的驗證和加密方式
     mode tunnel #模式為tunnel mode，視情況可選擇transport mode
     exit
 crypto ipsec profile IPSEC_PROFILE #建立IPSec profile
     set transform-set TS #設定IPSec transform set
 int tunnel 0 
-    tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE
 [BRANCH2]
 crypto isakmp policy 10 #建立isakmp policy 
@@ -153,17 +149,16 @@ crypto isakmp policy 10 #建立isakmp policy
     lifetime 3600 #SA的生命週期為3600秒
     exit 
 crypto isakmp key Cisco123 address 0.0.0.0 #設定PSK以及指定對端IP
-    exit 
 crypto ipsec transform-set TS esp-aes 256 esp-sha256-hmac #配置IPSec Phase 2，可選擇AH或ESP的驗證和加密方式
     mode tunnel #模式為tunnel mode，視情況可選擇transport mode
     exit
 crypto ipsec profile IPSEC_PROFILE #建立IPSec profile
     set transform-set TS #設定IPSec transform set
 int tunnel 0 
-    tunnel mode ipsec ipv4 
     tunnel protection ipsec profile IPSEC_PROFILE
 [檢查]
-show 
+ping 192.168.3.1 source 192.168.2.1 #查看spoke是否可以互相通信
+show crypto ipsec sa detail #查看SA是否建立且有流量通過
 ```
 
 ## Reference ## 
