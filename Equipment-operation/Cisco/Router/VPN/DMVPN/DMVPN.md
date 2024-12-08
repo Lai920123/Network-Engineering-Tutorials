@@ -30,17 +30,19 @@ DMVPN分成三個Phase，下面會解釋三個階段分別在做甚麼
 
 在Phase 2時，允許Spoke和Spoke通過隧道直接通信，不需通過Hub
 
-NHRP使用Spoke發送NHRP查詢，HUB(NHS)發送NHRP應答來建立Spoke與Spoke的映射
+在Phase 2中，Spoke1發送NHRP查詢，HUB(NHS)發送NHRP應答來建立Spoke1與Spoke2的動態映射，Spoke1的NHRP有了Spoke2的NHRP映射後，就可以直接跟Spoke2通信，Spoke2與Spoke1通信也是相同概念
 
 **優點** 
-  - 123
+  - Spoke與Spoke可直接通信
   
 **缺點**
-  - 123
+  - 無法使用路由彙總
 
 ## Phase 3 ##
 
 在Phase 3時，加強Phase 2的擴充性，可在設定中使用路由協定等功能
+
+在Phase 3中，第一個包會向HUB取得Spoke2的NHRP映射，接下來Spoke1發送NHRP查詢，HUB會直接將查詢Redirect至Spoke2，讓Spoke2來應答
 
 **優點** 
   - 123
