@@ -45,8 +45,12 @@ login on-success log #登入成功要記錄
 ### 更改預設Port ###
 
 ```bash
+ip access-list extended SSH 
+	permit tcp any any eq 8888
+	deny tcp any any 
 ip ssh port 8888 rotary 1
 line vty 0 4
+	access-class SSH in 
 	transport input ssh
 	login local #使用本地登入，需要建立使用者
 	rotary 1
