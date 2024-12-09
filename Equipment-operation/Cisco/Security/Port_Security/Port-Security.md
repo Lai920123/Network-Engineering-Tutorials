@@ -52,7 +52,7 @@ switchport port-security aging type <inactivity/absolute> #inactivity為當沒�
 
 ```bash
 errdisable recovery interval 300 #錯誤關閉恢復間隔時間為300秒
-errdisable recovery cause psecure-violation #自動復原原因為port-securit的違規行為
+errdisable recovery cause psecure-violation #自動復原原因為port-security的違規行為
 ```
 
 ## 查看err-disable的介面 ##
