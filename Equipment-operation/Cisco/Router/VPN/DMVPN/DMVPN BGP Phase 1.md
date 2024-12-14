@@ -1,4 +1,4 @@
-# DMVPN OSPF Phase 1 #
+# DMVPN BGP Phase 1 #
 
 ## Topology ##
 
@@ -18,7 +18,7 @@ int tunnel 0
     ip nhrp network-id 100 #Router-ID需相同，用於區分假設需要多個Tunnel介面來建立DMVPN
     ip nhrp map multicast dynamic #在HUB(NHS配置)，實際上Tunnel為NBMA介面，用於將Spoke傳遞的路由複製一份傳送給所有開啟NHRP Dynamic Learn的Spoke Router 
     ip nhrp authentication cisco #驗證，可選
-[Branch1]
+[BRANCH1]
 int tunnel 0
     ip mtu 1492
     tunnel mode gre multipoint #模式調整成mGRE
@@ -29,7 +29,7 @@ int tunnel 0
     ip nhrp map multicast 123.0.1.1 #指定Hub的公網IP
     ip nhrp nhs 192.168.100.1 #配置Hub(NHS)的Tunnel IP，讓Spoke向他發起NHS查詢
     ip nhrp authentication cisco #驗證，可選
-[Branch2]
+[BRANCH2]
 int tunnel 0
     ip mtu 1492
     tunnel mode gre multipoint #模式調整成mGRE
@@ -46,37 +46,57 @@ show ip nhrp brief #查看ip nhrp映射是否正確，從HQ看後面會顯示D�
 show ip nhrp nhs #從spoke查看nhs是否已經註冊，R代表NHS正常工作並回應NHRP查詢，E代表期望從NHS接收回應，W代表路由器正等待與NHS的通信，顯示RE代表正常，priority用於多台Hub時選擇主要路由器，Cluster用於在多Hub時將不同Hub分組
 ```
 
->可以使用show dmvpn或show ip nhrp查看是否成功註冊NBMA以及Tunnel Address
+確認Tunnel介面都可以連通後，接著要配置BGP
 
-確認Tunnel介面都可以連通後，接著要配置OSPF，因OSPF預設使用Tunnel建立鄰居網路類型為P2P，P2P無法建立多個鄰居傳遞路由，所以須將網路類型更改為Point-to-Multipoint
+>在BGP也會有水平分割的問題(不會於同一個介面發送接收到的路由)，所以須在Hub關閉水平分割，spoke才可接收到對方的路由
 
->不使用boardcast是因為如果使用boardcast建立鄰居的話會當成所有鄰居的鏈路都是可連通的，所以會導致spoke1要將路由傳遞給spoke2時，下一跳為spoke2而不是hub，但spoke1-spok2實際上是沒有線路互聯的，NHRP也查不到對方的映射，導致路由傳遞不過去
+DMVPN在BGP有幾種不同方式
+
+- 每個Spoke具有不同的S Number 
+- 每個Spoke具有相同的AS Number 
+- IBGP 
+
+## 每個Spoke具有不同的AS Number ##
 
 ```bash
 [HQ]
-router ospf 1
-    router-id 1.1.1.1 
-    network 192.168.1.0 0.0.0.255 area 0
-    network 192.168.100.0 0.0.0.255 area 0
-int tun 0
-    ip ospf network point-to-multipoint 
-    ip ospf priority 255 #由Hub作為DR
-[BRABCH1]
-router ospf 1
-    router-id 2.2.2.2 
-    network 192.168.2.0 0.0.0.255 area 0
-    network 192.168.100.0 0.0.0.255 area 0
+router bgp 65001 
+    network 192.168.1.0 mask 255.255.255.0
+    neighbor 123.0.2.1 remote-as 65002 
+    neighbor 123.0.3.1 remote-as 65003 
 int tun 0 
-    ip ospf network point-to-multipoint 
-    ip ospf priority #Spoke放棄DR/BDR選舉
-[BRANCH2]
-router ospf 1
-    router-id 3.3.3.3 
-    network 192.168.3.0 0.0.0.255 area 0
-    network 192.168.100.0 0.0.0.255 area 0
-int tun 0 
-    ip ospf network point-to-multipoint 
-    ip ospf priority #Spoke放棄DR/BDR選舉
+    no ip split-horizon eigrp 10 #練習時一開始先不要加這條，在建立完EIGRP時使用show ip route查看路由表，會發現收不到BRANCH2發的路由，就是因為水平分割
+[Branch1]
+router bgp 65002 
+    network 192.168.2.0 mask 255.255.255.0
+    neighbor 123.0.1.1 remote-as 65001 
+[Branch2]
+router bgp 65003
+    network 192.168.3.0 mask 255.255.255.0
+    neighbor 123.0.1.1 remote-as 65001 
+```
+
+
+## 每個Spoke具有相同的AS Number ##
+
+```bash
+[HQ]
+
+[Branch1]
+
+[Branch2]
+
+```
+
+## IBGP ##
+
+```bash
+[HQ]
+
+[Branch1]
+
+[Branch2]
+
 ```
 
 最後檢查
@@ -85,7 +105,7 @@ int tun 0
 show dmvpn #查看DMVPN是否成功啟用
 traceroute 192.168.3.1 source 192.168.2.1 #在Phase 1 Spoke通信還是需要通過HUB
 show ip nhrp brief #查看ip nhrp映射是否正確
-show ip route ospf #從BRANCH1查看從BRANCH2收到的內網路由下一跳為HUB
+show ip route eigrp #從BRANCH1查看從BRANCH2收到的內網路由下一跳為HUB
 ```
 
 ## Reference ## 

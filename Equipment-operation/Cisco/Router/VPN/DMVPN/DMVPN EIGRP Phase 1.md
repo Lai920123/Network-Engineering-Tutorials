@@ -21,6 +21,7 @@ int tunnel 0
 [BRANCH1]
 int tunnel 0
     ip mtu 1492
+    tunnel mode gre multipoint #模式調整成mGRE
     tunnel source 123.0.2.1 
     ip address 192.168.100.2 255.255.255.0 
     ip nhrp network-id 100 #Router-ID需相同，用於區分假設需要多個Tunnel介面來建立DMVPN
@@ -31,6 +32,7 @@ int tunnel 0
 [BRANCH2]
 int tunnel 0
     ip mtu 1492
+    tunnel mode gre multipoint #模式調整成mGRE
     tunnel source 123.0.3.1 
     ip address 192.168.100.3 255.255.255.0 
     ip nhrp network-id 100 #Router-ID需相同，用於區分假設需要多個Tunnel介面來建立DMVPN
