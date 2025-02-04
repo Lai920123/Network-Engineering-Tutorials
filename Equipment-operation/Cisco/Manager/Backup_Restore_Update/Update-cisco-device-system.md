@@ -1,19 +1,59 @@
 # Cisco設備更新系統 #
 
-## 更新步驟 ##
+## 1.準備新的系統版本 ##
 
-1. 準備新版的系統版本
-2. 上傳系統至設備
-3. 檢查設備啟動路徑
-4. 設置新的路徑啟用
-5. 驗證後重啟
-6. 檢查版本是否更新正確
+https://software.cisco.com/download/home
 
-## 上傳系統至設備 ##
+## 2.上傳系統至設備 ##
+
+>假設ios版本為c3750e-universalk9-mz.152-4.E10.bin
 
 **上傳系統有幾種方式**
 
 - FTP
 - TFTP
 - USB
+
+**FTP**
+
+```bash
+copy ftp: flash:
+```
+
+**TFTP**
+
+```bash
+copy tftp: flash:
+```
+
+**USB**
   
+```bash
+copy usbflash0:c3750e-universalk9-mz.152-4.E10.bin flash:
+```
+
+## 3.檢查設備啟動路徑 ##
+
+```bash
+show boot 
+```
+
+## 4.設置新的路徑啟用設備 ##
+
+```bash
+no boot system 
+boot system flash:c3750e-universalk9-mz.152-4.E10.bin
+```
+
+## 5.檢查啟動路徑是否正確 ##
+
+```bash
+show boot 
+```
+
+## 6.重啟設備 ##
+
+```bash
+reload 
+show version #檢察系統版本是否正確
+```
