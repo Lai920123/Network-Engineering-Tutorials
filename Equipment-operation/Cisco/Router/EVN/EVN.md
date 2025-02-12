@@ -129,3 +129,5 @@ ping 192.168.4.2
 **查看R1 VRF BLUE路由表**
 
 ![](Image/image2.png)
+
+>前面有個+代表是replicate來的
