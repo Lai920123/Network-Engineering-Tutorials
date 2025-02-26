@@ -11,3 +11,4 @@
 5. 輸入save保存設定
 6. 輸入reset重新啟動AP
 7. 完成Reset
+factory_reset
