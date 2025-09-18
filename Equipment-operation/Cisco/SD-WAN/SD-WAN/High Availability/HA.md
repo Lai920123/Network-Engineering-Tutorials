@@ -17,3 +17,10 @@ request nms all status
 ## vSmart ##
 
 ## vBond ##
+
+vbond如果是用DNS進行配置的而不是直接指定IPv4 Address，直接修改DNS Record即可
+
+```bash
+#假設原有的vbond是192.168.1.100，在後面新增一台192.168.1.101
+ip host vbond.example.com 192.168.1.100 192.168.1.101 
+```
